@@ -1,0 +1,15 @@
+@use "./base/index.scss" as base;
+@use "./utilities/index.scss" as utils;
+@use "./variables/index.scss" as vars;
+
+:root {
+	background: vars.$background-primary;
+	color: vars.$text-light;
+}
+
+.routed-page-wrapper {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh; // Ensures the page fills the full viewport height
+	width: 100%;
+}
