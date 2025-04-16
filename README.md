@@ -21,3 +21,8 @@ This will require:
 -   Clear, intentional routes
 -   A custom hook
 -   A toast component
+
+## Splitting context and hook files
+
+`hook` = CONSUMER of context  
+`context` = CREATOR / INITIALIZER of context
