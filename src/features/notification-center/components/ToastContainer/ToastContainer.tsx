@@ -1,29 +1,27 @@
 import styles from "./ToastContainer.module.css";
-import { v4 as uuidv4 } from "uuid";
-import { useNotifications } from "../../hooks";
+import { useNotifications, useNotificationSettings } from "../../hooks";
+import { useEffect } from "react";
 
 const ToastContainer = () => {
-	const notificationCenter = useNotifications();
-	const toasts = notificationCenter.notifications.filter((n) => n.type === "toast");
+	const { list, dispatch } = useNotifications();
+	const { settings } = useNotificationSettings();
+	const toasts = list.filter((n) => n.type === "toast");
+
+	useEffect(() => {
+		if (toasts.length <= 0 || !settings.autoDismiss) return;
+
+		const timer = setTimeout(() => {
+			const toast = toasts.find((t) => !t.persist);
+			if (toast) {
+				dispatch({ type: "DISMISS_ID", id: toast.id });
+			}
+		}, settings.dismissAfterMs);
+
+		return () => clearTimeout(timer);
+	}, [toasts, dispatch, settings]);
 
 	return (
 		<>
-			<button
-				onClick={() => {
-					notificationCenter.dispatch({
-						type: "PUSH",
-						payload: {
-							id: uuidv4(),
-							message: "New toast message",
-							type: "toast",
-							variant: "info",
-							duration: 5000,
-						},
-					});
-				}}
-			>
-				Make a toast
-			</button>
 			<div className={styles["toast-container"]}>
 				{toasts.map((t) => (
 					<p key={t.id}>
