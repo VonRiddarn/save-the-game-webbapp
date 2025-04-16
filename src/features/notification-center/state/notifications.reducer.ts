@@ -41,7 +41,7 @@ export const notificationsReducer = (
 					type: "toast",
 					variant: "error",
 					message: `FATAL ERROR (${TAG}): "${at}" was not recognized as a valid action type! If you see this error, please make a report!`,
-					duration: -1,
+					persist: true,
 				},
 			];
 	}

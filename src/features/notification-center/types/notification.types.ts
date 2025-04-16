@@ -16,7 +16,7 @@ interface RootNotification {
 
 export type ToastNotification = RootNotification & {
 	type: "toast";
-	duration: number;
+	persist: boolean;
 };
 
 export type BannerNotification = RootNotification & {
