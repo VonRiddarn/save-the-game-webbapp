@@ -12,10 +12,10 @@ type NotificationsProviderProps = {
 };
 
 export const NotificationsProvider = ({ children }: NotificationsProviderProps) => {
-	const [notifications, dispatch] = useReducer(notificationsReducer, []);
+	const [list, dispatch] = useReducer(notificationsReducer, []);
 	const [settings, setSettings] = useState<NotificationSettings>(defaultSettings);
 
-	const notificationsValue = useMemo(() => ({ notifications, dispatch }), [notifications]);
+	const notificationsValue = useMemo(() => ({ list, dispatch }), [list]);
 	const settingsValue = useMemo(
 		() => ({
 			settings,

@@ -3,7 +3,7 @@ import { NotificationItem } from "../types/notification.types";
 import { NotificationAction } from "../state/notifications.reducer";
 
 export type NotificationsContextType = {
-	notifications: NotificationItem[];
+	list: NotificationItem[];
 	dispatch: Dispatch<NotificationAction>;
 };
 
