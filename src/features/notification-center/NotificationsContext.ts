@@ -1,8 +1,6 @@
-"use client";
-
 import { createContext, Dispatch, useContext } from "react";
 import { NotificationItem } from "./types";
-import { NotificationAction } from "./NotificationsProvider";
+import { NotificationAction } from "./reducer";
 
 export type NotificationsContextType = {
 	notifications: NotificationItem[];
