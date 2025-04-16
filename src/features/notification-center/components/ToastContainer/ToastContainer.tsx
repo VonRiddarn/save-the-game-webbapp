@@ -1,5 +1,4 @@
-// TODO: Scope this witht a CSS module later
-
+import styles from "./ToastContainer.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { useNotifications } from "../../hooks";
 
@@ -8,7 +7,7 @@ const ToastContainer = () => {
 	const toasts = notificationCenter.notifications.filter((n) => n.type === "toast");
 
 	return (
-		<div className="toast-container-no-scope">
+		<>
 			<button
 				onClick={() => {
 					notificationCenter.dispatch({
@@ -25,12 +24,14 @@ const ToastContainer = () => {
 			>
 				Make a toast
 			</button>
-			{toasts.map((t) => (
-				<p key={t.id}>
-					{t.id.substring(0, 5)}_____{t.message}
-				</p>
-			))}
-		</div>
+			<div className={styles["toast-container"]}>
+				{toasts.map((t) => (
+					<p key={t.id}>
+						{t.id.substring(0, 5)}_____{t.message}
+					</p>
+				))}
+			</div>
+		</>
 	);
 };
 
