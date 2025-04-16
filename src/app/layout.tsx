@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.scss";
+import { NotificationsProvider } from "@/features/notification-center/NotificationsProvider";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -25,7 +26,9 @@ const RootLayout = ({ children }: RootLayoutProps) => {
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable}`}>
-				<div className="routed-page-wrapper">{children}</div>
+				<NotificationsProvider>
+					<div className="routed-page-wrapper">{children}</div>
+				</NotificationsProvider>
 			</body>
 		</html>
 	);
