@@ -1,7 +1,7 @@
 // TODO: Scope this witht a CSS module later
 
 import { v4 as uuidv4 } from "uuid";
-import { useNotifications } from "../../NotificationsContext";
+import { useNotifications } from "../../hooks";
 
 const ToastContainer = () => {
 	const notificationCenter = useNotifications();

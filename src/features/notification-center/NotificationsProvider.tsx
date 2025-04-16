@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useMemo, useReducer } from "react";
+import React, { useMemo, useReducer, useState } from "react";
 import ToastContainer from "./components/ToastContainer/ToastContainer";
 import BannerContainer from "./components/BannerContainer/BannerContainer";
-import { NotificationsContext } from "./NotificationsContext";
-import { notificationsReducer } from "./reducer";
+import { defaultSettings, notificationsReducer } from "./state";
+import { NotificationSettings } from "./types/notification-settings.types";
+import { NotificationsContext, NotificationSettingsContext } from "./context";
 
 type NotificationsProviderProps = {
 	children: React.ReactNode;
@@ -12,14 +13,24 @@ type NotificationsProviderProps = {
 
 export const NotificationsProvider = ({ children }: NotificationsProviderProps) => {
 	const [notifications, dispatch] = useReducer(notificationsReducer, []);
+	const [settings, setSettings] = useState<NotificationSettings>(defaultSettings);
 
-	const value = useMemo(() => ({ notifications, dispatch }), [notifications]);
+	const notificationsValue = useMemo(() => ({ notifications, dispatch }), [notifications]);
+	const settingsValue = useMemo(
+		() => ({
+			settings,
+			setSettings,
+		}),
+		[settings]
+	);
 
 	return (
-		<NotificationsContext.Provider value={value}>
-			<ToastContainer />
-			<BannerContainer />
-			{children}
-		</NotificationsContext.Provider>
+		<NotificationSettingsContext.Provider value={settingsValue}>
+			<NotificationsContext.Provider value={notificationsValue}>
+				<ToastContainer />
+				<BannerContainer />
+				{children}
+			</NotificationsContext.Provider>
+		</NotificationSettingsContext.Provider>
 	);
 };

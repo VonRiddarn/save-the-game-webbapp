@@ -1,4 +1,4 @@
-import { NotificationItem, NotificationType, NotificationVariant } from "./types";
+import { NotificationItem, NotificationType, NotificationVariant } from "../types/notification.types";
 import { v4 as uuidv4 } from "uuid";
 
 export type NotificationAction =
