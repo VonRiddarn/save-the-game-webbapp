@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useMemo, useReducer } from "react";
-import ToastContainer from "./components/Toast/ToastContainer";
-import BannerContainer from "./components/Banner/BannerContainer";
+import ToastContainer from "./components/ToastContainer/ToastContainer";
+import BannerContainer from "./components/BannerContainer/BannerContainer";
 import { NotificationsContext } from "./NotificationsContext";
 import { notificationsReducer } from "./reducer";
 
