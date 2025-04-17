@@ -23,6 +23,7 @@
 		overflow: hidden;
 
 		// Animations
+		// Condition might be overkill but we don't want jumpy stuff
 		&:not(.toast--dismiss) {
 			animation: fadeIn 0.25s ease-out;
 			transition: transform 0.2s ease-out;
