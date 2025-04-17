@@ -21,7 +21,10 @@ const Toast = ({ toast, index }: ToastProps) => {
 	// Offset myself by: all(heightlist) + gap * N(heightList))
 	// add my height to heightlist
 	return (
-		<section className={styles["toast--success"]} style={{ transform: `translateY(${-150 * index}px)` }}>
+		<section
+			className={styles[`toast--${toast.severity}`]}
+			style={{ transform: `translateY(${-150 * index}px)` }}
+		>
 			<header>
 				<div>⚠️ [{index}]</div>
 				<h2>{toast.severity}</h2>
