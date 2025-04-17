@@ -1,0 +1,40 @@
+// A map of maps containing all severities for this monstrosity
+$notification-severities: (
+	success: (
+		colors: (
+			bg: #b5ffb9,
+			fg: black,
+		),
+	),
+	error: (
+		colors: (
+			bg: #ffb5b5,
+			fg: black,
+		),
+	),
+	info: (
+		colors: (
+			bg: #b5e4ff,
+			fg: black,
+		),
+	),
+	warning: (
+		colors: (
+			bg: #ffe5b5,
+			fg: black,
+		),
+	),
+);
+
+// Jesus...
+// Loop the notification severities and store the top map as style. Trust.
+@each $severity, $style in $notification-severities {
+	$colors: map-get($style, colors);
+
+	.notification--#{$severity} {
+		background-color: map-get($colors, bg);
+		color: map-get($colors, fg);
+		border-radius: 8px;
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+	}
+}

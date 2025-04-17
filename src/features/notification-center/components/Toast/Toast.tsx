@@ -2,7 +2,7 @@ import styles from "./Toast.module.scss";
 
 const Toast = () => {
 	return (
-		<section className={styles["toast"]}>
+		<section className={styles["toast--success"]}>
 			<header>
 				<div>⚠️</div>
 				<h2>Toast header</h2>
