@@ -17,7 +17,7 @@ const AppPage = () => {
 							id: uuidv4(),
 							message: "New toast message",
 							type: "toast",
-							variant: "info",
+							severity: "info",
 							persist: false,
 						},
 					});
@@ -34,7 +34,7 @@ const AppPage = () => {
 							id: uuidv4(),
 							message: "FOOL! YOU CANNOT GET RID OF ME!!!",
 							type: "toast",
-							variant: "info",
+							severity: "info",
 							persist: true,
 						},
 					});
