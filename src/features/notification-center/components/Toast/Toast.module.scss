@@ -51,8 +51,8 @@
 }
 
 .toast--dismiss {
-	z-index: 1;
-	animation: dismiss 0.15s linear forwards;
+	z-index: -1;
+	animation: dismiss 0.33s ease-in-out forwards;
 }
 
 // TODO: Replace this and do it thorugh the component later.
@@ -74,7 +74,7 @@
 	}
 	100% {
 		opacity: 0;
-		bottom: -5rem;
+		bottom: -3rem;
 	}
 }
 
