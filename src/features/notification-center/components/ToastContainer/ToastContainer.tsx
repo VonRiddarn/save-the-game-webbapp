@@ -24,8 +24,8 @@ const ToastContainer = () => {
 	return (
 		<>
 			<div className={styles["toast-container"]}>
-				{toasts.map((t) => (
-					<Toast key={t.id} toast={t} />
+				{toasts.map((t, i) => (
+					<Toast key={t.id} toast={t} index={i} />
 				))}
 			</div>
 		</>

@@ -4,20 +4,22 @@ import { ToastNotification } from "../../types/notification.types";
 import { useNotifications } from "../../hooks";
 
 type ToastProps = {
+	index: number;
 	toast: ToastNotification;
 };
 
-const Toast = ({ toast }: ToastProps) => {
+const Toast = ({ toast, index }: ToastProps) => {
 	const notifications = useNotifications();
 
 	const handleClose = () => {
 		notifications.dispatch({ type: "DISMISS_ID", id: toast.id });
 	};
 
+	// TODO: Replace -150 with the height of the element after render (if possible)
 	return (
-		<section className={styles["toast--success"]}>
+		<section className={styles["toast--success"]} style={{ transform: `translateY(${-150 * index}px)` }}>
 			<header>
-				<div>⚠️</div>
+				<div>⚠️ [{index}]</div>
 				<h2>{toast.severity}</h2>
 				<CloseButton onClick={handleClose} />
 			</header>
