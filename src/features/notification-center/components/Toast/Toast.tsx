@@ -16,6 +16,10 @@ const Toast = ({ toast, index }: ToastProps) => {
 	};
 
 	// TODO: Replace -150 with the height of the element after render (if possible)
+	// Will probably have to do something like:
+	// On render ->
+	// Offset myself by: all(heightlist) + gap * N(heightList))
+	// add my height to heightlist
 	return (
 		<section className={styles["toast--success"]} style={{ transform: `translateY(${-150 * index}px)` }}>
 			<header>
