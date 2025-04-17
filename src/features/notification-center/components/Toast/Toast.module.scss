@@ -18,13 +18,17 @@
 		display: grid;
 		grid-template-rows: auto 1fr auto 6px;
 
-		animation: fadeIn 0.25s;
-		transition: transform 0.2s ease-out;
-
 		gap: 0.5rem;
 		width: 350px;
 		overflow: hidden;
 
+		// Animations
+		&:not(.toast--dismiss) {
+			animation: fadeIn 0.25s ease-out;
+			transition: transform 0.2s ease-out;
+		}
+
+		// Child Elements
 		// We want the progress bar filler to cover the entire length of the toast
 		> *:not(.toast__progress-bar) {
 			padding: 0.5rem;
@@ -45,6 +49,10 @@
 	}
 }
 
+.toast--dismiss {
+	animation: dismiss 0.25s ease-in forwards;
+}
+
 // TODO: Replace this and do it thorugh the component later.
 // This is just for testing!!!
 // Width should be Time / elapsed in percent
@@ -54,6 +62,17 @@
 	}
 	100% {
 		width: 100%;
+	}
+}
+
+@keyframes dismiss {
+	0% {
+		opacity: 1;
+		bottom: 0;
+	}
+	100% {
+		opacity: 0;
+		bottom: -1rem;
 	}
 }
 
