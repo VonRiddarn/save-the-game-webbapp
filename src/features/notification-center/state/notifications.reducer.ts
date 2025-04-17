@@ -36,6 +36,7 @@ export const notificationsReducer = (
 			return [
 				...state.filter((n) => n.tag !== TAG),
 				{
+					timestamp: Date.now(),
 					id: uuidv4(),
 					tag: TAG,
 					type: "toast",

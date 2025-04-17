@@ -14,6 +14,7 @@ const AppPage = () => {
 					notifications.dispatch({
 						type: "PUSH",
 						payload: {
+							timestamp: Date.now(),
 							id: uuidv4(),
 							message: "New toast message",
 							type: "toast",
@@ -31,6 +32,7 @@ const AppPage = () => {
 					notifications.dispatch({
 						type: "PUSH",
 						payload: {
+							timestamp: Date.now(),
 							id: uuidv4(),
 							message: "FOOL! YOU CANNOT GET RID OF ME!!!",
 							type: "toast",

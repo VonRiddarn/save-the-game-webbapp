@@ -12,13 +12,13 @@ export type NotificationAction = {
 };
 
 interface RootNotification {
-	timestamp?: number; // Date.now()
+	timestamp: number; // Date.now()
 	id: string; // Used for rendering, internal deleteion, keys and stuff like that
 	tag?: string; // Logical identifier — used for grouping, deduplication, dismissing, etc...
-	actions?: NotificationAction[];
 	type: NotificationType;
 	severity: NotificationSeverity;
 	message: string;
+	actions?: NotificationAction[];
 }
 
 export type ToastNotification = RootNotification & {
