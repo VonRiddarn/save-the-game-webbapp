@@ -1,0 +1,36 @@
+.toast {
+	display: grid;
+	grid-template-rows: auto 1fr auto 16px;
+
+	color: black;
+	background-color: #ffb5b5;
+	gap: 0.5rem;
+	border-radius: 8px;
+
+	// We want the progress bar filler to cover the entire length of the toast
+	> *:not(.toast__progress-bar) {
+		padding: 0.5rem;
+	}
+
+	header {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		place-items: center;
+
+		button {
+			color: red;
+			border: none;
+			border-radius: 50%;
+			background-color: transparent;
+			aspect-ratio: 1/1;
+			min-width: 24px;
+
+			&:hover {
+				background-color: rgba(255, 0, 0, 0.089);
+			}
+		}
+	}
+}
+
+.toast__progress-bar {
+}

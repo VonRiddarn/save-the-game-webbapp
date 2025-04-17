@@ -1,6 +1,7 @@
 import styles from "./ToastContainer.module.css";
 import { useNotifications, useNotificationSettings } from "../../hooks";
 import { useEffect } from "react";
+import Toast from "../Toast/Toast";
 
 const ToastContainer = () => {
 	const { list, dispatch } = useNotifications();
@@ -24,9 +25,7 @@ const ToastContainer = () => {
 		<>
 			<div className={styles["toast-container"]}>
 				{toasts.map((t) => (
-					<p key={t.id}>
-						{t.id.substring(0, 5)}_____{t.message}
-					</p>
+					<Toast key={t.id} />
 				))}
 			</div>
 		</>
