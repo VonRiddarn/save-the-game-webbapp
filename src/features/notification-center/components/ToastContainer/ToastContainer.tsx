@@ -1,4 +1,4 @@
-import styles from "./ToastContainer.module.css";
+import styles from "./ToastContainer.module.scss";
 import { useNotifications, useNotificationSettings } from "../../hooks";
 import { useEffect } from "react";
 import Toast from "../Toast/Toast";
