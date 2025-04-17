@@ -1,32 +1,31 @@
 import CloseButton from "../CloseButton/CloseButton";
 import styles from "./Toast.module.scss";
 import { ToastNotification } from "../../types/notification.types";
-import { useNotifications } from "../../hooks";
-import { useState } from "react";
+import { DismissedToast } from "../ToastContainer/toast-container.types";
 
 type ToastProps = {
 	index: number;
 	toast: ToastNotification;
+	dismissBegin: (id: string, index: number) => void;
+	dismissEnd: (id: string) => void;
+	dismissedToasts: DismissedToast[];
 };
 
-const Toast = ({ toast, index }: ToastProps) => {
-	const [dismiss, setDismiss] = useState(false);
-	const notifications = useNotifications();
+const Toast = ({ toast, index, dismissBegin, dismissEnd, dismissedToasts }: ToastProps) => {
+	const dismissStatus = dismissedToasts.find((t) => t.id === toast.id);
+	const dismissed = dismissStatus !== undefined;
 
 	const handleClose = () => {
-		setDismiss(true);
-		//notifications.dispatch({ type: "DISMISS_ID", id: toast.id });
+		dismissBegin(toast.id, index);
 	};
 
-	// TODO: Replace -150 with the height of the element after render (if possible)
-	// Will probably have to do something like:
-	// On render ->
-	// Offset myself by: all(heightlist) + gap * N(heightList))
-	// add my height to heightlist
 	return (
 		<section
-			className={`${styles[`toast--${toast.severity}`]} ${dismiss ? styles["toast--dismiss"] : ""}`}
-			style={{ transform: `translateY(${-165 * index}px)` }}
+			className={`${styles[`toast--${toast.severity}`]} ${dismissed ? styles["toast--dismiss"] : ""}`}
+			style={{ transform: `translateY(${-165 * (dismissed ? dismissStatus.index : index)}px)` }}
+			onAnimationEnd={() => {
+				if (dismissed) dismissEnd(toast.id);
+			}}
 		>
 			<header>
 				<div>⚠️ [{index}]</div>
