@@ -1,7 +1,7 @@
 import CloseButton from "../CloseButton/CloseButton";
 import styles from "./Toast.module.scss";
 import { ToastNotification } from "../../types/notification.types";
-import { DismissedToast } from "../ToastContainer/toast-container.types";
+import { DismissedToast } from "../ToastContainer/ToastContainer.types";
 
 type ToastProps = {
 	index: number;

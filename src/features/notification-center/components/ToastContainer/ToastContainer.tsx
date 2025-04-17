@@ -2,7 +2,7 @@ import styles from "./ToastContainer.module.scss";
 import { useNotifications, useNotificationSettings } from "../../hooks";
 import { useEffect, useState } from "react";
 import Toast from "../Toast/Toast";
-import { DismissedToast } from "./toast-container.types";
+import { DismissedToast } from "./ToastContainer.types";
 
 // An alternative solution to this whole problem would be to have a dismissedToasts container.
 // This would be wickety wack, but it would be less convoluted code - just move from one container to the other.
@@ -29,7 +29,10 @@ const ToastContainer = () => {
 		const timer = setTimeout(() => {
 			const toast = toasts.find((t) => !t.persist);
 			if (toast) {
-				dispatch({ type: "DISMISS_ID", id: toast.id });
+				dismissBegin(
+					toast.id,
+					toasts.findIndex((t) => t.id === toast.id)
+				);
 			}
 		}, settings.dismissAfterMs);
 
