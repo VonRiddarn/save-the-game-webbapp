@@ -1,17 +1,28 @@
+import CloseButton from "../CloseButton/CloseButton";
 import styles from "./Toast.module.scss";
+import { ToastNotification } from "../../types/notification.types";
+import { useNotifications } from "../../hooks";
 
-const Toast = () => {
+type ToastProps = {
+	toast: ToastNotification;
+};
+
+const Toast = ({ toast }: ToastProps) => {
+	const notifications = useNotifications();
+
+	const handleClose = () => {
+		notifications.dispatch({ type: "DISMISS_ID", id: toast.id });
+	};
+
 	return (
 		<section className={styles["toast--success"]}>
 			<header>
 				<div>⚠️</div>
-				<h2>Toast header</h2>
-				<button>X</button>
+				<h2>{toast.severity}</h2>
+				<CloseButton onClick={handleClose} />
 			</header>
 			<div>
-				<p>
-					Toast body using <mark>cool</mark> <strong>stryling</strong>!
-				</p>
+				<p>{toast.message}</p>
 			</div>
 			<div>
 				<button>Retry</button>

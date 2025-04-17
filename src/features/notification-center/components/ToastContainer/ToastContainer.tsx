@@ -25,7 +25,7 @@ const ToastContainer = () => {
 		<>
 			<div className={styles["toast-container"]}>
 				{toasts.map((t) => (
-					<Toast key={t.id} />
+					<Toast key={t.id} toast={t} />
 				))}
 			</div>
 		</>
