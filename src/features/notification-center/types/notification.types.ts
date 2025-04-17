@@ -11,9 +11,10 @@ export type NotificationAction = {
 	onClick: () => void;
 };
 
+// We're making timestamps and serialize on the UI for less memory-bloat.
 interface RootNotification {
 	timestamp: number; // Date.now()
-	id: string; // Used for rendering, internal deleteion, keys and stuff like that
+	id: string; // Used for rendering, internal deletion, keys and stuff like that
 	tag?: string; // Logical identifier — used for grouping, deduplication, dismissing, etc...
 	type: NotificationType;
 	severity: NotificationSeverity;
