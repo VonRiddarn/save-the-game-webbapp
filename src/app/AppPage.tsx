@@ -1,10 +1,17 @@
 "use client";
 
 import { useNotifications } from "@/features/notification-center";
+import { NotificationSeverity } from "@/features/notification-center/types/notification.types";
 import { v4 as uuidv4 } from "uuid";
 
 const AppPage = () => {
 	const notifications = useNotifications();
+
+	const getRandomSeverity = () => {
+		const severities: NotificationSeverity[] = ["info", "success", "warning", "error"];
+		const randomIndex = Math.floor(Math.random() * severities.length);
+		return severities[randomIndex];
+	};
 
 	return (
 		<main>
@@ -18,7 +25,7 @@ const AppPage = () => {
 							id: uuidv4(),
 							message: "New toast message",
 							type: "toast",
-							severity: "info",
+							severity: getRandomSeverity(),
 							persist: false,
 						},
 					});
@@ -36,7 +43,7 @@ const AppPage = () => {
 							id: uuidv4(),
 							message: "FOOL! YOU CANNOT GET RID OF ME!!!",
 							type: "toast",
-							severity: "info",
+							severity: getRandomSeverity(),
 							persist: true,
 						},
 					});
