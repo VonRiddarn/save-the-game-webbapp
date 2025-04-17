@@ -23,7 +23,7 @@ const Toast = ({ toast, index }: ToastProps) => {
 	return (
 		<section
 			className={styles[`toast--${toast.severity}`]}
-			style={{ transform: `translateY(${-150 * index}px)` }}
+			style={{ transform: `translateY(${-165 * index}px)` }}
 		>
 			<header>
 				<div>⚠️ [{index}]</div>
