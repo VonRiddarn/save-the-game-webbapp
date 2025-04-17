@@ -6,12 +6,6 @@ $notification-severities: (
 			fg: black,
 		),
 	),
-	error: (
-		colors: (
-			bg: #ffb5b5,
-			fg: black,
-		),
-	),
 	info: (
 		colors: (
 			bg: #b5e4ff,
@@ -21,6 +15,12 @@ $notification-severities: (
 	warning: (
 		colors: (
 			bg: #ffe5b5,
+			fg: black,
+		),
+	),
+	error: (
+		colors: (
+			bg: #ffb5b5,
 			fg: black,
 		),
 	),
