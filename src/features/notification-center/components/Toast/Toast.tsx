@@ -9,6 +9,9 @@ type ToastProps = {
 	dismissEnd: (id: string) => void;
 };
 
+// TODO: Base height offset on actual element height
+// TODO: Base progressBar width on time T / elapsed
+
 const Toast = ({ toast, index, dismissEnd }: ToastProps) => {
 	const { dispatch } = useNotifications();
 
