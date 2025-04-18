@@ -43,6 +43,11 @@
 			background-color: darken(map-get($_colors, bg), $_darken-soft);
 		}
 
+		> div:nth-child(2) p {
+			overflow-wrap: break-word;
+			word-break: break-word;
+		}
+
 		.toast__progress-bar {
 			background-color: darken(map-get($_colors, bg), $_darken-hard);
 			animation: grow 3s linear;
