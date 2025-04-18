@@ -1,15 +1,7 @@
 import CloseButton from "../CloseButton/CloseButton";
 import styles from "./Toast.module.scss";
 import { ToastNotification } from "../../types/notification.types";
-import { DismissedToast } from "../ToastContainer/ToastContainer.types";
-import { useEffect, useState } from "react";
 import { useNotifications } from "../../hooks";
-
-// TODO: Maybe add a dismiss status in the state instead...
-// Reason: If we was to add a dismiss-all button we would have to use the clear from the reducer.
-// In that case we won't be able to animate away the toasts!!! (damn it!!#"/UI")
-// So yeah,
-// TODO: Add toDismiss to state, or just add dismissed to state as is.
 
 type ToastProps = {
 	index: number;

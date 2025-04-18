@@ -20,7 +20,7 @@ interface RootNotification {
 	severity: NotificationSeverity;
 	message: string;
 	actions?: NotificationAction[];
-	dismissed?: boolean; // TODO: Make it so that setting this to true will dismiss on next render
+	dismissed?: boolean;
 }
 
 export type ToastNotification = RootNotification & {

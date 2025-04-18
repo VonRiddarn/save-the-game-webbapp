@@ -4,9 +4,6 @@ import { useEffect } from "react";
 import Toast from "../Toast/Toast";
 import { ToastNotification } from "../../types/notification.types";
 
-// An alternative solution to this whole problem would be to have a dismissedToasts container.
-// This would be wickety wack, but it would be less convoluted code - just move from one container to the other.
-
 const ToastContainer = () => {
 	const { list, dispatch } = useNotifications();
 	const { settings } = useNotificationSettings();
