@@ -55,7 +55,8 @@ const AppPage = () => {
 				className="Look at this bro"
 				onClick={() => {
 					notifications.dispatch({
-						type: "CLEAR_ALL",
+						type: "DISMISS_ALL",
+						method: "soft",
 					});
 				}}
 			>
