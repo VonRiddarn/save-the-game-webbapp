@@ -27,7 +27,7 @@ const Toast = ({ toast, index, dismissBegin, dismissEnd, dismissedToasts }: Toas
 
 	return (
 		<section
-			className={`${styles[`toast--${toast.severity}`]} ${dismissed ? styles["toast--dismiss"] : ""}`}
+			className={`${styles[`toast--${toast.severity}`]} ${dismissed ? styles["toast--dismissed"] : ""}`}
 			style={{ transform: `translateY(${-165 * (dismissed ? dismissStatus.index : index)}px)` }}
 			onAnimationEnd={() => {
 				if (dismissed) dismissEnd(toast.id);

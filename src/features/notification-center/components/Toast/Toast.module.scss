@@ -24,7 +24,7 @@
 
 		// Animations
 		// Condition might be overkill but we don't want jumpy stuff
-		&:not(.toast--dismiss) {
+		&:not(.toast--dismissed) {
 			animation: fadeIn 0.25s ease-out;
 			transition: transform 0.2s ease-out;
 		}
@@ -50,7 +50,7 @@
 	}
 }
 
-.toast--dismiss {
+.toast--dismissed {
 	z-index: -1;
 	animation: dismiss 0.33s ease-in-out forwards;
 }
