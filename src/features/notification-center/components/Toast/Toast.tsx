@@ -2,6 +2,8 @@ import CloseButton from "../CloseButton/CloseButton";
 import styles from "./Toast.module.scss";
 import { ToastNotification } from "../../types/notification.types";
 import { DismissedToast } from "../ToastContainer/ToastContainer.types";
+import { useEffect, useState } from "react";
+import { useNotifications } from "../../hooks";
 
 // TODO: Maybe add a dismiss status in the state instead...
 // Reason: If we was to add a dismiss-all button we would have to use the clear from the reducer.
@@ -12,25 +14,25 @@ import { DismissedToast } from "../ToastContainer/ToastContainer.types";
 type ToastProps = {
 	index: number;
 	toast: ToastNotification;
-	dismissBegin: (id: string, index: number) => void;
 	dismissEnd: (id: string) => void;
-	dismissedToasts: DismissedToast[];
 };
 
-const Toast = ({ toast, index, dismissBegin, dismissEnd, dismissedToasts }: ToastProps) => {
-	const dismissStatus = dismissedToasts.find((t) => t.id === toast.id);
-	const dismissed = dismissStatus !== undefined;
+const Toast = ({ toast, index, dismissEnd }: ToastProps) => {
+	const { dispatch } = useNotifications();
 
 	const handleClose = () => {
-		dismissBegin(toast.id, index);
+		dispatch({ type: "DISMISS_ID", id: toast.id, method: "soft" });
+		console.log(toast);
 	};
 
 	return (
 		<section
-			className={`${styles[`toast--${toast.severity}`]} ${dismissed ? styles["toast--dismissed"] : ""}`}
-			style={{ transform: `translateY(${-165 * (dismissed ? dismissStatus.index : index)}px)` }}
+			className={`${styles[`toast--${toast.severity}`]} ${
+				toast.dismissed ? styles["toast--dismissed"] : ""
+			}`}
+			style={{ transform: `translateY(${-165 * index}px)` }}
 			onAnimationEnd={() => {
-				if (dismissed) dismissEnd(toast.id);
+				if (toast.dismissed) dismissEnd(toast.id);
 			}}
 		>
 			<header>

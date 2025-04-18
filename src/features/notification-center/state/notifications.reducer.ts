@@ -3,7 +3,7 @@ import { NotificationItem, NotificationSeverity, NotificationType } from "../typ
 
 export type NotificationAction =
 	| { type: "PUSH"; payload: NotificationItem }
-	| { type: "DISMISS_ID"; id: string }
+	| { type: "DISMISS_ID"; id: string; method: "hard" | "soft" }
 	| { type: "DISMISS_TAG"; tag: string }
 	| { type: "CLEAR_SEVERITY"; severity: NotificationSeverity }
 	| { type: "CLEAR_TYPE"; notificationType: NotificationType }
@@ -19,7 +19,9 @@ export const notificationsReducer = (
 		case "PUSH":
 			return [...state, action.payload];
 		case "DISMISS_ID":
-			return state.filter((n) => n.id !== action.id);
+			return action.method == "hard"
+				? state.filter((t) => t.id !== action.id)
+				: state.map((t) => (t.id === action.id ? { ...t, dismissed: true } : t));
 		case "DISMISS_TAG":
 			return state.filter((n) => n.tag !== action.tag);
 		case "CLEAR_SEVERITY":

@@ -1,8 +1,8 @@
 import styles from "./ToastContainer.module.scss";
 import { useNotifications, useNotificationSettings } from "../../hooks";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Toast from "../Toast/Toast";
-import { DismissedToast } from "./ToastContainer.types";
+import { ToastNotification } from "../../types/notification.types";
 
 // An alternative solution to this whole problem would be to have a dismissedToasts container.
 // This would be wickety wack, but it would be less convoluted code - just move from one container to the other.
@@ -12,15 +12,8 @@ const ToastContainer = () => {
 	const { settings } = useNotificationSettings();
 	const toasts = list.filter((n) => n.type === "toast");
 
-	const [dismissedToasts, setDismissedToasts] = useState<DismissedToast[]>([]);
-
-	const dismissBegin = (id: string, index: number) => {
-		setDismissedToasts((prev) => [...prev, { id, index }]);
-	};
-
 	const dismissEnd = (id: string) => {
-		dispatch({ type: "DISMISS_ID", id });
-		setDismissedToasts((prev) => prev.filter((dmt) => dmt.id !== id));
+		dispatch({ type: "DISMISS_ID", id, method: "hard" });
 	};
 
 	useEffect(() => {
@@ -28,32 +21,27 @@ const ToastContainer = () => {
 
 		const timer = setTimeout(() => {
 			const toast = toasts.find((t) => !t.persist);
-			if (toast) {
-				dismissBegin(
-					toast.id,
-					toasts.findIndex((t) => t.id === toast.id)
-				);
-			}
+			if (toast) dispatch({ type: "DISMISS_ID", id: toast.id, method: "soft" });
 		}, settings.dismissAfterMs);
 
 		return () => clearTimeout(timer);
 	}, [toasts, dispatch, settings]);
 
 	// If toast.id is foud in dismissed id's, do NOT return.
-	const visibleToasts = toasts.filter((t) => !dismissedToasts.find((d) => d.id === t.id));
+	const visibleToasts = toasts.filter((t) => !t.dismissed);
+
+	// F-it. We ball.
+	// Get the visible index fdor undismissed items, and the true index for dismissed items.
+	const getNormalizedIndex = (toast: ToastNotification) => {
+		const index = visibleToasts.findIndex((v) => v.id === toast.id);
+		return index !== -1 ? index : toasts.findIndex((t) => t.id === toast.id);
+	};
 
 	return (
 		<>
 			<div className={styles["toast-container"]}>
 				{toasts.map((t) => (
-					<Toast
-						key={t.id}
-						toast={t}
-						index={visibleToasts.findIndex((v) => v.id === t.id)}
-						dismissBegin={dismissBegin}
-						dismissEnd={dismissEnd}
-						dismissedToasts={dismissedToasts}
-					/>
+					<Toast key={t.id} toast={t} index={getNormalizedIndex(t)} dismissEnd={dismissEnd} />
 				))}
 			</div>
 		</>
