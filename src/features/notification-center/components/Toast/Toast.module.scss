@@ -60,18 +60,6 @@
 	animation: dismiss 0.33s ease-in-out forwards;
 }
 
-// TODO: Replace this and do it thorugh the component later.
-// This is just for testing!!!
-// Width should be Time / elapsed in percent
-@keyframes grow {
-	0% {
-		width: 0;
-	}
-	100% {
-		width: 100%;
-	}
-}
-
 @keyframes dismiss {
 	0% {
 		opacity: 1;
