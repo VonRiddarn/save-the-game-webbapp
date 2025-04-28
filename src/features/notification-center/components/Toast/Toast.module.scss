@@ -50,7 +50,7 @@
 
 		.toast__progress-bar {
 			background-color: darken(map-get($_colors, bg), $_darken-hard);
-			animation: grow 3s linear;
+			width: var(--progress, 0);
 		}
 	}
 }
