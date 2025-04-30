@@ -24,7 +24,6 @@ const Toast = ({ toast, index, autoDismiss, dismissEnd }: ToastProps) => {
 
 	const handleClose = useCallback(() => {
 		dispatch({ type: "DISMISS_ID", id: toast.id, method: "soft" });
-		console.log(toast);
 	}, [dispatch, toast]);
 
 	const updateProgess = (timestamp: number) => {
@@ -59,7 +58,7 @@ const Toast = ({ toast, index, autoDismiss, dismissEnd }: ToastProps) => {
 			}`}
 			style={
 				{
-					transform: `translateY(${-165 * index}px)`,
+					transform: `translateY(${-200 * index}px)`,
 					"--progress": `${progress}%`,
 				} as React.CSSProperties
 			}
