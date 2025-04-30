@@ -8,6 +8,7 @@ export type NotificationItem = ToastNotification | BannerNotification;
 
 export type NotificationAction = {
 	label: string;
+	severity: "primary" | "secondary";
 	onClick: () => void;
 };
 

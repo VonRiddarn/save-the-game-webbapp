@@ -43,9 +43,31 @@
 			background-color: darken(map-get($_colors, bg), $_darken-soft);
 		}
 
-		> div:nth-child(2) p {
+		> .toast__content-wrapper p {
 			overflow-wrap: break-word;
 			word-break: break-word;
+		}
+
+		> .toast__actions-wrapper {
+			display: flex;
+			justify-content: flex-end;
+			gap: 1rem;
+		}
+
+		.toast__action {
+			border: unset;
+			border-radius: 8px;
+			padding: 0.42rem;
+			font-size: medium;
+
+			&--primary {
+				content: none;
+				background-color: darken(map-get($_colors, bg), $_darken-soft);
+
+				&:hover {
+					background-color: darken(map-get($_colors, bg), $_darken-hard);
+				}
+			}
 		}
 
 		.toast__progress-bar {

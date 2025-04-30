@@ -45,6 +45,22 @@ const AppPage = () => {
 							type: "toast",
 							severity: getRandomSeverity(),
 							persist: true,
+							actions: [
+								{
+									label: "Primary",
+									severity: "primary",
+									onClick: function (): void {
+										console.log("Primary!");
+									},
+								},
+								{
+									label: "Secondary",
+									severity: "secondary",
+									onClick: function (): void {
+										console.log("Secondary!");
+									},
+								},
+							],
 						},
 					});
 				}}

@@ -72,12 +72,21 @@ const Toast = ({ toast, index, autoDismiss, dismissEnd }: ToastProps) => {
 				<h2>{toast.severity}</h2>
 				<CloseButton onClick={handleClose} />
 			</header>
-			<div>
+			<div className={styles["toast__content-wrapper"]}>
 				<p>{toast.message}</p>
 			</div>
-			<div>
-				<button>Retry</button>
-				<button>View more</button>
+			<div className={styles["toast__actions-wrapper"]}>
+				{toast.actions?.map((a) => (
+					<button
+						className={`${styles[`toast__action`]} ${
+							styles[`toast__action--${a.severity}`] ?? ""
+						}`}
+						onClick={a.onClick}
+						key={a.label}
+					>
+						{a.label}
+					</button>
+				))}
 			</div>
 			<div className={styles["toast__progress-bar"]}>test</div>
 		</section>
