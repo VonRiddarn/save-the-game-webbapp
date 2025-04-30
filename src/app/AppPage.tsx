@@ -70,6 +70,78 @@ const AppPage = () => {
 			<button
 				className="Look at this bro"
 				onClick={() => {
+					const id = uuidv4();
+					notifications.dispatch({
+						type: "PUSH",
+						payload: {
+							timestamp: Date.now(),
+							id: id,
+							message: "Payment failed! Please update your payment options.",
+							type: "toast",
+							severity: "error",
+							persist: true,
+							actions: [
+								{
+									label: "Settings",
+									severity: "primary",
+									onClick: function (): void {
+										console.log("Open settings page...");
+									},
+								},
+								{
+									label: "Cancel",
+									severity: "secondary",
+									onClick: function (): void {
+										notifications.dispatch({
+											type: "DISMISS_ID",
+											id: id,
+											method: "soft",
+										});
+									},
+								},
+							],
+						},
+					});
+				}}
+			>
+				Payment failed
+			</button>
+			<button
+				className="Look at this bro"
+				onClick={() => {
+					const id = uuidv4();
+
+					notifications.dispatch({
+						type: "PUSH",
+						payload: {
+							timestamp: Date.now(),
+							id: id,
+							message: "Loginb failed! Please check password and try again.",
+							type: "toast",
+							severity: "error",
+							persist: true,
+							actions: [
+								{
+									label: "Ok",
+									severity: "secondary",
+									onClick: function (): void {
+										notifications.dispatch({
+											type: "DISMISS_ID",
+											id: id,
+											method: "soft",
+										});
+									},
+								},
+							],
+						},
+					});
+				}}
+			>
+				Login failed
+			</button>
+			<button
+				className="Look at this bro"
+				onClick={() => {
 					notifications.dispatch({
 						type: "DISMISS_ALL",
 						method: "soft",
