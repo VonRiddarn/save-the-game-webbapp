@@ -2,6 +2,9 @@
 
 .vscode
 
+# Keys
+/src/secret.ts
+
 # dependencies
 /node_modules
 /.pnp
