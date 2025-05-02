@@ -20,8 +20,9 @@
 
 		gap: 0.5rem;
 		width: 350px;
-		height: 190px;
 		overflow: hidden;
+
+		box-shadow: 2px 4px 10px rgba(0, 0, 0, 1);
 
 		// Animations
 		// Condition might be overkill but we don't want jumpy stuff
@@ -56,7 +57,7 @@
 		}
 
 		.toast__action {
-			border: unset;
+			border: 1px white solid;
 			border-radius: 8px;
 			padding: 0.42rem;
 			font-size: medium;
