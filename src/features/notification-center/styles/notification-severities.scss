@@ -1,3 +1,5 @@
+@use "sass:map";
+
 // A map of maps containing all severities for this monstrosity
 $notification-severities: (
 	success: (
@@ -29,11 +31,11 @@ $notification-severities: (
 // Jesus...
 // Loop the notification severities and store the top map as style. Trust.
 @each $severity, $style in $notification-severities {
-	$colors: map-get($style, colors);
+	$colors: map.get($style, colors);
 
 	.notification--#{$severity} {
-		background-color: map-get($colors, bg);
-		color: map-get($colors, fg);
+		background-color: map.get($colors, bg);
+		color: map.get($colors, fg);
 		border-radius: 8px;
 		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 	}
