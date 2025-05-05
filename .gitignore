@@ -2,8 +2,8 @@
 
 .vscode
 
-# Keys
-/src/secret.ts
+# SECRET STUFF!
+tokenCache.json
 
 # dependencies
 /node_modules
