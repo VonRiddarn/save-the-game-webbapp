@@ -30,7 +30,7 @@ export default function DGameList() {
 			<ul>
 				{games?.map((game) => (
 					<li key={game.id}>
-						<p>{game.name}</p>
+						<h3>{game.name}</h3>
 						{game.genres && <p>Genres: {game.genres.map((g) => g.name).join(", ")}</p>}
 					</li>
 				))}
