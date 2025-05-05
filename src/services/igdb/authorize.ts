@@ -22,12 +22,17 @@ const fetchNewToken = async (): Promise<Token> => {
 	if (!clientId || !clientSecret)
 		throw new Error("Client ID or Secret is not setup in environment variables");
 
-	const res = await fetch(
-		`https://id.twitch.tv/oauth2/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=client_credentials`,
-		{
-			method: "POST",
-		}
-	);
+	const res = await fetch(`https://id.twitch.tv/oauth2/token`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+		},
+		body: new URLSearchParams({
+			client_id: clientId,
+			client_secret: clientSecret,
+			grant_type: "client_credentials",
+		}),
+	});
 	if (!res.ok) throw new Error("Failed to fetch token");
 
 	return await res.json();
