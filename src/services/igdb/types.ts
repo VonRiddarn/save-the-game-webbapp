@@ -6,19 +6,29 @@ export type Token = {
 };
 
 // Entities
-export type Game = {
+export type IGDBEntity = {
 	id: number;
+	created_at: number;
+	updated_at: number;
+	checksum: string;
+};
+
+export type IGDBNamedEntity = IGDBEntity & {
+	name: string;
+	slug: string;
+	url: string;
+};
+
+export type Game = IGDBNamedEntity & {
 	artworks: number[];
 	category: number;
 	cover: number;
-	created_at: number;
 	external_games: number[];
 	first_release_date: number;
 	game_modes: number[];
 	genres: number[];
 	involved_companies: number[];
 	keywords: number[];
-	name: string;
 	platforms: number[];
 	player_perspectives: number[];
 	rating: number;
@@ -26,80 +36,50 @@ export type Game = {
 	release_dates: number[];
 	screenshots: number[];
 	similar_games: number[];
-	slug: string;
 	summary: string;
 	tags: number[];
 	themes: number[];
 	total_rating: number;
 	total_rating_count: number;
-	updated_at: number;
-	url: string;
 	videos: number[];
 	websites: number[];
-	checksum: string;
 	language_supports: number[];
 	game_localizations: number[];
 	game_type: number;
 };
 
-export type Platform = {
-	id: number;
+export type Platform = IGDBNamedEntity & {
 	abbreviation: string;
 	alternative_name: string;
 	category: number;
-	created_at: number;
-	name: string;
 	platform_logo: number;
 	platform_family: number;
-	slug: string;
 	summary: string;
-	updated_at: number;
-	url: string;
 	versions: number[];
 	websites: number[];
-	checksum: string;
 	platform_type: number;
 };
 
-export type Genre = {
-	id: number;
-	created_at: number;
-	name: string;
-	slug: string;
-	updated_at: number;
-	url: string;
-	checksum: string;
-};
+export type Genre = IGDBNamedEntity;
 
-export type ReleaseDate = {
-	id: number;
-	category: number;
-	created_at: number;
-	date: number;
-	game: number;
-	human: string; // Parsed date. Eg: "Oct 10, 2018"
-	m: number; // Month
-	platform: number;
-	region: number;
-	updated_at: number;
-	y: number; // Year
-	checksum: string;
-	date_format: number;
-	release_region: number;
-};
-
-export type Character = {
-	id: number;
+export type Character = IGDBNamedEntity & {
 	akas: string[];
-	created_at: number;
 	description: string;
 	games: number[];
 	mug_shot: number;
-	name: string;
-	slug: string;
-	updated_at: number;
-	url: string;
-	checksum: string;
 	character_gender: number;
 	character_species: number;
+};
+
+export type ReleaseDate = IGDBEntity & {
+	category: number;
+	date: number;
+	game: number;
+	human: string;
+	m: number;
+	platform: number;
+	region: number;
+	y: number;
+	date_format: number;
+	release_region: number;
 };
