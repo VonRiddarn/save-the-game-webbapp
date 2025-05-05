@@ -1,4 +1,6 @@
 @use "../../styles/notification-severities.scss" as *;
+@use "sass:map";
+@use "sass:color";
 
 // Create a toast modifier for each style in colors
 @each $severity, $style in $notification-severities {
@@ -7,9 +9,9 @@
 		@extend .notification--#{$severity};
 
 		// Local variables
-		$_colors: map-get($style, colors);
-		$_darken-soft: 10%;
-		$_darken-hard: 20%;
+		$_colors: map.get($style, colors);
+		$_darken-soft: -10%;
+		$_darken-hard: -20%;
 
 		// Styling
 		position: absolute;
@@ -25,14 +27,11 @@
 		box-shadow: 2px 4px 10px rgba(0, 0, 0, 1);
 
 		// Animations
-		// Condition might be overkill but we don't want jumpy stuff
 		&:not(.toast--dismissed) {
 			animation: fadeIn 0.25s ease-out;
 			transition: transform 0.2s ease-out;
 		}
 
-		// Child Elements
-		// We want the progress bar filler to cover the entire length of the toast
 		> *:not(.toast__progress-bar) {
 			padding: 0.5rem;
 		}
@@ -42,7 +41,7 @@
 			grid-template-columns: auto 1fr auto;
 			place-items: center;
 
-			background-color: darken(map-get($_colors, bg), $_darken-soft);
+			background-color: color.scale(map.get($_colors, bg), $lightness: $_darken-soft);
 		}
 
 		> .toast__content-wrapper p {
@@ -64,16 +63,16 @@
 
 			&--primary {
 				content: none;
-				background-color: darken(map-get($_colors, bg), $_darken-soft);
+				background-color: color.scale(map.get($_colors, bg), $lightness: $_darken-soft);
 
 				&:hover {
-					background-color: darken(map-get($_colors, bg), $_darken-hard);
+					background-color: color.scale(map.get($_colors, bg), $lightness: $_darken-hard);
 				}
 			}
 		}
 
 		.toast__progress-bar {
-			background-color: darken(map-get($_colors, bg), $_darken-hard);
+			background-color: color.scale(map.get($_colors, bg), $lightness: $_darken-hard);
 			width: var(--progress, 0);
 		}
 	}
