@@ -1,4 +1,4 @@
-// NOTE: This file is 100% AI generated for super quick and dirty testing.
+// NOTE: This file is 98% AI generated for super quick and dirty testing.
 // TODO: Remove this file later
 "use client";
 
@@ -26,16 +26,12 @@ export default function DGameList() {
 
 	return (
 		<div>
-			<h2 className="text-xl font-bold mb-2">Top 10 Games</h2>
-			<ul className="space-y-2">
+			<h2>Top 10 Games</h2>
+			<ul>
 				{games?.map((game) => (
-					<li key={game.id} className="p-2 border rounded">
-						<p className="font-semibold">{game.name}</p>
-						{game.genres && (
-							<p className="text-sm text-gray-500">
-								Genres: {game.genres.map((g) => g.name).join(", ")}
-							</p>
-						)}
+					<li key={game.id}>
+						<p>{game.name}</p>
+						{game.genres && <p>Genres: {game.genres.map((g) => g.name).join(", ")}</p>}
 					</li>
 				))}
 			</ul>
