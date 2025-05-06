@@ -13,7 +13,7 @@
 	max-width: 500px;
 	padding: 0 2rem;
 
-	background-color: color.scale(vars.$background-primary, $lightness: -50%, $alpha: -19.97%);
+	background-color: color.scale(vars.$background-primary, $lightness: -50%, $alpha: -4.2%);
 
 	transition: transform 0.3s ease;
 	transform: translateX(100%);
@@ -41,6 +41,34 @@
 
 		ul {
 			list-style: none;
+		}
+	}
+}
+
+.hamburger-navigation-menu__header {
+	position: absolute;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	padding: 2rem;
+
+	top: 0;
+	right: 0;
+	width: 100%;
+
+	button {
+		color: vars.$text-light;
+		aspect-ratio: 1/1;
+		width: 48px;
+		font-size: 32px;
+		border: 3px solid vars.$text-light;
+		border-radius: 50%;
+		background-color: rgba(255, 255, 255, 0);
+
+		&:hover {
+			color: vars.$brand-failure;
+			border: 3px solid vars.$brand-failure;
 		}
 	}
 }

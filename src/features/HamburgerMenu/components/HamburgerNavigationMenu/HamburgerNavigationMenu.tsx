@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { useHamburgerMenu } from "../../hooks/useHamburgerMenu";
 import styles from "./HamburgerNavigationMenu.module.scss";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const HamburgerNavigationMenu = () => {
@@ -29,6 +30,10 @@ const HamburgerNavigationMenu = () => {
 					styles[`hamburger-navigation-menu--${isOpen ? "open" : "closed"}`]
 				}`}
 			>
+				<header className={styles["hamburger-navigation-menu__header"]}>
+					<Image src="/images/icons/icon.svg" alt="STG" width={50} height={50} />
+					<button onClick={forceClose}>X</button>
+				</header>
 				<section>
 					<h2>Navigation</h2>
 					<ul>
