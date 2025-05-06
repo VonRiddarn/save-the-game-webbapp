@@ -1,6 +1,7 @@
 "use client";
 
 import { useIGDB } from "@/hooks/useIGDB";
+import { getCachedEntity, setCachedEntity } from "@/services/igdb/cache";
 import { Game } from "@/services/igdb/types";
 import { useEffect, useState } from "react";
 
@@ -11,10 +12,22 @@ type GamePageProps = {
 const GamePage = ({ slug }: GamePageProps) => {
 	const { query, loading, error } = useIGDB<Game[]>();
 	const [game, setGame] = useState<Game | null>(null);
+	const ENDPOINT = "games";
 
 	useEffect(() => {
-		query("games", `fields *; where slug = "${slug}";`).then((data) => {
-			if (data) setGame(data.length > 0 ? data[0] : null);
+		// Note: The cache uses the session storage and will only clear after the window has closed.
+		// This means we can keep the cache for stuff when manually entering an adress in the url!
+		const cached = getCachedEntity(ENDPOINT, slug);
+		if (cached) {
+			setGame((cached as Game) ?? null);
+			return;
+		}
+
+		query(ENDPOINT, `fields *; where slug = "${slug}";`).then((data) => {
+			if (data && data.length > 0) {
+				setGame(data[0]);
+				setCachedEntity(ENDPOINT, slug, data[0]);
+			}
 		});
 	}, [query, slug]);
 
