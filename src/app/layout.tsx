@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.scss";
 import { NotificationsProvider } from "@/features/notification-center/NotificationsProvider";
+import { HamburgerMenuProvider } from "@/features/HamburgerMenu/HamburgerMenuProvider";
+import Header from "@/widgets/Header/Header";
+import HamburgerNavigationMenu from "@/features/HamburgerMenu/components/HamburgerNavigationMenu/HamburgerNavigationMenu";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -27,7 +30,11 @@ const RootLayout = ({ children }: RootLayoutProps) => {
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable}`}>
 				<NotificationsProvider>
-					<div className="routed-page-wrapper">{children}</div>
+					<HamburgerMenuProvider>
+						<Header />
+						<HamburgerNavigationMenu />
+						<div className="routed-page-wrapper">{children}</div>
+					</HamburgerMenuProvider>
 				</NotificationsProvider>
 			</body>
 		</html>
