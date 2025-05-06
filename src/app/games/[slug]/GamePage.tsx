@@ -31,7 +31,7 @@ const GamePage = ({ slug }: GamePageProps) => {
 		});
 	}, [query, slug]);
 
-	if (loading) return <p>Loading...</p>;
+	if (loading && !game) return <p>Loading...</p>;
 	if (error) return <p>Error: {error}</p>;
 
 	return (
