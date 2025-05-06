@@ -68,6 +68,7 @@
 		border: 3px solid vars.$text-light;
 		border-radius: 50%;
 		background-color: rgba(255, 255, 255, 0);
+		align-self: flex-start;
 
 		&:hover {
 			color: vars.$brand-failure;
