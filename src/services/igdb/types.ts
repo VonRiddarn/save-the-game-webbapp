@@ -19,6 +19,8 @@ export type IGDBNamedEntity = IGDBEntity & {
 	url: string;
 };
 
+export type IGDBEntityExplicit = Game | Platform | Character | Company;
+
 export type Game = IGDBNamedEntity & {
 	artworks: number[];
 	category: number;
@@ -69,6 +71,20 @@ export type Character = IGDBNamedEntity & {
 	mug_shot: number;
 	character_gender: number;
 	character_species: number;
+};
+
+export type Company = IGDBNamedEntity & {
+	change_date: number;
+	change_date_category: number;
+	country: number;
+	description: string;
+	developed: number[];
+	logo: number;
+	parent: number;
+	start_date: number;
+	start_date_category: number;
+	status: number;
+	start_date_format: number;
 };
 
 export type ReleaseDate = IGDBEntity & {
