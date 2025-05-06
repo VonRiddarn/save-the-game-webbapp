@@ -7,13 +7,16 @@
 	top: 0;
 	z-index: 2;
 
+	overflow-y: auto;
+
 	height: 100vh;
 	height: 100dvh;
-	width: 100%;
-	max-width: 500px;
+	width: 500px;
 	padding: 0 2rem;
 
-	background-color: color.scale(vars.$background-primary, $lightness: -50%, $alpha: -4.2%);
+	background-color: color.scale(vars.$background-secondary, $alpha: -4.2%);
+	box-shadow: -5px 0 10px rgba(0, 0, 0, 0.42);
+	border-radius: 8px 0 0 8px;
 
 	transition: transform 0.3s ease;
 	transform: translateX(100%);
@@ -100,5 +103,15 @@
 
 	&--active {
 		backdrop-filter: blur(5px);
+	}
+}
+
+@media (max-width: 1024px) {
+	.hamburger-navigation-menu {
+		width: 100%;
+		border-radius: 0;
+		align-items: center;
+		text-align: center;
+		box-shadow: none; // For performance
 	}
 }
