@@ -40,7 +40,7 @@ Let’s go!!
 1. **Clone the repo**
 
 ```bash
-git clone https://github.com/your-username/save-the-game.git
+git clone https://github.com/VonRiddarn/save-the-game.git
 cd save-the-game
 ```
 
