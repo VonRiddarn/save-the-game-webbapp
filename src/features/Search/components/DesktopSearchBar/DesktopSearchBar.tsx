@@ -1,14 +1,32 @@
+import { useEffect, useState } from "react";
 import { SearchBarVesselProps } from "../../shared/types";
 import styles from "./DesktopSearchbar.module.scss";
 
 const DesktopSearchBar = (props: SearchBarVesselProps) => {
+	const [dropdownActive, setDropdownActive] = useState(false);
+
+	useEffect(() => {
+		setDropdownActive(props.entities.length > 0);
+	}, [props.entities]);
+
 	return (
-		<div className={styles["searchbar-desktop"]}>
+		<div
+			className={`${styles["searchbar-desktop"]} ${
+				dropdownActive && styles["searchbar-desktop--has-dropdown"]
+			}`}
+			tabIndex={0}
+			onFocus={() => {
+				if (props.entities.length > 0) setDropdownActive(true);
+			}}
+			onBlur={() => setDropdownActive(false)}
+		>
 			<form>
 				<input
 					type="search"
 					value={props.currentInput}
-					onChange={(event) => props.onChange(event.target.value)}
+					onChange={(event) => {
+						props.onChange(event.target.value);
+					}}
 				/>
 				<button type="submit">
 					<svg
@@ -24,7 +42,13 @@ const DesktopSearchBar = (props: SearchBarVesselProps) => {
 						/>
 					</svg>
 				</button>
-				{/* Add dropdown search here */}
+				{dropdownActive && (
+					<div className={styles["searchbar-desktop__dropdown"]}>
+						{props.entities.map((e) => (
+							<div key={e.id}>{e.name}</div>
+						))}
+					</div>
+				)}
 			</form>
 		</div>
 	);

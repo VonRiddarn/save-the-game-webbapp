@@ -21,6 +21,13 @@
 			border: none;
 			border-radius: calc($height * 0.5);
 			padding: 0 $height 0 1rem;
+
+			outline: none;
+
+			&:focus {
+				outline: none;
+				box-shadow: none;
+			}
 		}
 
 		button {
@@ -41,6 +48,30 @@
 				cursor: pointer;
 				color: color.scale(vars.$brand-green, $lightness: -25%);
 			}
+		}
+		.searchbar-desktop__dropdown {
+			position: absolute;
+			bottom: 0px;
+			transform: translateY(100%);
+
+			display: flex;
+			flex-direction: column;
+			gap: 3rem;
+			padding: 1rem;
+
+			overflow-y: auto;
+
+			background-color: white;
+			color: black;
+
+			border-radius: 0 0 calc($height * 0.5) calc($height * 0.5);
+
+			width: 100%;
+		}
+	}
+	&--has-dropdown {
+		form input {
+			border-radius: calc($height * 0.5) calc($height * 0.5) 0 0;
 		}
 	}
 }
