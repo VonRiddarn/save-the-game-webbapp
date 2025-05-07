@@ -1,7 +1,7 @@
 import styles from "./Header.module.scss";
 import Image from "next/image";
 import HamburgerNavigationMenu from "@/features/HamburgerMenu/components/HamburgerNavigationMenu/HamburgerNavigationMenu";
-import SearchBar from "@/features/Search/components/SearchBar/SearchBar";
+import SearchBar from "@/features/Search/widgets/SearchBar/SearchBar";
 import HamburgerButton from "@/features/HamburgerMenu/components/HamburgerButton/HamburgerButton";
 
 const Header = () => {
