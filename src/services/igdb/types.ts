@@ -6,6 +6,11 @@ export type Token = {
 };
 
 // Entities
+export type IGDBNamedEntityReference = {
+	entity: IGDBNamedEntity;
+	endpoint: "games" | "companies" | "characters";
+};
+
 export type IGDBEntity = {
 	id: number;
 	created_at: number;

@@ -1,10 +1,10 @@
 "use client";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
-import DesktopSearchBar from "../../components/DesktopSearchbar/DesktopSearchbar";
+import DesktopSearchbar from "../../components/DesktopSearchbar/DesktopSearchbar";
 import { useEffect, useRef, useState } from "react";
 import { useIGDB } from "@/hooks/useIGDB";
-import { EntityCollection } from "../../shared/types";
+import { IGDBNamedEntityReference } from "@/services/igdb/types";
 
 const Searchbar = () => {
 	const emptyCollection = {
@@ -14,7 +14,7 @@ const Searchbar = () => {
 	};
 
 	const [currentInput, setCurrentInput] = useState("");
-	const [entityCollection, setEntityCollection] = useState<EntityCollection>(emptyCollection);
+	const [entities, setEntities] = useState<IGDBNamedEntityReference[]>([]);
 
 	const timerRef = useRef<NodeJS.Timeout | null>(null);
 	const abortRef = useRef<AbortController | null>(null); // ← new
@@ -34,12 +34,12 @@ const Searchbar = () => {
 
 		// We need to use newValue because  setCurrentInput is not updated until next render
 		if (newValue.length < 2) {
-			setEntityCollection(emptyCollection);
+			setEntities([]);
 			return;
 		}
 
 		timerRef.current = setTimeout(async () => {
-			setEntityCollection(emptyCollection);
+			setEntities([]);
 
 			const controller = new AbortController();
 			abortRef.current = controller;
@@ -57,11 +57,17 @@ const Searchbar = () => {
 			// Don't update state if aborted
 			if (controller.signal.aborted) return;
 
-			setEntityCollection({
-				games: Array.isArray(gameData) ? gameData : [],
-				companies: Array.isArray(companyData) ? companyData : [],
-				characters: Array.isArray(characterData) ? characterData : [],
-			});
+			setEntities([
+				...(Array.isArray(gameData)
+					? gameData.map((entity) => ({ entity, endpoint: "games" as const }))
+					: []),
+				...(Array.isArray(companyData)
+					? companyData.map((entity) => ({ entity, endpoint: "companies" as const }))
+					: []),
+				...(Array.isArray(characterData)
+					? characterData.map((entity) => ({ entity, endpoint: "characters" as const }))
+					: []),
+			]);
 
 			timerRef.current = null;
 		}, 500);
@@ -80,7 +86,7 @@ const Searchbar = () => {
 	return isMobile ? (
 		<h3>MOBILE DETECTED: {currentInput}</h3>
 	) : (
-		<DesktopSearchBar currentInput={currentInput} onChange={handleChange} entities={entityCollection} />
+		<DesktopSearchbar currentInput={currentInput} onChange={handleChange} entities={entities} />
 	);
 };
 

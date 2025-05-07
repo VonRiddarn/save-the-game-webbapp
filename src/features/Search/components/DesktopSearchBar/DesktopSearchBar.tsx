@@ -2,12 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import { SearchBarVesselProps } from "../../shared/types";
 import styles from "./DesktopSearchbar.module.scss";
 
-const DesktopSearchBar = (props: SearchBarVesselProps) => {
+const DesktopSearchbar = (props: SearchBarVesselProps) => {
 	const [dropdownActive, setDropdownActive] = useState(false);
 
 	const updateDropDown = useCallback(() => {
-		const hasAnyResults = Object.values(props.entities).some((arr) => arr.length > 0);
-		setDropdownActive(hasAnyResults);
+		setDropdownActive(props.entities.length > 0);
 	}, [props.entities]);
 
 	useEffect(() => {
@@ -47,17 +46,11 @@ const DesktopSearchBar = (props: SearchBarVesselProps) => {
 				</button>
 				{dropdownActive && (
 					<div className={styles["searchbar-desktop__dropdown"]}>
-						{props.entities.games.length > 0 &&
-							props.entities.games.map((game) => <div key={game.id}>{game.name}</div>)}
-
-						{props.entities.companies.length > 0 &&
-							props.entities.companies.map((company) => (
-								<div key={company.id}>{company.name}</div>
-							))}
-
-						{props.entities.characters.length > 0 &&
-							props.entities.characters.map((character) => (
-								<div key={character.id}>{character.name}</div>
+						{props.entities.length > 0 &&
+							props.entities.map(({ entity, endpoint }) => (
+								<div key={entity.id}>
+									{entity.name}({endpoint})
+								</div>
 							))}
 					</div>
 				)}
@@ -66,4 +59,4 @@ const DesktopSearchBar = (props: SearchBarVesselProps) => {
 	);
 };
 
-export default DesktopSearchBar;
+export default DesktopSearchbar;
