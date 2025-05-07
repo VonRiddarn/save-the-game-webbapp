@@ -1,0 +1,44 @@
+@use "../../../../styles/variables/index.scss" as vars;
+@use "sass:color";
+
+.search-bar {
+	$height: 32px;
+	$x-padding: 2rem;
+
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 $x-padding;
+
+	form {
+		width: 100%;
+
+		input {
+			width: 100%;
+			height: $height;
+			border-radius: calc($height * 0.5);
+			padding: 0 $height 0 1rem;
+		}
+
+		button {
+			position: absolute;
+			right: $x-padding;
+			color: vars.$brand-green;
+			width: auto;
+			height: auto;
+			background: none;
+			border: none;
+
+			svg {
+				width: $height;
+				height: $height;
+			}
+
+			&:hover {
+				cursor: pointer;
+				color: color.scale(vars.$brand-green, $lightness: -25%);
+			}
+		}
+	}
+}
