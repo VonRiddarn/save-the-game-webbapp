@@ -48,7 +48,17 @@ const DesktopSearchBar = (props: SearchBarVesselProps) => {
 				{dropdownActive && (
 					<div className={styles["searchbar-desktop__dropdown"]}>
 						{props.entities.games.length > 0 &&
-							props.entities.games.map((e) => <div key={e.id}>{e.name}</div>)}
+							props.entities.games.map((game) => <div key={game.id}>{game.name}</div>)}
+
+						{props.entities.companies.length > 0 &&
+							props.entities.companies.map((company) => (
+								<div key={company.id}>{company.name}</div>
+							))}
+
+						{props.entities.characters.length > 0 &&
+							props.entities.characters.map((character) => (
+								<div key={character.id}>{character.name}</div>
+							))}
 					</div>
 				)}
 			</form>
