@@ -2,10 +2,10 @@
 
 import { useHamburgerMenu } from "../../hooks/useHamburgerMenu";
 
-const HamburgerToggleButton = () => {
+const HamburgerButton = () => {
 	const { isOpen, toggleMenu } = useHamburgerMenu();
 
 	return <button onClick={toggleMenu}>Menu : {`${isOpen}`}</button>;
 };
 
-export default HamburgerToggleButton;
+export default HamburgerButton;
