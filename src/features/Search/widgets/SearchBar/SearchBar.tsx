@@ -2,7 +2,7 @@
 
 import { useIsMobile } from "@/hooks/useIsMobile";
 import DesktopSearchBar from "../../components/DesktopSearchbar/DesktopSearchbar";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // TODO: !! NOTE
 // Note:
@@ -12,13 +12,32 @@ import { useState } from "react";
 
 const Searchbar = () => {
 	const [currentInput, setCurrentInput] = useState("");
+	const timerRef = useRef<NodeJS.Timeout | null>(null);
 	const isMobile = useIsMobile();
 
-	// TODO: Automatic search fill
-	// Here we will later make a timer of like 0.5s that resets each time a new update is made.
-	// When the timer runs out, make a request to the API and collect any and all entities that match.
-	// This can be sent into the searchbar to get that sweet-sweet drop down
-	const handleChange = (newValue: string) => setCurrentInput(newValue);
+	// Debounce search
+	const handleChange = (newValue: string) => {
+		setCurrentInput(newValue);
+
+		// We need to use newValue because  setCurrentInput is not updated until next render
+		if (newValue.length < 2) return;
+
+		if (timerRef.current) {
+			clearTimeout(timerRef.current);
+		}
+
+		timerRef.current = setTimeout(() => {
+			console.log("Timer expired, perform search for:", newValue);
+			timerRef.current = null;
+		}, 500);
+	};
+
+	// Cleanup if we unmount the component
+	useEffect(() => {
+		return () => {
+			if (timerRef.current) clearTimeout(timerRef.current);
+		};
+	}, []);
 
 	if (isMobile === null) return null;
 
