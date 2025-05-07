@@ -20,7 +20,6 @@
 		cursor: pointer;
 
 		.hamburger-button__line {
-			background-color: color.scale(vars.$text-light, $lightness: -20%);
 			width: 80%; // Slight
 		}
 	}
