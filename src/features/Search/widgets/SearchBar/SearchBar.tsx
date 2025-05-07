@@ -3,12 +3,18 @@
 import { useIsMobile } from "@/hooks/useIsMobile";
 import DesktopSearchBar from "../../components/DesktopSearchbar/DesktopSearchbar";
 import { useEffect, useRef, useState } from "react";
-import { IGDBEntityExplicit } from "@/services/igdb/types";
 import { useIGDB } from "@/hooks/useIGDB";
+import { EntityCollection } from "../../shared/types";
 
 const Searchbar = () => {
+	const emptyCollection = {
+		games: [],
+		companies: [],
+		characters: [],
+	};
+
 	const [currentInput, setCurrentInput] = useState("");
-	const [fetchedEntities, setFetchedEntities] = useState<IGDBEntityExplicit[]>([]);
+	const [entityCollection, setEntityCollection] = useState<EntityCollection>(emptyCollection);
 	const timerRef = useRef<NodeJS.Timeout | null>(null);
 	const isMobile = useIsMobile();
 
@@ -27,12 +33,12 @@ const Searchbar = () => {
 
 		// We need to use newValue because  setCurrentInput is not updated until next render
 		if (newValue.length < 2) {
-			setFetchedEntities([]);
+			setEntityCollection(emptyCollection);
 			return;
 		}
 
 		timerRef.current = setTimeout(async () => {
-			setFetchedEntities([]);
+			setEntityCollection(emptyCollection);
 
 			// This is fugly.
 			// Normally I'd make one generic search to the /search api and typecheck the returns
@@ -43,13 +49,11 @@ const Searchbar = () => {
 				characters.query("characters", `fields *; search "${newValue}"; limit 5;`),
 			]);
 
-			const results = [
-				...(Array.isArray(gameData) ? gameData : []),
-				...(Array.isArray(companyData) ? companyData : []),
-				...(Array.isArray(characterData) ? characterData : []),
-			] as IGDBEntityExplicit[];
-
-			setFetchedEntities(results);
+			setEntityCollection({
+				games: Array.isArray(gameData) ? gameData : [],
+				companies: Array.isArray(companyData) ? companyData : [],
+				characters: Array.isArray(characterData) ? characterData : [],
+			});
 			timerRef.current = null;
 		}, 500);
 	};
@@ -66,7 +70,7 @@ const Searchbar = () => {
 	return isMobile ? (
 		<h3>MOBILE DETECTED: {currentInput}</h3>
 	) : (
-		<DesktopSearchBar currentInput={currentInput} onChange={handleChange} entities={fetchedEntities} />
+		<DesktopSearchBar currentInput={currentInput} onChange={handleChange} entities={entityCollection} />
 	);
 };
 

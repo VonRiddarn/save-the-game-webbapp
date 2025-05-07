@@ -6,14 +6,8 @@ const DesktopSearchBar = (props: SearchBarVesselProps) => {
 	const [dropdownActive, setDropdownActive] = useState(false);
 
 	const updateDropDown = useCallback(() => {
-		for (const ea in props.entities) {
-			if (ea.length > 0) {
-				setDropdownActive(true);
-				break;
-			}
-
-			setDropdownActive(false);
-		}
+		const hasAnyResults = Object.values(props.entities).some((arr) => arr.length > 0);
+		setDropdownActive(hasAnyResults);
 	}, [props.entities]);
 
 	useEffect(() => {
@@ -53,9 +47,8 @@ const DesktopSearchBar = (props: SearchBarVesselProps) => {
 				</button>
 				{dropdownActive && (
 					<div className={styles["searchbar-desktop__dropdown"]}>
-						{props.entities.map((e) => (
-							<div key={e.id}>{e.name}</div>
-						))}
+						{props.entities.games.length > 0 &&
+							props.entities.games.map((e) => <div key={e.id}>{e.name}</div>)}
 					</div>
 				)}
 			</form>
