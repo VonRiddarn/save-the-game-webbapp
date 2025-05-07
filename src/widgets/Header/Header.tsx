@@ -7,9 +7,11 @@ import HamburgerButton from "@/features/HamburgerMenu/components/HamburgerButton
 const Header = () => {
 	return (
 		<header className={styles["header"]}>
-			<Image src="/images/icons/icon.svg" alt="STG" width={64} height={45.5} />
-			<SearchBar />
-			<HamburgerButton />
+			<div className={styles["header__wrapper"]}>
+				<Image src="/images/icons/icon.svg" alt="STG" width={64} height={45.5} />
+				<SearchBar />
+				<HamburgerButton />
+			</div>
 			<HamburgerNavigationMenu />
 		</header>
 	);

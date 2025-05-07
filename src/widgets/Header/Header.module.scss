@@ -1,0 +1,29 @@
+@use "../../styles/variables/index.scss" as vars;
+
+.header {
+	position: fixed;
+	display: flex;
+
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	height: vars.$header-height;
+	background-color: vars.$brand-green;
+	.header__wrapper {
+		display: flex;
+		width: 100%;
+		max-width: 1024px;
+		margin: 0 auto;
+
+		transition: padding ease 0.3s;
+	}
+}
+
+@media (max-width: 1024px) {
+	.header {
+		.header__wrapper {
+			padding: 0 1rem;
+		}
+	}
+}
