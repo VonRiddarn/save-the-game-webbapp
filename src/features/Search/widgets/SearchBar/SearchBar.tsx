@@ -7,12 +7,6 @@ import { useIGDB } from "@/hooks/useIGDB";
 import { IGDBNamedEntityReference } from "@/services/igdb/types";
 
 const Searchbar = () => {
-	const emptyCollection = {
-		games: [],
-		companies: [],
-		characters: [],
-	};
-
 	const [currentInput, setCurrentInput] = useState("");
 	const [entities, setEntities] = useState<IGDBNamedEntityReference[]>([]);
 

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { SearchBarVesselProps } from "../../shared/types";
 import styles from "./DesktopSearchbar.module.scss";
+import EntityDropdownCard from "../EntityDropdownCard/EntityDropdownCard";
 
 const DesktopSearchbar = (props: SearchBarVesselProps) => {
 	const [dropdownActive, setDropdownActive] = useState(false);
@@ -20,7 +21,9 @@ const DesktopSearchbar = (props: SearchBarVesselProps) => {
 			}`}
 			tabIndex={0}
 			onFocus={() => updateDropDown()}
-			onBlur={() => setDropdownActive(false)}
+			onBlur={() => {
+				setTimeout(() => setDropdownActive(false), 100); // Disgusting hack because I was lazy before.
+			}}
 		>
 			<form>
 				<input
@@ -29,6 +32,7 @@ const DesktopSearchbar = (props: SearchBarVesselProps) => {
 					onChange={(event) => {
 						props.onChange(event.target.value);
 					}}
+					onSubmit={(e) => e.preventDefault()}
 				/>
 				<button type="submit">
 					<svg
@@ -48,9 +52,13 @@ const DesktopSearchbar = (props: SearchBarVesselProps) => {
 					<div className={styles["searchbar-desktop__dropdown"]}>
 						{props.entities.length > 0 &&
 							props.entities.map(({ entity, endpoint }) => (
-								<div key={entity.id}>
-									{entity.name}({endpoint})
-								</div>
+								<EntityDropdownCard
+									key={entity.id}
+									entityRef={{
+										entity: entity,
+										endpoint: endpoint,
+									}}
+								/>
 							))}
 					</div>
 				)}
