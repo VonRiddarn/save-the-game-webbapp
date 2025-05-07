@@ -1,43 +1,69 @@
-# Save the game
+# 🎮 Save the Game
 
-## Note
+## 🧠 About
 
-This project is currently being worked on, and this README serves the multi-purpose of being a note-block.  
-The reason for this is that due to this being an important document, I will eventually see what's in here later.
+**Save the Game** is a web app for browsing video games, as well as characters and companies related to them.
 
-# Ramblings and ideas
+You can:
 
-## DO NOT FORGET!!!!
+-   🔖 Save games, companies, and characters as favorites
+-   📝 Add personal notes
+-   ✅ Mark games as _ongoing_ or _completed_ in your playlist
 
-`features/.../Toast.tsx`
+It's a personalized way to explore, track, and manage your gaming interests!
 
+---
+
+## 🚀 Getting Started
+
+### 📦 Prerequisites
+
+You’ll need **Twitch API credentials** (used to access the [IGDB API](https://api-docs.igdb.com)).
+
+---
+
+### 🔑 Don't have a client ID and secret?
+
+1. Go to the official [IGDB API documentation](https://api-docs.igdb.com/#account-creation).
+2. Follow the steps to create an app via the [Twitch Developer Console](https://dev.twitch.tv/console/apps).
+3. Once created, you’ll receive a **Client ID** and **Client Secret**.
+4. Reference screenshots (helpful!):
+    - ![Twitch App Creation - Step 1](/repo/images/twitch-1.png)
+    - ![Twitch App Creation - Step 2](/repo/images/twitch-2.png)
+
+---
+
+### ✅ Already have a client ID and secret?
+
+Let’s go!!
+
+1. **Clone the repo**
+
+```bash
+git clone https://github.com/your-username/save-the-game.git
+cd save-the-game
 ```
-// TODO: Maybe add a dismiss status in the state instead...
-// Reason: If we was to add a dismiss-all button we would have to use the clear from the reducer.
-// In that case we won't be able to animate away the toasts!!! (damn it!!#"/UI")
-// So yeah,
-// TODO: Add toDismiss to state, or just add dismissed to state as is.
+
+2. **Install dependencies**
+
+```bash
+npm install
 ```
 
-## Route safety
+3. **Create your environment file**
+   In root (the folder above `src`) create a file and call it: `.env.local`
 
-Use the spread operator on a slug where the page is deeper than expected.  
-From there, use a custom hook that sends the user back to the route before the start of that slug.
+4. **Add your credentials**
 
-Eg:  
-`/games/[id]/[...badPath]`  
-Here we can determine that the path is not good and send the user back to:  
-`/games/[id]`  
-When doing this we will also send an object to session storage to tell that the user has been force directed.  
-This will allow us to trigger a notification.
+```bash
+NEXT_PUBLIC_IGDB_CLIENT_ID=your_client_id_here
+IGDB_CLIENT_SECRET=your_client_secret_here
+```
 
-This will require:
+Replace `your_client_id_here` and `your_client_secret_here` with your actual credentials from Twitch.
 
--   Clear, intentional routes
--   A custom hook
--   A toast component
+5. **Run the project**
 
-## Splitting context and hook files
-
-`hook` = CONSUMER of context  
-`context` = CREATOR / INITIALIZER of context
+```bash
+npm run dev
+```
