@@ -1,13 +1,24 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { SearchBarVesselProps } from "../../shared/types";
 import styles from "./DesktopSearchbar.module.scss";
 
 const DesktopSearchBar = (props: SearchBarVesselProps) => {
 	const [dropdownActive, setDropdownActive] = useState(false);
 
-	useEffect(() => {
-		setDropdownActive(props.entities.length > 0);
+	const updateDropDown = useCallback(() => {
+		for (const ea in props.entities) {
+			if (ea.length > 0) {
+				setDropdownActive(true);
+				break;
+			}
+
+			setDropdownActive(false);
+		}
 	}, [props.entities]);
+
+	useEffect(() => {
+		updateDropDown();
+	}, [props.entities, updateDropDown]);
 
 	return (
 		<div
@@ -15,9 +26,7 @@ const DesktopSearchBar = (props: SearchBarVesselProps) => {
 				dropdownActive && styles["searchbar-desktop--has-dropdown"]
 			}`}
 			tabIndex={0}
-			onFocus={() => {
-				if (props.entities.length > 0) setDropdownActive(true);
-			}}
+			onFocus={() => updateDropDown()}
 			onBlur={() => setDropdownActive(false)}
 		>
 			<form>
