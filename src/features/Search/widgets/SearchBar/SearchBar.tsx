@@ -39,7 +39,7 @@ const Searchbar = () => {
 			// but time restrictions makes this the "best" solution for now.
 			const [gameData, companyData, characterData] = await Promise.all([
 				games.query("games", `fields *; search "${newValue}"; limit 5;`),
-				companies.query("companies", `fields *; search "${newValue}"; limit 5;`),
+				companies.query("companies", `fields *; where name ~ "${newValue}"*; limit 5;`),
 				characters.query("characters", `fields *; search "${newValue}"; limit 5;`),
 			]);
 
