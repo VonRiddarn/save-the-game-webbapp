@@ -14,6 +14,10 @@ const Searchbar = () => {
 	const [currentInput, setCurrentInput] = useState("");
 	const isMobile = useIsMobile();
 
+	// TODO: Automatic search fill
+	// Here we will later make a timer of like 0.5s that resets each time a new update is made.
+	// When the timer runs out, make a request to the API and collect any and all entities that match.
+	// This can be sent into the searchbar to get that sweet-sweet drop down
 	const handleChange = (newValue: string) => setCurrentInput(newValue);
 
 	if (isMobile === null) return null;
