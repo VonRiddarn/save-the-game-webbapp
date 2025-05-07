@@ -4,15 +4,15 @@
 .searchbar-desktop {
 	width: 100%;
 	$height: 32px;
-	$x-padding: 2rem;
 
 	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 0 $x-padding;
+	padding: 0 2rem;
 
 	form {
+		position: relative;
 		width: 100%;
 
 		input {
@@ -25,7 +25,7 @@
 
 		button {
 			position: absolute;
-			right: $x-padding;
+			right: 0;
 			color: color.scale(vars.$brand-green, $lightness: -15%);
 			width: auto;
 			height: auto;
