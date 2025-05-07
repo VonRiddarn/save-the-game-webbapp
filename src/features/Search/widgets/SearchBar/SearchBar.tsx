@@ -23,7 +23,7 @@ const Searchbar = () => {
 	if (isMobile === null) return null;
 
 	return isMobile ? (
-		<div>{currentInput}</div>
+		<h3>MOBILE DETECTED: {currentInput}</h3>
 	) : (
 		<DesktopSearchBar currentInput={currentInput} onChange={handleChange} entities={[]} />
 	);
