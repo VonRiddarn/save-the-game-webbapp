@@ -15,10 +15,12 @@ const Searchbar = () => {
 
 	const [currentInput, setCurrentInput] = useState("");
 	const [entityCollection, setEntityCollection] = useState<EntityCollection>(emptyCollection);
+
 	const timerRef = useRef<NodeJS.Timeout | null>(null);
+	const abortRef = useRef<AbortController | null>(null); // ← new
+
 	const isMobile = useIsMobile();
 
-	// 3 different searches for easier semantics
 	const games = useIGDB();
 	const companies = useIGDB();
 	const characters = useIGDB();
@@ -27,9 +29,8 @@ const Searchbar = () => {
 	const handleChange = (newValue: string) => {
 		setCurrentInput(newValue);
 
-		if (timerRef.current) {
-			clearTimeout(timerRef.current);
-		}
+		if (timerRef.current) clearTimeout(timerRef.current);
+		if (abortRef.current) abortRef.current.abort();
 
 		// We need to use newValue because  setCurrentInput is not updated until next render
 		if (newValue.length < 2) {
@@ -40,20 +41,28 @@ const Searchbar = () => {
 		timerRef.current = setTimeout(async () => {
 			setEntityCollection(emptyCollection);
 
-			// This is fugly.
-			// Normally I'd make one generic search to the /search api and typecheck the returns
-			// but time restrictions makes this the "best" solution for now.
+			const controller = new AbortController();
+			abortRef.current = controller;
+
 			const [gameData, companyData, characterData] = await Promise.all([
-				games.query("games", `fields *; search "${newValue}"; limit 5;`),
-				companies.query("companies", `fields *; where name ~ "${newValue}"*; limit 5;`),
-				characters.query("characters", `fields *; search "${newValue}"; limit 5;`),
+				games.query("games", `fields *; search "${newValue}"; limit 5;`, controller.signal),
+				companies.query(
+					"companies",
+					`fields *; where name ~ "${newValue}"*; limit 5;`,
+					controller.signal
+				),
+				characters.query("characters", `fields *; search "${newValue}"; limit 5;`, controller.signal),
 			]);
+
+			// Don't update state if aborted
+			if (controller.signal.aborted) return;
 
 			setEntityCollection({
 				games: Array.isArray(gameData) ? gameData : [],
 				companies: Array.isArray(companyData) ? companyData : [],
 				characters: Array.isArray(characterData) ? characterData : [],
 			});
+
 			timerRef.current = null;
 		}, 500);
 	};
@@ -62,6 +71,7 @@ const Searchbar = () => {
 	useEffect(() => {
 		return () => {
 			if (timerRef.current) clearTimeout(timerRef.current);
+			if (abortRef.current) abortRef.current.abort();
 		};
 	}, []);
 
