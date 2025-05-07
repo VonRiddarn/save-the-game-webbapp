@@ -1,10 +1,15 @@
-import styles from "./DesktopSearchBar.module.scss";
+import { SearchBarVesselProps } from "../../shared/types";
+import styles from "./DesktopSearchbar.module.scss";
 
-const DesktopSearchBar = () => {
+const DesktopSearchBar = (props: SearchBarVesselProps) => {
 	return (
-		<div className={styles["search-bar"]}>
+		<div className={styles["searchbar-desktop"]}>
 			<form>
-				<input type="search" />
+				<input
+					type="search"
+					value={props.currentInput}
+					onChange={(event) => props.onChange(event.target.value)}
+				/>
 				<button type="submit">
 					<svg
 						width="32px"
