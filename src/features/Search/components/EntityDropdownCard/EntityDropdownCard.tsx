@@ -1,6 +1,5 @@
-import { Character, Company, Game, IGDBNamedEntityReference } from "@/services/igdb/types";
+import { IGDBNamedEntityReference } from "@/services/igdb/types";
 import Link from "next/link";
-import Image from "next/image";
 import React from "react";
 import { useEntityImage } from "@/hooks/useEntityImage";
 
