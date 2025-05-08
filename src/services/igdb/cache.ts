@@ -1,4 +1,5 @@
-import { IGDBEntityExplicit } from "./types";
+import { IGDBEntityExplicit, IGDBNamedEntityReference } from "./types";
+import { getEndpointFromKey } from "./utilities";
 
 const STORAGE_KEY = "Visited_Entities";
 
@@ -9,6 +10,16 @@ const getCompositeKey = (endpoint: string, slug: string) => `${endpoint}_${slug}
 export const getCachedEntities = (): EntityCache => {
 	const data = sessionStorage.getItem(STORAGE_KEY);
 	return data ? JSON.parse(data) : {};
+};
+
+export const getCachedEntitiesAsArray = (): IGDBNamedEntityReference[] => {
+	const entities = getCachedEntities();
+	return Object.entries(entities).map(([key, value]) => {
+		return {
+			entity: value,
+			endpoint: getEndpointFromKey(key),
+		};
+	});
 };
 
 const saveCachedEntities = (entities: EntityCache): void => {
