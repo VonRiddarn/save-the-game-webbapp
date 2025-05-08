@@ -1,6 +1,6 @@
 import { IGDBEntityExplicit } from "./types";
 
-const getSessionStorageKey = (endpoint: string, slug: string) => `${endpoint}_${slug}`;
+const getSessionStorageKey = (endpoint: string, slug: string) => `Cached_${endpoint}_${slug}`;
 
 export const getCachedEntity = (endpoint: string, slug: string): IGDBEntityExplicit | null => {
 	const key = getSessionStorageKey(endpoint, slug);
