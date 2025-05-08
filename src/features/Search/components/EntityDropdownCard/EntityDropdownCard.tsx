@@ -1,7 +1,6 @@
 import { IGDBNamedEntityReference } from "@/services/igdb/types";
 import Link from "next/link";
 import React from "react";
-import { useEntityImage } from "@/hooks/useEntityImage";
 import IGDBImage from "@/components/IGDBImage/IGDBImage";
 
 type EntityDropdownCardProps = {
