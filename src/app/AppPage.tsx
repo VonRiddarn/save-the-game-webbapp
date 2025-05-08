@@ -1,7 +1,7 @@
 "use client";
 
 import DGameList from "@/debug/DGameList";
-import { getCachedEntitiesAsArray } from "@/services/igdb/cache";
+import { getCachedEntitiesAsArray } from "@/services/igdb/visitedEntitiesCache";
 
 const AppPage = () => {
 	const entities = getCachedEntitiesAsArray();
