@@ -6,7 +6,7 @@ type EntityCache = Record<string, IGDBEntityExplicit>;
 
 const getCompositeKey = (endpoint: string, slug: string) => `${endpoint}_${slug}`;
 
-const getCachedEntities = (): EntityCache => {
+export const getCachedEntities = (): EntityCache => {
 	const data = sessionStorage.getItem(STORAGE_KEY);
 	return data ? JSON.parse(data) : {};
 };
