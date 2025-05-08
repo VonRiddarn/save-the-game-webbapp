@@ -21,8 +21,13 @@ const DesktopSearchbar = (props: SearchBarVesselProps) => {
 			}`}
 			tabIndex={0}
 			onFocus={() => updateDropDown()}
-			onBlur={() => {
-				setTimeout(() => setDropdownActive(false), 100); // Disgusting hack because I was lazy before.
+			onBlur={(event) => {
+				const relatedTarget = event.relatedTarget as HTMLElement | null;
+				const currentTarget = event.currentTarget as HTMLElement;
+
+				if (!relatedTarget || !currentTarget.contains(relatedTarget)) {
+					setDropdownActive(false);
+				}
 			}}
 		>
 			<form>
