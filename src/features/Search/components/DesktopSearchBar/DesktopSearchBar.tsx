@@ -48,8 +48,8 @@ const DesktopSearchbar = (props: SearchBarVesselProps) => {
 						/>
 					</svg>
 				</button>
-				{dropdownActive && (
-					<div className={styles["searchbar-desktop__dropdown"]}>
+				<div className={styles["searchbar-desktop__dropdown"]}>
+					<div>
 						{props.entities.length > 0 &&
 							props.entities.map(({ entity, endpoint }) => (
 								<EntityDropdownCard
@@ -61,7 +61,7 @@ const DesktopSearchbar = (props: SearchBarVesselProps) => {
 								/>
 							))}
 					</div>
-				)}
+				</div>
 			</form>
 		</div>
 	);
