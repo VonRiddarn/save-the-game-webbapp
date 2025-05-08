@@ -10,7 +10,7 @@ const Header = () => {
 		<header className={styles["header"]}>
 			<div className={styles["header__wrapper"]}>
 				<Link href={"/"}>
-					<Image src="/images/icons/icon.svg" alt="STG" width={64} height={45.5} />
+					<Image src="/images/icons/logo/logo-default.svg" alt="STG" width={64} height={45.5} />
 				</Link>
 				<Searchbar />
 				<HamburgerButton />
