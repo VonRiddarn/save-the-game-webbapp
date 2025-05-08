@@ -8,7 +8,6 @@ const AppPage = () => {
 
 	return (
 		<main>
-			<DGameList />
 			<div>
 				<h2>visited</h2>
 				{entities.map((er) => {
