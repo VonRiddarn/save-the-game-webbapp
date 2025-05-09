@@ -5,6 +5,7 @@ import DesktopSearchbar from "../../components/DesktopSearchbar/DesktopSearchbar
 import { useEffect, useRef, useState } from "react";
 import { useIGDB } from "@/hooks/useIGDB";
 import { IGDBNamedEntityReference } from "@/services/igdb/types";
+import MobileSearchBar from "../../components/MobileSearchBar/MobileSearchBar";
 
 const Searchbar = () => {
 	const [currentInput, setCurrentInput] = useState("");
@@ -78,7 +79,7 @@ const Searchbar = () => {
 	if (isMobile === null) return null;
 
 	return isMobile ? (
-		<h3>MOBILE DETECTED: {currentInput}</h3>
+		<MobileSearchBar />
 	) : (
 		<DesktopSearchbar currentInput={currentInput} onChange={handleChange} entities={entities} />
 	);

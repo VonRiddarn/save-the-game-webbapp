@@ -1,0 +1,37 @@
+.mobile-searchbar {
+	$height: 32px;
+
+	width: 100%;
+
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 2rem;
+
+	.mobile-searchbar__form {
+		position: fixed;
+		top: 0;
+		width: 100%;
+
+		input {
+			width: 100%;
+		}
+	}
+
+	.mobile-searchbar__button {
+		width: 100%;
+		height: $height;
+		border-radius: $height;
+		border: none;
+		background-color: white;
+		color: rgba(0, 0, 0, 0.555);
+
+		text-align: left;
+		padding: 0 1rem;
+	}
+
+	.mobile-searchbar__backdrop {
+		display: none;
+	}
+}
