@@ -45,6 +45,7 @@ const DesktopSearchbar = ({ entities, handleChange }: DesktopSearchbarProps) => 
 						setCurrentInput(event.target.value);
 					}}
 					onSubmit={(e) => e.preventDefault()}
+					placeholder="Search for anything..."
 				/>
 				<button type="submit">
 					<svg
