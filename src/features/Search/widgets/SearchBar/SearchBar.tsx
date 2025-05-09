@@ -9,9 +9,7 @@ import MobileSearchbar from "../../components/MobileSearchbar/MobileSearchbar";
 import { SearchProvider } from "./context/SearchContext";
 
 const Searchbar = () => {
-	const [currentInput, setCurrentInput] = useState("");
 	const [entities, setEntities] = useState<IGDBNamedEntityReference[]>([]);
-	const [dropdownActive, setDropdownActive] = useState(false);
 
 	const timerRef = useRef<NodeJS.Timeout | null>(null);
 	const abortRef = useRef<AbortController | null>(null); // ← new
