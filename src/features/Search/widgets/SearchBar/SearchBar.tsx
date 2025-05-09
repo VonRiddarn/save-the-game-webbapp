@@ -80,7 +80,13 @@ const Searchbar = () => {
 	if (isMobile === null) return null;
 
 	return isMobile ? (
-		<MobileSearchbar />
+		<MobileSearchbar
+			currentInput={currentInput}
+			onChange={handleChange}
+			entities={entities}
+			dropdownActive={dropdownActive}
+			setDropdownActive={setDropdownActive}
+		/>
 	) : (
 		<DesktopSearchbar
 			currentInput={currentInput}
