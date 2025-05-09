@@ -1,18 +1,30 @@
-import { useCallback, useEffect, useState } from "react";
-import { SearchBarVesselProps } from "../../shared/types";
+import { useCallback, useEffect } from "react";
 import styles from "./DesktopSearchbar.module.scss";
 import EntityDropdownCard from "../EntityDropdownCard/EntityDropdownCard";
+import { IGDBNamedEntityReference } from "@/services/igdb/types";
 
-const DesktopSearchbar = (props: SearchBarVesselProps) => {
-	const [dropdownActive, setDropdownActive] = useState(false);
+type DesktopSearchbarProps = {
+	currentInput: string;
+	onChange: (value: string) => void;
+	entities: IGDBNamedEntityReference[];
+	dropdownActive: boolean;
+	setDropdownActive: (value: boolean) => void;
+};
 
+const DesktopSearchbar = ({
+	entities,
+	currentInput,
+	onChange,
+	dropdownActive,
+	setDropdownActive,
+}: DesktopSearchbarProps) => {
 	const updateDropDown = useCallback(() => {
-		setDropdownActive(props.entities.length > 0);
-	}, [props.entities]);
+		setDropdownActive(entities.length > 0);
+	}, [setDropdownActive, entities.length]);
 
 	useEffect(() => {
 		updateDropDown();
-	}, [props.entities, updateDropDown]);
+	}, [entities, updateDropDown]);
 
 	return (
 		<div
@@ -33,9 +45,9 @@ const DesktopSearchbar = (props: SearchBarVesselProps) => {
 			<form>
 				<input
 					type="search"
-					value={props.currentInput}
+					value={currentInput}
 					onChange={(event) => {
-						props.onChange(event.target.value);
+						onChange(event.target.value);
 					}}
 					onSubmit={(e) => e.preventDefault()}
 				/>
@@ -55,8 +67,8 @@ const DesktopSearchbar = (props: SearchBarVesselProps) => {
 				</button>
 				<div className={styles["searchbar-desktop__dropdown"]}>
 					<div>
-						{props.entities.length > 0 &&
-							props.entities.map(({ entity, endpoint }) => (
+						{entities.length > 0 &&
+							entities.map(({ entity, endpoint }) => (
 								<EntityDropdownCard
 									key={entity.id}
 									entityRef={{

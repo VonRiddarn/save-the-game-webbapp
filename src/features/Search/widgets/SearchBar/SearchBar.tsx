@@ -5,11 +5,12 @@ import DesktopSearchbar from "../../components/DesktopSearchbar/DesktopSearchbar
 import { useEffect, useRef, useState } from "react";
 import { useIGDB } from "@/hooks/useIGDB";
 import { IGDBNamedEntityReference } from "@/services/igdb/types";
-import MobileSearchBar from "../../components/MobileSearchBar/MobileSearchBar";
+import MobileSearchBar from "../../components/MobileSearchBar/MobileSearchbar";
 
 const Searchbar = () => {
 	const [currentInput, setCurrentInput] = useState("");
 	const [entities, setEntities] = useState<IGDBNamedEntityReference[]>([]);
+	const [dropdownActive, setDropdownActive] = useState(false);
 
 	const timerRef = useRef<NodeJS.Timeout | null>(null);
 	const abortRef = useRef<AbortController | null>(null); // ← new
@@ -81,7 +82,13 @@ const Searchbar = () => {
 	return isMobile ? (
 		<MobileSearchBar />
 	) : (
-		<DesktopSearchbar currentInput={currentInput} onChange={handleChange} entities={entities} />
+		<DesktopSearchbar
+			currentInput={currentInput}
+			onChange={handleChange}
+			entities={entities}
+			dropdownActive={dropdownActive}
+			setDropdownActive={setDropdownActive}
+		/>
 	);
 };
 
