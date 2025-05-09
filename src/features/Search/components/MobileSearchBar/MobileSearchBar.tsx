@@ -36,6 +36,7 @@ const MobileSearchbar = ({ entities, handleSearch, handleChange }: MobileSearchb
 						handleChange(event.target.value);
 						setCurrentInput(event.target.value);
 					}}
+					placeholder="Search for anything..."
 				/>
 				<button type="submit">
 					<svg
@@ -65,7 +66,7 @@ const MobileSearchbar = ({ entities, handleSearch, handleChange }: MobileSearchb
 					inputRef.current?.focus();
 				}}
 			>
-				Click to search
+				Search for anything...
 			</button>
 
 			<div
