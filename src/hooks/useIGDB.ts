@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCallback } from "react";
 
-const useIGDB = <T>() => {
+export const useIGDB = <T>() => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
@@ -42,5 +42,3 @@ const useIGDB = <T>() => {
 
 	return { query, loading, error };
 };
-
-export default useIGDB;

@@ -1,4 +1,4 @@
-import { IGDBEntityExplicit, IGDBNamedEntityReference } from "./types";
+import { IGDBEntityExplicit, IGDBMainEntityReferenceFull } from "./types";
 import { getEndpointFromKey } from "./utilities";
 
 const STORAGE_KEY = "Visited_Entities";
@@ -12,7 +12,7 @@ export const getCachedEntities = (): EntityCache => {
 	return data ? JSON.parse(data) : {};
 };
 
-export const getCachedEntitiesAsArray = (): IGDBNamedEntityReference[] => {
+export const getCachedEntitiesAsArray = (): IGDBMainEntityReferenceFull[] => {
 	const entities = getCachedEntities();
 	return Object.entries(entities).map(([key, value]) => {
 		return {

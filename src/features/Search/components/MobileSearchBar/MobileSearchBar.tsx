@@ -1,4 +1,4 @@
-import { IGDBNamedEntityReference } from "@/services/igdb/types";
+import { IGDBMainEntityReferenceFull } from "@/services/igdb/types";
 import styles from "./MobileSearchBar.module.scss";
 import SearchbarDropdown from "../SearchbarDropdown/SearchbarDropdown";
 import { useSearch } from "../../widgets/Searchbar/context/SearchContext";
@@ -7,7 +7,7 @@ import { useRef } from "react";
 type MobileSearchbarProps = {
 	handleChange: (value: string) => void;
 	handleSearch: (term: string) => void;
-	entities: IGDBNamedEntityReference[];
+	entities: IGDBMainEntityReferenceFull[];
 };
 
 const MobileSearchbar = ({ entities, handleSearch, handleChange }: MobileSearchbarProps) => {

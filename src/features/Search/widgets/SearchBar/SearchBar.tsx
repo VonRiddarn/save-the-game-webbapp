@@ -4,12 +4,12 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import DesktopSearchbar from "../../components/DesktopSearchbar/DesktopSearchbar";
 import { useEffect, useRef, useState } from "react";
 import { useIGDB } from "@/hooks/useIGDB";
-import { IGDBNamedEntityReference } from "@/services/igdb/types";
+import { IGDBMainEntityReferenceFull } from "@/services/igdb/types";
 import MobileSearchbar from "../../components/MobileSearchbar/MobileSearchbar";
 import { SearchProvider } from "./context/SearchContext";
 
 const Searchbar = () => {
-	const [entities, setEntities] = useState<IGDBNamedEntityReference[]>([]);
+	const [entities, setEntities] = useState<IGDBMainEntityReferenceFull[]>([]);
 
 	const timerRef = useRef<NodeJS.Timeout | null>(null);
 	const abortRef = useRef<AbortController | null>(null); // ← new

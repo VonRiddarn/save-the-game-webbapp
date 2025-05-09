@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useIGDB } from "@/hooks/useIGDB";
-import { Game } from "@/services/igdb/types";
+import { IGDBGame } from "@/services/igdb/types";
 
 const PopularGamesList = () => {
-	const { query, loading, error } = useIGDB<Game[]>();
-	const [games, setGames] = useState<Game[]>([]);
+	const { query, loading, error } = useIGDB<IGDBGame[]>();
+	const [games, setGames] = useState<IGDBGame[]>([]);
 
 	useEffect(() => {
 		query("games", "fields *; limit 10;").then((data) => {

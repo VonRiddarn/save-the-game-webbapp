@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from "react";
 import styles from "./DesktopSearchbar.module.scss";
-import { IGDBNamedEntityReference } from "@/services/igdb/types";
+import { IGDBMainEntityReferenceFull } from "@/services/igdb/types";
 import SearchbarDropdown from "../SearchbarDropdown/SearchbarDropdown";
 import { useSearch } from "../../widgets/Searchbar/context/SearchContext";
 
 type DesktopSearchbarProps = {
 	handleChange: (value: string) => void;
 	handleSearch: (term: string) => void;
-	entities: IGDBNamedEntityReference[];
+	entities: IGDBMainEntityReferenceFull[];
 };
 
 const DesktopSearchbar = ({ entities, handleSearch, handleChange }: DesktopSearchbarProps) => {

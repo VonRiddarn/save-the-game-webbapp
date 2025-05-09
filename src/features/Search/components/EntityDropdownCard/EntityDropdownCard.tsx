@@ -1,10 +1,10 @@
-import { IGDBNamedEntityReference } from "@/services/igdb/types";
+import { IGDBMainEntityReferenceFull } from "@/services/igdb/types";
 import Link from "next/link";
 import React from "react";
 import IGDBImage from "@/components/IGDBImage/IGDBImage";
 
 type EntityDropdownCardProps = {
-	entityRef: IGDBNamedEntityReference;
+	entityRef: IGDBMainEntityReferenceFull;
 };
 
 const EntityDropdownCard = ({ entityRef }: EntityDropdownCardProps) => {

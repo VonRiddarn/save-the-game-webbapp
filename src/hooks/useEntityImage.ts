@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Character, Company, Game, IGDBNamedEntity, IGDBNamedEntityEndpoint } from "@/services/igdb/types";
+import {
+	IGDBCharacter,
+	IGDBCompany,
+	IGDBGame,
+	IGDBNamedEntity,
+	IGDBMainEntityEndpoint,
+} from "@/services/igdb/types";
 import { useIGDB } from "./useIGDB";
 
 type IGDBImage = {
@@ -10,7 +16,7 @@ type IGDBImage = {
 
 export const useEntityImage = (
 	entity: IGDBNamedEntity,
-	endpoint: IGDBNamedEntityEndpoint
+	endpoint: IGDBMainEntityEndpoint
 ): IGDBImage | null => {
 	const { query } = useIGDB();
 	const [image, setImage] = useState<IGDBImage | null>(null);
@@ -26,19 +32,19 @@ export const useEntityImage = (
 				case "games":
 					result = (await query(
 						"covers",
-						`fields image_id,height,width; where id = ${(entity as Game).cover};`
+						`fields image_id,height,width; where id = ${(entity as IGDBGame).cover};`
 					)) as IGDBImage[];
 					break;
 				case "companies":
 					result = (await query(
 						"company_logos",
-						`fields image_id,height,width; where id = ${(entity as Company).logo};`
+						`fields image_id,height,width; where id = ${(entity as IGDBCompany).logo};`
 					)) as IGDBImage[];
 					break;
 				case "characters":
 					result = (await query(
 						"character_mug_shots",
-						`fields image_id,height,width; where id = ${(entity as Character).mug_shot};`
+						`fields image_id,height,width; where id = ${(entity as IGDBCharacter).mug_shot};`
 					)) as IGDBImage[];
 					break;
 			}

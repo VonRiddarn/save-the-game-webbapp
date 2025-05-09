@@ -6,11 +6,16 @@ export type Token = {
 };
 
 // Entities
-export type IGDBNamedEntityEndpoint = "games" | "companies" | "characters";
+export type IGDBMainEntityEndpoint = "games" | "companies" | "characters";
 
-export type IGDBNamedEntityReference = {
-	entity: IGDBNamedEntity;
-	endpoint: IGDBNamedEntityEndpoint;
+export type IGDBMainEntityReferenceFull = {
+	entity: IGDBMainEntity;
+	endpoint: IGDBMainEntityEndpoint;
+};
+
+export type IGDBMainEntityReferenceId = {
+	id: number;
+	endpoint: IGDBMainEntityEndpoint;
 };
 
 export type IGDBEntity = {
@@ -23,55 +28,28 @@ export type IGDBEntity = {
 export type IGDBNamedEntity = IGDBEntity & {
 	name: string;
 	slug: string;
-	url: string;
 };
 
-export type IGDBEntityExplicit = Game | Platform | Character | Company;
+export type IGDBMainEntity = IGDBGame | IGDBCompany | IGDBCharacter;
 
-export type Game = IGDBNamedEntity & {
+export type IGDBGame = IGDBNamedEntity & {
 	artworks: number[];
 	category: number;
 	cover: number;
-	external_games: number[];
 	first_release_date: number;
 	game_modes: number[];
 	genres: number[];
 	involved_companies: number[];
-	keywords: number[];
-	platforms: number[];
-	player_perspectives: number[];
 	rating: number;
-	rating_count: number;
-	release_dates: number[];
 	screenshots: number[];
 	similar_games: number[];
 	summary: string;
-	tags: number[];
 	themes: number[];
 	total_rating: number;
-	total_rating_count: number;
-	videos: number[];
-	websites: number[];
-	language_supports: number[];
-	game_localizations: number[];
-	game_type: number;
+	game_type: number; // 0 = Main game, anything else is expansions, dlc, etc
 };
 
-export type Platform = IGDBNamedEntity & {
-	abbreviation: string;
-	alternative_name: string;
-	category: number;
-	platform_logo: number;
-	platform_family: number;
-	summary: string;
-	versions: number[];
-	websites: number[];
-	platform_type: number;
-};
-
-export type Genre = IGDBNamedEntity;
-
-export type Character = IGDBNamedEntity & {
+export type IGDBCharacter = IGDBNamedEntity & {
 	akas: string[];
 	description: string;
 	games: number[];
@@ -80,7 +58,7 @@ export type Character = IGDBNamedEntity & {
 	character_species: number;
 };
 
-export type Company = IGDBNamedEntity & {
+export type IGDBCompany = IGDBNamedEntity & {
 	change_date: number;
 	change_date_category: number;
 	country: number;
@@ -92,17 +70,4 @@ export type Company = IGDBNamedEntity & {
 	start_date_category: number;
 	status: number;
 	start_date_format: number;
-};
-
-export type ReleaseDate = IGDBEntity & {
-	category: number;
-	date: number;
-	game: number;
-	human: string;
-	m: number;
-	platform: number;
-	region: number;
-	y: number;
-	date_format: number;
-	release_region: number;
 };

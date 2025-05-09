@@ -1,8 +1,8 @@
 import { useEntityImage } from "@/hooks/useEntityImage";
-import { IGDBNamedEntityEndpoint, IGDBNamedEntityReference } from "@/services/igdb/types";
+import { IGDBMainEntityEndpoint, IGDBMainEntityReferenceFull } from "@/services/igdb/types";
 
 type IGDBImageProps = {
-	entityRef: IGDBNamedEntityReference;
+	entityRef: IGDBMainEntityReferenceFull;
 };
 
 const IGDBImage = ({ entityRef }: IGDBImageProps) => {
@@ -16,7 +16,7 @@ const IGDBImage = ({ entityRef }: IGDBImageProps) => {
 	);
 };
 
-const getFallbackImage = (endpoint: IGDBNamedEntityEndpoint): string => {
+const getFallbackImage = (endpoint: IGDBMainEntityEndpoint): string => {
 	switch (endpoint) {
 		case "games":
 			return "/images/icons/entities/icon-game-default.png";

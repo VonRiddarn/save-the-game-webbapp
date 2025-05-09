@@ -3,7 +3,7 @@
 import { useNotifications } from "@/features/notification-center";
 import { useIGDB } from "@/hooks/useIGDB";
 import { getCachedEntity, setCachedEntity } from "@/services/igdb/visitedEntitiesCache";
-import { Game } from "@/services/igdb/types";
+import { IGDBGame } from "@/services/igdb/types";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuid4 } from "uuid";
@@ -13,8 +13,8 @@ type GamePageProps = {
 };
 
 const GamePage = ({ slug }: GamePageProps) => {
-	const { query, loading, error } = useIGDB<Game[]>();
-	const [game, setGame] = useState<Game | null>(null);
+	const { query, loading, error } = useIGDB<IGDBGame[]>();
+	const [game, setGame] = useState<IGDBGame | null>(null);
 	const hasFiredRef = useRef(false);
 	const ENDPOINT = "games";
 
@@ -27,7 +27,7 @@ const GamePage = ({ slug }: GamePageProps) => {
 		// This means we can keep the cache for stuff when manually entering an adress in the url!
 		const cached = getCachedEntity(ENDPOINT, slug);
 		if (cached) {
-			setGame((cached as Game) ?? null);
+			setGame((cached as IGDBGame) ?? null);
 			hasFiredRef.current = true;
 			return;
 		}

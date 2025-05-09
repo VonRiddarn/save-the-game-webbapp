@@ -1,9 +1,9 @@
-import { IGDBNamedEntityReference } from "@/services/igdb/types";
+import { IGDBMainEntityReferenceFull } from "@/services/igdb/types";
 import EntityDropdownCard from "../EntityDropdownCard/EntityDropdownCard";
 
 type SearchbarDropdownProps = {
 	className: string;
-	entities: IGDBNamedEntityReference[];
+	entities: IGDBMainEntityReferenceFull[];
 };
 
 const SearchbarDropdown = ({ className, entities }: SearchbarDropdownProps) => {
