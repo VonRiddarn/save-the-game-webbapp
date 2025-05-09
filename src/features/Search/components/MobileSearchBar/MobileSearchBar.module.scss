@@ -1,3 +1,6 @@
+@use "../../../../styles/variables/index.scss" as vars;
+@use "sass:color";
+
 .mobile-searchbar {
 	$height: 32px;
 
@@ -24,10 +27,30 @@
 			height: 100%;
 			padding: 0 1rem;
 			border-radius: $height;
+			border: none;
 
 			&:focus {
 				outline: none;
 				box-shadow: none;
+			}
+		}
+		button {
+			position: absolute;
+			right: 0;
+			color: color.scale(vars.$brand-green, $lightness: -15%);
+			width: auto;
+			height: auto;
+			background: none;
+			border: none;
+
+			svg {
+				width: $height;
+				height: $height;
+			}
+
+			&:hover {
+				cursor: pointer;
+				color: color.scale(vars.$brand-green, $lightness: -25%);
 			}
 		}
 	}
