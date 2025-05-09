@@ -31,7 +31,10 @@ const MobileSearchbar = ({
 			>
 				Click to search
 			</button>
-			<div className={`${styles["mobile-searchbar__backdrop"]}`}></div>
+			<div
+				className={`${styles["mobile-searchbar__backdrop"]}`}
+				style={{ pointerEvents: dropdownActive ? "auto" : "none" }}
+			></div>
 		</div>
 	);
 };
