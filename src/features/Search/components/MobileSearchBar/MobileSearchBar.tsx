@@ -1,5 +1,6 @@
 import { IGDBNamedEntityReference } from "@/services/igdb/types";
 import styles from "./MobileSearchBar.module.scss";
+import SearchbarDropdown from "../SearchbarDropdown/SearchbarDropdown";
 
 type MobileSearchbarProps = {
 	currentInput: string;
@@ -32,12 +33,14 @@ const MobileSearchbar = ({
 					onSubmit={(e) => e.preventDefault()}
 				/>
 			</form>
+			<SearchbarDropdown className={styles["mobile-searchbar__dropdown"]} entities={entities} />
 			<button
 				className={`${styles["mobile-searchbar__button"]}`}
 				onClick={() => setDropdownActive(true)}
 			>
 				Click to search
 			</button>
+
 			<div
 				className={`${styles["mobile-searchbar__backdrop"]}`}
 				style={{ pointerEvents: dropdownActive ? "auto" : "none" }}
