@@ -1,0 +1,13 @@
+.content {
+	display: grid;
+	grid-template-columns: 700px 300px;
+	grid-template-areas: "primary secondary";
+
+	width: 100%;
+	max-width: 1024;
+	margin: 0 auto;
+}
+
+.panel-visited {
+	grid-area: secondary;
+}
