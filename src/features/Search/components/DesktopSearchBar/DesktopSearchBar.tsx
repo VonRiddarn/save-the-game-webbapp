@@ -28,8 +28,8 @@ const DesktopSearchbar = ({
 
 	return (
 		<div
-			className={`${styles["searchbar-desktop"]} ${
-				dropdownActive && styles["searchbar-desktop--has-dropdown"]
+			className={`${styles["desktop-searchbar"]} ${
+				dropdownActive ? styles["desktop-searchbar--active"] : ""
 			}`}
 			tabIndex={0}
 			onFocus={() => updateDropDown()}
@@ -65,7 +65,7 @@ const DesktopSearchbar = ({
 						/>
 					</svg>
 				</button>
-				<div className={styles["searchbar-desktop__dropdown"]}>
+				<div className={styles["desktop-searchbar__dropdown"]}>
 					<div>
 						{entities.length > 0 &&
 							entities.map(({ entity, endpoint }) => (
