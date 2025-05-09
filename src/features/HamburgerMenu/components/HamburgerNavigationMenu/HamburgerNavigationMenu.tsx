@@ -31,7 +31,9 @@ const HamburgerNavigationMenu = () => {
 				}`}
 			>
 				<header className={styles["hamburger-navigation-menu__header"]}>
-					<Image src="/images/icons/icon.svg" alt="STG" width={128} height={91} />
+					<Link href={"/"} onClick={forceClose}>
+						<Image src="/images/icons/logo/logo-default.svg" alt="STG" width={128} height={91} />
+					</Link>
 					<button onClick={forceClose}>X</button>
 				</header>
 				<section>
