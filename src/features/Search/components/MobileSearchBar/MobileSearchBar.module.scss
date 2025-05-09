@@ -95,7 +95,9 @@
 		}
 
 		.mobile-searchbar__dropdown {
-			display: block;
+			&:not(&--empty) {
+				display: block;
+			}
 		}
 	}
 }
