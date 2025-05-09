@@ -12,5 +12,5 @@
 	flex-direction: column;
 	min-height: 100vh; // Ensures the page fills the full viewport height
 	width: 100%;
-	padding-top: vars.$header-height;
+	padding-top: calc(vars.$header-height + 2rem);
 }
