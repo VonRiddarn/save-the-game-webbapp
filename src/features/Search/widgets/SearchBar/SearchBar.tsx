@@ -66,7 +66,7 @@ const Searchbar = () => {
 			]);
 
 			timerRef.current = null;
-		}, 500);
+		}, 200);
 	};
 
 	// Cleanup if we unmount the component
