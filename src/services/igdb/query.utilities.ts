@@ -1,4 +1,6 @@
-export const igdbQuery = async <T>(
+import { IGDBImage } from "./types";
+
+export const igdbQuerySingle = async <T>(
 	endpoint: string,
 	queryBody: string,
 	signal?: AbortSignal
@@ -20,7 +22,7 @@ export const igdbQuery = async <T>(
 	return data[0] as T | null;
 };
 
-export const igdbQueryAll = async <T>(
+export const igdbQueryArray = async <T>(
 	endpoint: string,
 	queryBody: string,
 	signal?: AbortSignal
@@ -41,3 +43,6 @@ export const igdbQueryAll = async <T>(
 	const data = await res.json();
 	return data as T[] | null;
 };
+
+export const igdbGetImage = async (endpoint: string, id: number): Promise<IGDBImage | null> =>
+	(await igdbQuerySingle<IGDBImage>(endpoint, `fields image_id,height,width; where id = ${id};`)) ?? null;
