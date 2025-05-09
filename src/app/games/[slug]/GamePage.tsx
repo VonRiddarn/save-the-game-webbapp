@@ -6,6 +6,7 @@ import { getCachedEntity, setCachedEntity } from "@/services/igdb/visitedEntitie
 import { Game } from "@/services/igdb/types";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { v4 as uuid4 } from "uuid";
 
 type GamePageProps = {
 	slug: string;
@@ -21,6 +22,7 @@ const GamePage = ({ slug }: GamePageProps) => {
 	const router = useRouter();
 
 	useEffect(() => {
+		const id = uuid4();
 		// Note: The cache uses the session storage and will only clear after the window has closed.
 		// This means we can keep the cache for stuff when manually entering an adress in the url!
 		const cached = getCachedEntity(ENDPOINT, slug);
@@ -39,12 +41,37 @@ const GamePage = ({ slug }: GamePageProps) => {
 				notifications.dispatch({
 					type: "PUSH",
 					payload: {
+						id: id,
 						message: `Couldn't find "${ENDPOINT}/${slug}". Redirecting...`,
 						type: "toast",
 						persist: true,
 						timestamp: new Date().getTime(),
-						id: Math.random().toString(36).substr(2, 9),
 						severity: "error",
+						actions: [
+							{
+								label: "Retry",
+								severity: "primary",
+								onClick: function (): void {
+									router.push(`/${ENDPOINT}/${slug}`);
+									notifications.dispatch({
+										type: "DISMISS_ID",
+										id: id,
+										method: "soft",
+									});
+								},
+							},
+							{
+								label: "OK",
+								severity: "secondary",
+								onClick: function (): void {
+									notifications.dispatch({
+										type: "DISMISS_ID",
+										id: id,
+										method: "soft",
+									});
+								},
+							},
+						],
 					},
 				});
 				router.push("/search");
