@@ -1,4 +1,14 @@
+@use "../../styles/variables/index.scss" as vars;
+
 .panel {
 	display: grid;
 	grid-template-rows: auto 1fr;
+	gap: 0.25rem;
+
+	border-radius: 16px;
+	border-top: 1px solid white;
+	box-shadow: 0 2px 5px black;
+	background-color: vars.$background-secondary;
+
+	padding: 1rem;
 }
