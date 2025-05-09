@@ -2,22 +2,16 @@ import { useCallback, useEffect } from "react";
 import styles from "./DesktopSearchbar.module.scss";
 import { IGDBNamedEntityReference } from "@/services/igdb/types";
 import SearchbarDropdown from "../SearchbarDropdown/SearchbarDropdown";
+import { useSearch } from "../../widgets/Searchbar/context/SearchContext";
 
 type DesktopSearchbarProps = {
-	currentInput: string;
-	onChange: (value: string) => void;
+	handleChange: (value: string) => void;
 	entities: IGDBNamedEntityReference[];
-	dropdownActive: boolean;
-	setDropdownActive: (value: boolean) => void;
 };
 
-const DesktopSearchbar = ({
-	entities,
-	currentInput,
-	onChange,
-	dropdownActive,
-	setDropdownActive,
-}: DesktopSearchbarProps) => {
+const DesktopSearchbar = ({ entities, handleChange }: DesktopSearchbarProps) => {
+	const { currentInput, setCurrentInput, dropdownActive, setDropdownActive } = useSearch();
+
 	const updateDropDown = useCallback(() => {
 		setDropdownActive(entities.length > 0);
 	}, [setDropdownActive, entities.length]);
@@ -47,7 +41,8 @@ const DesktopSearchbar = ({
 					type="search"
 					value={currentInput}
 					onChange={(event) => {
-						onChange(event.target.value);
+						handleChange(event.target.value);
+						setCurrentInput(event.target.value);
 					}}
 					onSubmit={(e) => e.preventDefault()}
 				/>

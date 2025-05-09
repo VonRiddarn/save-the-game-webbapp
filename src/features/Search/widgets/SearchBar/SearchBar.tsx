@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useIGDB } from "@/hooks/useIGDB";
 import { IGDBNamedEntityReference } from "@/services/igdb/types";
 import MobileSearchbar from "../../components/MobileSearchbar/MobileSearchbar";
+import { SearchProvider } from "./context/SearchContext";
 
 const Searchbar = () => {
 	const [currentInput, setCurrentInput] = useState("");
@@ -23,8 +24,6 @@ const Searchbar = () => {
 
 	// Debounce search
 	const handleChange = (newValue: string) => {
-		setCurrentInput(newValue);
-
 		if (timerRef.current) clearTimeout(timerRef.current);
 		if (abortRef.current) abortRef.current.abort();
 
@@ -79,22 +78,14 @@ const Searchbar = () => {
 
 	if (isMobile === null) return null;
 
-	return isMobile ? (
-		<MobileSearchbar
-			currentInput={currentInput}
-			onChange={handleChange}
-			entities={entities}
-			dropdownActive={dropdownActive}
-			setDropdownActive={setDropdownActive}
-		/>
-	) : (
-		<DesktopSearchbar
-			currentInput={currentInput}
-			onChange={handleChange}
-			entities={entities}
-			dropdownActive={dropdownActive}
-			setDropdownActive={setDropdownActive}
-		/>
+	return (
+		<SearchProvider>
+			{isMobile ? (
+				<MobileSearchbar handleChange={handleChange} entities={entities} />
+			) : (
+				<DesktopSearchbar handleChange={handleChange} entities={entities} />
+			)}
+		</SearchProvider>
 	);
 };
 

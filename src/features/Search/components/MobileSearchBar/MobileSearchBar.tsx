@@ -1,22 +1,16 @@
 import { IGDBNamedEntityReference } from "@/services/igdb/types";
 import styles from "./MobileSearchBar.module.scss";
 import SearchbarDropdown from "../SearchbarDropdown/SearchbarDropdown";
+import { useSearch } from "../../widgets/Searchbar/context/SearchContext";
 
 type MobileSearchbarProps = {
-	currentInput: string;
-	onChange: (value: string) => void;
+	handleChange: (value: string) => void;
 	entities: IGDBNamedEntityReference[];
-	dropdownActive: boolean;
-	setDropdownActive: (value: boolean) => void;
 };
 
-const MobileSearchbar = ({
-	entities,
-	currentInput,
-	onChange,
-	dropdownActive,
-	setDropdownActive,
-}: MobileSearchbarProps) => {
+const MobileSearchbar = ({ entities, handleChange }: MobileSearchbarProps) => {
+	const { currentInput, setCurrentInput, dropdownActive, setDropdownActive } = useSearch();
+
 	return (
 		<div
 			className={`${styles["mobile-searchbar"]} ${
@@ -28,7 +22,8 @@ const MobileSearchbar = ({
 					type="search"
 					value={currentInput}
 					onChange={(event) => {
-						onChange(event.target.value);
+						handleChange(event.target.value);
+						setCurrentInput(event.target.value);
 					}}
 					onSubmit={(e) => e.preventDefault()}
 				/>
