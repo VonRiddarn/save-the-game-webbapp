@@ -2,8 +2,8 @@
 
 import { useNotifications } from "@/features/notification-center";
 import { useIGDB } from "@/hooks/useIGDB";
-import { getCachedEntity, setCachedEntity } from "@/services/igdb/visitedEntitiesCache";
 import { IGDBGame } from "@/services/igdb/types";
+import { getCachedEntity, setCachedEntity } from "@/services/igdb/visitedEntitiesCache";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuid4 } from "uuid";

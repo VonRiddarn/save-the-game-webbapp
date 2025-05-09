@@ -3,10 +3,10 @@
 import { useIsMobile } from "@/hooks/useIsMobile";
 import DesktopSearchbar from "../../components/DesktopSearchbar/DesktopSearchbar";
 import { useEffect, useRef, useState } from "react";
-import { useIGDB } from "@/hooks/useIGDB";
 import { IGDBMainEntityReferenceFull } from "@/services/igdb/types";
 import MobileSearchbar from "../../components/MobileSearchbar/MobileSearchbar";
 import { SearchProvider } from "./context/SearchContext";
+import { useIGDB } from "@/hooks/useIGDB";
 
 const Searchbar = () => {
 	const [entities, setEntities] = useState<IGDBMainEntityReferenceFull[]>([]);
