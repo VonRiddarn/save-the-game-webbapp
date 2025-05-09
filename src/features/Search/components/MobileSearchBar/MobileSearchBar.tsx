@@ -23,7 +23,14 @@ const MobileSearchbar = ({
 			}`}
 		>
 			<form className={`${styles["mobile-searchbar__form"]}`}>
-				<input type="search" />
+				<input
+					type="search"
+					value={currentInput}
+					onChange={(event) => {
+						onChange(event.target.value);
+					}}
+					onSubmit={(e) => e.preventDefault()}
+				/>
 			</form>
 			<button
 				className={`${styles["mobile-searchbar__button"]}`}
