@@ -1,6 +1,5 @@
 import { useCallback, useEffect } from "react";
 import styles from "./DesktopSearchbar.module.scss";
-import EntityDropdownCard from "../EntityDropdownCard/EntityDropdownCard";
 import { IGDBNamedEntityReference } from "@/services/igdb/types";
 import SearchbarDropdown from "../SearchbarDropdown/SearchbarDropdown";
 
