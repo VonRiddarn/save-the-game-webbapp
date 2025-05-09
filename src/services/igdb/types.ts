@@ -49,14 +49,14 @@ export type IGDBGame = IGDBNamedEntity & {
 };
 
 export type IGDBGameParsed = IGDBNamedEntity & {
-	artworks: { ids: number[]; image_ids: string[] };
+	artworks: { ids: number[]; images: IGDBImage[] };
 	category: { id: number; name: string };
-	cover: { id: number; image_id: string };
+	cover: { id: number; image: IGDBImage | null };
 	first_release_date: { date: number; human: string };
 	game_modes: { ids: number[]; names: string[] };
 	genres: { ids: number[]; names: string[] };
 	involved_companies: { ids: number[]; names: string[] };
-	screenshots: { ids: number[]; image_ids: string[] };
+	screenshots: { ids: number[]; images: IGDBImage[] };
 	similar_games: number[];
 	summary: string;
 	themes: { ids: number[]; names: string[] };
@@ -77,7 +77,7 @@ export type IGDBCharacterParsed = IGDBNamedEntity & {
 	akas: string[];
 	description: string;
 	games: { ids: number[]; names: string[] };
-	mug_shot: { id: number; image_id: string };
+	mug_shot: { id: number; image: IGDBImage };
 	character_gender: { id: number; name: string };
 	character_species: { id: number; name: string };
 };
@@ -99,8 +99,14 @@ export type IGDBCompanyParsed = IGDBNamedEntity & {
 	country: { id: number; iso: string };
 	description: string;
 	developed: { ids: number[]; names: string[] };
-	logo: { id: number; image_id: string };
+	logo: { id: number; image: IGDBImage };
 	parent?: { id: number; name: string };
 	start_date: { date: number; human: string };
 	status: { id: number; name: string };
+};
+
+export type IGDBImage = {
+	image_id: string;
+	height: number;
+	width: number;
 };
