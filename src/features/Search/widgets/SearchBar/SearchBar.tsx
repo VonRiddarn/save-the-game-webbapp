@@ -66,6 +66,11 @@ const Searchbar = () => {
 		}, 200);
 	};
 
+	// Form submit search
+	const handleSearch = (term: string) => {
+		console.log(`Searched for: ${term}`);
+	};
+
 	// Cleanup if we unmount the component
 	useEffect(() => {
 		return () => {
@@ -79,9 +84,17 @@ const Searchbar = () => {
 	return (
 		<SearchProvider>
 			{isMobile ? (
-				<MobileSearchbar handleChange={handleChange} entities={entities} />
+				<MobileSearchbar
+					handleChange={handleChange}
+					handleSearch={handleSearch}
+					entities={entities}
+				/>
 			) : (
-				<DesktopSearchbar handleChange={handleChange} entities={entities} />
+				<DesktopSearchbar
+					handleChange={handleChange}
+					handleSearch={handleSearch}
+					entities={entities}
+				/>
 			)}
 		</SearchProvider>
 	);

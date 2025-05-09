@@ -6,10 +6,11 @@ import { useSearch } from "../../widgets/Searchbar/context/SearchContext";
 
 type DesktopSearchbarProps = {
 	handleChange: (value: string) => void;
+	handleSearch: (term: string) => void;
 	entities: IGDBNamedEntityReference[];
 };
 
-const DesktopSearchbar = ({ entities, handleChange }: DesktopSearchbarProps) => {
+const DesktopSearchbar = ({ entities, handleSearch, handleChange }: DesktopSearchbarProps) => {
 	const { currentInput, setCurrentInput, dropdownActive, setDropdownActive } = useSearch();
 
 	const updateDropDown = useCallback(() => {
@@ -36,7 +37,12 @@ const DesktopSearchbar = ({ entities, handleChange }: DesktopSearchbarProps) => 
 				}
 			}}
 		>
-			<form>
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					handleSearch(currentInput);
+				}}
+			>
 				<input
 					type="search"
 					value={currentInput}
@@ -44,7 +50,6 @@ const DesktopSearchbar = ({ entities, handleChange }: DesktopSearchbarProps) => 
 						handleChange(event.target.value);
 						setCurrentInput(event.target.value);
 					}}
-					onSubmit={(e) => e.preventDefault()}
 					placeholder="Search for anything..."
 				/>
 				<button type="submit">

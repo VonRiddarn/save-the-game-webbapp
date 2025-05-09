@@ -6,10 +6,11 @@ import { useRef } from "react";
 
 type MobileSearchbarProps = {
 	handleChange: (value: string) => void;
+	handleSearch: (term: string) => void;
 	entities: IGDBNamedEntityReference[];
 };
 
-const MobileSearchbar = ({ entities, handleChange }: MobileSearchbarProps) => {
+const MobileSearchbar = ({ entities, handleSearch, handleChange }: MobileSearchbarProps) => {
 	const { currentInput, setCurrentInput, dropdownActive, setDropdownActive } = useSearch();
 
 	const inputRef = useRef<HTMLInputElement | null>(null);
@@ -20,7 +21,13 @@ const MobileSearchbar = ({ entities, handleChange }: MobileSearchbarProps) => {
 				dropdownActive ? styles["mobile-searchbar--active"] : ""
 			}`}
 		>
-			<form className={`${styles["mobile-searchbar__form"]}`}>
+			<form
+				className={`${styles["mobile-searchbar__form"]}`}
+				onSubmit={(e) => {
+					e.preventDefault();
+					handleSearch(currentInput);
+				}}
+			>
 				<input
 					ref={inputRef}
 					type="search"
@@ -29,7 +36,6 @@ const MobileSearchbar = ({ entities, handleChange }: MobileSearchbarProps) => {
 						handleChange(event.target.value);
 						setCurrentInput(event.target.value);
 					}}
-					onSubmit={(e) => e.preventDefault()}
 				/>
 			</form>
 			<SearchbarDropdown
