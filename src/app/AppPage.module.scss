@@ -1,6 +1,7 @@
 .content {
 	display: grid;
-	grid-template-columns: 700px 300px;
+	grid-template-columns: 2fr 1fr;
+	gap: 16px;
 	grid-template-areas: "primary secondary";
 
 	width: 100%;
