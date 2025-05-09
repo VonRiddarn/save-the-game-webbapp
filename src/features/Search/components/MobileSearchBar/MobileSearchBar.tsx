@@ -34,6 +34,7 @@ const MobileSearchbar = ({
 			<div
 				className={`${styles["mobile-searchbar__backdrop"]}`}
 				style={{ pointerEvents: dropdownActive ? "auto" : "none" }}
+				onClick={() => setDropdownActive(false)}
 			></div>
 		</div>
 	);
