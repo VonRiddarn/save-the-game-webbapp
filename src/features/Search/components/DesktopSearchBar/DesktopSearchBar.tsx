@@ -2,6 +2,7 @@ import { useCallback, useEffect } from "react";
 import styles from "./DesktopSearchbar.module.scss";
 import EntityDropdownCard from "../EntityDropdownCard/EntityDropdownCard";
 import { IGDBNamedEntityReference } from "@/services/igdb/types";
+import SearchbarDropdown from "../SearchbarDropdown/SearchbarDropdown";
 
 type DesktopSearchbarProps = {
 	currentInput: string;
@@ -65,20 +66,7 @@ const DesktopSearchbar = ({
 						/>
 					</svg>
 				</button>
-				<div className={styles["desktop-searchbar__dropdown"]}>
-					<div>
-						{entities.length > 0 &&
-							entities.map(({ entity, endpoint }) => (
-								<EntityDropdownCard
-									key={entity.id}
-									entityRef={{
-										entity: entity,
-										endpoint: endpoint,
-									}}
-								/>
-							))}
-					</div>
-				</div>
+				<SearchbarDropdown className={styles["desktop-searchbar__dropdown"]} entities={entities} />
 			</form>
 		</div>
 	);
