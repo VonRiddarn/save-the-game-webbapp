@@ -1,6 +1,6 @@
 import styles from "./MobileSearchBar.module.scss";
 
-const MobileSearchBar = () => {
+const MobileSearchbar = () => {
 	return (
 		<div className={`${styles["mobile-searchbar"]}`}>
 			<form className={`${styles["mobile-searchbar__form"]}`}>
@@ -12,4 +12,4 @@ const MobileSearchBar = () => {
 	);
 };
 
-export default MobileSearchBar;
+export default MobileSearchbar;
