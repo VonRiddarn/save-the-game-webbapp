@@ -1,3 +1,4 @@
+import styles from "./EntityDropdownCard.module.scss";
 import { useEntityAvatar } from "@/hooks/useEntityImage";
 import { IGDBMainEntityReferenceFull } from "@/services/igdb/types";
 import Link from "next/link";
@@ -11,10 +12,10 @@ const EntityDropdownCard = ({ entityRef }: EntityDropdownCardProps) => {
 	const { imageUrl } = useEntityAvatar(entityRef, "small");
 
 	return (
-		<Link href={`/${endpoint}/${entity.slug}`}>
+		<Link className={styles["entity-dropdown-card"]} href={`/${endpoint}/${entity.slug}`}>
 			{/*eslint-disable-next-line @next/next/no-img-element*/}
 			<img src={imageUrl} alt={`Image of ${entity.name}`} />
-			{entity.name}
+			<p>{entity.name}</p>
 		</Link>
 	);
 };
