@@ -15,6 +15,11 @@
 
 .panel-visited {
 	grid-area: secondary;
+	> div {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
 }
 
 .panel-well-received {
