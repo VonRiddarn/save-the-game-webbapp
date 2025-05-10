@@ -11,6 +11,7 @@ import { setCachedEntity } from "@/services/igdb/visitedEntitiesCache";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuid4 } from "uuid";
+import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
 
 type GamePageProps = {
 	slug: string;
@@ -104,6 +105,12 @@ const GamePage = ({ slug }: GamePageProps) => {
 		<Panel className={styles["panel"]}>
 			<div className={styles["content"]}>
 				<div className={styles["header"]}>
+					<FavoriteButton
+						entity={{
+							endpoint: ENDPOINT,
+							id: game.id,
+						}}
+					/>
 					<h1>{game.name}</h1>
 					<p>⭐ {rating !== "NaN" ? rating : "?.??"}</p>
 				</div>
