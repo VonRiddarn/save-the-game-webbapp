@@ -1,3 +1,9 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
 .panel {
 	width: 95vw;
 	max-width: 1024px;

@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { v4 as uuid4 } from "uuid";
 import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
 import GameCompletionForm from "@/components/GameCompletionForm/GameCompletionForm";
+import EntityList from "@/components/EntityList/EntityList";
 
 type GamePageProps = {
 	slug: string;
@@ -103,23 +104,37 @@ const GamePage = ({ slug }: GamePageProps) => {
 	const rating = (game.total_rating / 10).toFixed(2);
 
 	return (
-		<Panel className={styles["panel"]}>
-			<div className={styles["content"]}>
-				<FavoriteButton
-					entity={{
-						endpoint: ENDPOINT,
-						id: game.id,
-					}}
-				/>
-				<GameCompletionForm id={game.id} />
-				<div className={styles["header"]}>
-					<h1>{game.name}</h1>
-					<p>⭐ {rating !== "NaN" ? rating : "?.??"}</p>
+		<main className={styles["main"]}>
+			<Panel className={styles["panel"]}>
+				<div className={styles["content"]}>
+					<FavoriteButton
+						entity={{
+							endpoint: ENDPOINT,
+							id: game.id,
+						}}
+					/>
+					<GameCompletionForm id={game.id} />
+					<div className={styles["header"]}>
+						<h1>{game.name}</h1>
+						<p>⭐ {rating !== "NaN" ? rating : "?.??"}</p>
+					</div>
+					<img src={imgUrl} alt={`Image of ${game.name}`} />
+					<p>{game.summary}</p>
 				</div>
-				<img src={imgUrl} alt={`Image of ${game.name}`} />
-				<p>{game.summary}</p>
-			</div>
-		</Panel>
+			</Panel>
+			<Panel className={styles["panel"]} header={{ title: "Studios involved", style: 2 }}>
+				<EntityList
+					endpoint={"games"}
+					query={`fields: id; where id = (${game.involved_companies.join(",")});`}
+				/>
+			</Panel>
+			<Panel className={styles["panel"]} header={{ title: "Similar Games", style: 2 }}>
+				<EntityList
+					endpoint={"games"}
+					query={`fields: id; where id = (${game.similar_games.join(",")});`}
+				/>
+			</Panel>
+		</main>
 	);
 };
 
