@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-type CompletedGame = {
+export type CompletedGame = {
 	id: number;
 	startDate?: number;
 	endDate?: number;

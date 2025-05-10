@@ -103,8 +103,10 @@ const GamePage = ({ slug }: GamePageProps) => {
 	return (
 		<Panel className={styles["panel"]}>
 			<div className={styles["content"]}>
-				<h1>{game.name}</h1>
-				<p>⭐ {rating !== "NaN" ? rating : "?.??"}</p>
+				<div className={styles["header"]}>
+					<h1>{game.name}</h1>
+					<p>⭐ {rating !== "NaN" ? rating : "?.??"}</p>
+				</div>
 				<img src={imgUrl} alt={`Image of ${game.name}`} />
 				<p>{game.summary}</p>
 			</div>
