@@ -1,38 +1,59 @@
-import { useState } from "react";
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
 
 export const useIGDB = <T>() => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	// Using a callback so that we are using the SAME query method.
-	// This makes it so that if we include it as a dependency for linter reasons it wont bite us in the ass
 	const query = useCallback(
-		async (endpoint: string, queryBody: string, signal?: AbortSignal): Promise<T | null> => {
+		async (
+			endpoint: string,
+			queryBody: string,
+			signal?: AbortSignal,
+			retries = 3,
+			delay = 1000
+		): Promise<T | null> => {
 			setLoading(true);
 			setError(null);
 
-			try {
-				const res = await fetch(`/api/igdb/${endpoint}`, {
-					method: "POST",
-					headers: {
-						"Content-Type": "text/plain",
-					},
-					body: queryBody,
-					signal,
-				});
+			const fetchWithRetry = async (attempt: number): Promise<T | null> => {
+				try {
+					const res = await fetch(`/api/igdb/${endpoint}`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "text/plain",
+						},
+						body: queryBody,
+						signal,
+					});
 
-				if (!res.ok) {
-					throw new Error(`Request failed with status ${res.status}`);
+					if (res.status === 429 && attempt < retries) {
+						// Optional: Check for Retry-After header
+						const retryAfter = res.headers.get("Retry-After");
+						const waitTime = retryAfter ? parseFloat(retryAfter) * 1000 : delay * 2 ** attempt;
+
+						await new Promise((resolve) => setTimeout(resolve, waitTime));
+						return fetchWithRetry(attempt + 1);
+					}
+
+					if (!res.ok) {
+						throw new Error(`Request failed with status ${res.status}`);
+					}
+
+					const data = await res.json();
+					return data as T;
+				} catch (err) {
+					if ((err as Error).name === "AbortError") return null;
+					if (attempt >= retries) {
+						setError((err as Error).message || "Unknown error");
+						return null;
+					}
+					await new Promise((resolve) => setTimeout(resolve, delay * 2 ** attempt));
+					return fetchWithRetry(attempt + 1);
 				}
+			};
 
-				const data = await res.json();
-				return data as T;
-			} catch (err) {
-				// Abort triggers an error, so we bypass it here
-				if ((err as Error).name === "AbortError") return null;
-				setError((err as Error).message || "Unknown error");
-				return null;
+			try {
+				return await fetchWithRetry(0);
 			} finally {
 				setLoading(false);
 			}
