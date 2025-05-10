@@ -124,7 +124,7 @@ const GamePage = ({ slug }: GamePageProps) => {
 			</Panel>
 			<Panel className={styles["panel"]} header={{ title: "Studios involved", style: 2 }}>
 				<EntityList
-					endpoint={"games"}
+					endpoint={"companies"}
 					query={`fields: id; where id = (${game.involved_companies.join(",")});`}
 				/>
 			</Panel>
