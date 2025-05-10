@@ -128,6 +128,9 @@ const GamePage = ({ slug }: GamePageProps) => {
 					query={`fields: id; where id = (${game.involved_companies.join(",")});`}
 				/>
 			</Panel>
+			<Panel className={styles["panel"]} header={{ title: "Characters featured", style: 2 }}>
+				<EntityList endpoint={"characters"} query={`fields: id; where games = ${game.id};`} />
+			</Panel>
 			<Panel className={styles["panel"]} header={{ title: "Similar Games", style: 2 }}>
 				<EntityList
 					endpoint={"games"}
