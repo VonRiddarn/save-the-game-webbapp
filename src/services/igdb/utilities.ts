@@ -28,3 +28,16 @@ export const igdbDefaultImageFromEndPoint = (endpoint: IGDBMainEntityEndpoint) =
 			return "/images/icons/entities/icon-default.png";
 	}
 };
+
+export const endpointToSingular = (endpoint: IGDBMainEntityEndpoint) => {
+	switch (endpoint) {
+		case "games":
+			return "game";
+		case "companies":
+			return "company";
+		case "characters":
+			return "character";
+		default:
+			throw new Error("Unknown endpoint");
+	}
+};

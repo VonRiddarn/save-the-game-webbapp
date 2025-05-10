@@ -51,4 +51,27 @@
 			max-height: 100px;
 		}
 	}
+
+	&--short {
+		max-height: 100px;
+		grid-template-columns: 56px 1fr;
+
+		span {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: flex-start;
+		}
+
+		h2,
+		h3,
+		h4 {
+			font-size: medium;
+		}
+
+		a,
+		p {
+			font-size: small;
+		}
+	}
 }

@@ -1,17 +1,20 @@
 import styles from "./EntityCard.module.scss";
 import { useIGDB } from "@/hooks/useIGDB";
 import { igdbGetImageLink, igdbQuerySingle } from "@/services/igdb/query.utilities";
-import { IGDBGame, IGDBMainEntity, IGDBMainEntityEndpoint } from "@/services/igdb/types";
-import { igdbDefaultImageFromEndPoint } from "@/services/igdb/utilities";
+import { IGDBCompany, IGDBGame, IGDBMainEntity, IGDBMainEntityEndpoint } from "@/services/igdb/types";
+import { endpointToSingular, igdbDefaultImageFromEndPoint } from "@/services/igdb/utilities";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import GameCardContent from "./components/GameCardContent";
+import CompanyCardContent from "./components/CompanyCardContent";
 
 type EntityCardProps = {
 	id: number;
 	endpoint: IGDBMainEntityEndpoint;
+	size: "long" | "short";
 };
 
-const EntityCard = ({ id, endpoint }: EntityCardProps) => {
+const EntityCard = ({ id, endpoint, size }: EntityCardProps) => {
 	const { query, loading, error } = useIGDB();
 	const [entityData, setEntityData] = useState<IGDBMainEntity | null>(null);
 	const [imgUrl, setImgUrl] = useState<string>(igdbDefaultImageFromEndPoint(endpoint));
@@ -65,47 +68,32 @@ const EntityCard = ({ id, endpoint }: EntityCardProps) => {
 		fetchEntity();
 	}, [id, endpoint, query]);
 
-	const getCard = () => {
+	const getCardContent = () => {
 		switch (endpoint) {
 			case "games":
-				return getGameCard();
+				return <GameCardContent entity={entityData as IGDBGame} size={size} imgUrl={imgUrl} />;
+			case "companies":
+				return <CompanyCardContent entity={entityData as IGDBCompany} size={size} imgUrl={imgUrl} />;
 			case "characters":
 				return "Character Card";
-			case "companies":
-				return "Company Card";
 			default:
-				return "Unknown Card";
+				return null;
 		}
-	};
-
-	const getGameCard = () => {
-		const game = entityData as IGDBGame;
-
-		const date = new Date(game.first_release_date * 1000).getFullYear();
-
-		return (
-			<div className={`${styles["entity-card"]} ${styles["entity-card--game"]}`}>
-				{/*eslint-disable-next-line @next/next/no-img-element*/}
-				<img src={imgUrl} alt={`Image of ${game.name}`} />
-				<span>
-					<span>
-						<Link href={`/games/${game.slug}`}>
-							<h2>{game.name}</h2>
-							{!Number.isNaN(date) && <h3>({date})</h3>}
-						</Link>
-						<p>⭐ {(game.total_rating / 10).toFixed(2)}</p>
-					</span>
-					<p>{game.summary}</p>
-				</span>
-			</div>
-		);
 	};
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return null;
 	if (!entityData) return <p>No data found</p>;
 
-	return getCard();
+	return (
+		<div
+			className={`${styles["entity-card"]} ${styles[`entity-card--${endpointToSingular(endpoint)}`]} ${
+				size === "short" ? styles["entity-card--short"] : ""
+			}`}
+		>
+			{getCardContent()}
+		</div>
+	);
 };
 
 export default EntityCard;
