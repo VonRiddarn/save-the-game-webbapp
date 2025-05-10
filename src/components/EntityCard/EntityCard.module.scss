@@ -91,6 +91,8 @@
 		background: linear-gradient(270deg, rgb(44, 44, 44), rgb(168, 168, 168), rgb(94, 94, 94));
 		background-size: 400% 400%;
 		animation: gradient-shift 8s ease infinite;
+		max-width: 80%;
+		margin: 0 auto;
 		border-radius: 16px;
 	}
 

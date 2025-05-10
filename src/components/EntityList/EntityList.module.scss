@@ -1,5 +1,8 @@
 .entity-list {
 	li {
-		padding: 0 1rem;
+		overflow: hidden;
+		div {
+			padding: 1rem;
+		}
 	}
 }
