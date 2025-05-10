@@ -26,13 +26,16 @@ const DashboardPage = () => {
 				</div>
 				<div>
 					<h3>Hours played: {getHoursSpent()}</h3>
-					<h3>Games completed: {completedGames.length}</h3>
+					<h3>Games played: {completedGames.filter((cg) => cg.completed).length}</h3>
 				</div>
 			</Panel>
-			<Panel className={`${styles["panel"]}`} header={{ title: "Completed games", style: 2 }}>
+			<Panel className={`${styles["panel"]}`} header={{ title: "Games played", style: 2 }}>
 				<EntityList
 					endpoint={"games"}
-					query={`fields *; fields: id; where id = (${completedGames.map((c) => c.id).join(",")});`}
+					query={`fields *; fields: id; where id = (${completedGames
+						.filter((cg) => cg.completed)
+						.map((c) => c.id)
+						.join(",")});`}
 					cardLength="short"
 				/>
 			</Panel>
