@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
 import { IGDBMainEntityEndpoint } from "@/services/igdb/types";
 
-type FavoriteEntity = {
+export type FavoriteEntity = {
 	endpoint: IGDBMainEntityEndpoint;
 	id: number;
 };
@@ -43,10 +43,16 @@ const FavoriteEntitiesContext = createContext<{
 	addEntity: (entity: FavoriteEntity) => void;
 	removeEntity: (entity: FavoriteEntity) => void;
 	getAllEntities: (endpoint: IGDBMainEntityEndpoint) => FavoriteEntity[];
+	isFavorite: (entity: FavoriteEntity) => boolean;
 } | null>(null);
 
 export const FavoriteEntitiesProvider = ({ children }: { children: ReactNode }) => {
 	const [state, dispatch] = useReducer(favoriteEntitiesReducer, {});
+
+	const isFavorite = (entity: FavoriteEntity): boolean => {
+		const key = parseKey(entity.endpoint, entity.id);
+		return key in state;
+	};
 
 	const getAllEntities = (endpoint: IGDBMainEntityEndpoint): FavoriteEntity[] => {
 		return Object.values(state).filter((entity) => entity.endpoint === endpoint);
@@ -61,7 +67,9 @@ export const FavoriteEntitiesProvider = ({ children }: { children: ReactNode }) 
 	};
 
 	return (
-		<FavoriteEntitiesContext.Provider value={{ state, addEntity, removeEntity, getAllEntities }}>
+		<FavoriteEntitiesContext.Provider
+			value={{ state, addEntity, removeEntity, getAllEntities, isFavorite }}
+		>
 			{children}
 		</FavoriteEntitiesContext.Provider>
 	);
