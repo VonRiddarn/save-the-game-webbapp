@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
 import { IGDBMainEntityEndpoint } from "@/services/igdb/types";
 
