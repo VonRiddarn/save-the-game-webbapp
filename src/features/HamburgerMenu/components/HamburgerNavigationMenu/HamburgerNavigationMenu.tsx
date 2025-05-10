@@ -87,10 +87,18 @@ const HamburgerNavigationMenu = () => {
 					<h2>Socials</h2>
 					<ul>
 						<li>
-							<a href="https://github.com/VonRiddarn">Github</a>
+							<a href="https://github.com/VonRiddarn" target="_blank" rel="noopener noreferrer">
+								Github
+							</a>
 						</li>
 						<li>
-							<a href="https://www.linkedin.com/in/timmyohman/">Linkedin</a>
+							<a
+								href="https://www.linkedin.com/in/timmyohman/"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Linkedin
+							</a>
 						</li>
 					</ul>
 				</section>
