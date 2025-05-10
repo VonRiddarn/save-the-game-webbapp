@@ -3,19 +3,17 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 
 export type CompletedGame = {
 	id: number;
-	startDate?: number;
-	endDate?: number;
+	hours?: number;
 	completed: boolean;
 };
 
-type CompletedGamesContextType = {
+// Doing it this way because I want to use the hover-view in VSCode
+const CompletedGamesContext = createContext<{
 	completedGames: CompletedGame[];
 	addCompletedGame: (game: CompletedGame) => void;
 	getHoursSpent: () => number;
 	getGame: (id: number) => CompletedGame | null;
-};
-
-const CompletedGamesContext = createContext<CompletedGamesContextType | undefined>(undefined);
+} | null>(null);
 
 export const CompletedGamesProvider = ({ children }: { children: ReactNode }) => {
 	const [completedGames, setCompletedGames] = useState<CompletedGame[]>([]);
@@ -43,9 +41,8 @@ export const CompletedGamesProvider = ({ children }: { children: ReactNode }) =>
 	// We can do this with no conditional check because we know the endDate is enforced to be after startDate
 	const getHoursSpent = () => {
 		return completedGames.reduce((totalHours, game) => {
-			if (game.startDate && game.endDate) {
-				const hoursSpent = (game.endDate - game.startDate) / (1000 * 60 * 60);
-				return totalHours + hoursSpent;
+			if (game.hours !== undefined) {
+				return totalHours + game.hours;
 			}
 			return totalHours;
 		}, 0);
@@ -58,7 +55,7 @@ export const CompletedGamesProvider = ({ children }: { children: ReactNode }) =>
 	);
 };
 
-export const useCompletedGames = (): CompletedGamesContextType => {
+export const useCompletedGames = () => {
 	const context = useContext(CompletedGamesContext);
 	if (!context) {
 		throw new Error("useCompletedGames must be used within a CompletedGamesProvider");

@@ -13,7 +13,7 @@ const Panel = ({ header, className, children }: PanelProps) => {
 
 	return (
 		<section className={`${styles["panel"]} ${cn}`}>
-			{header && <span className={styles["header"]}>{getHeader(header.title, header.style)}</span>}
+			{header && <header className={styles["header"]}>{getHeader(header.title, header.style)}</header>}
 			<div>{children}</div>
 		</section>
 	);

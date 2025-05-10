@@ -38,11 +38,12 @@ const favoriteEntitiesReducer = (
 	}
 };
 
+// Doing it this way because I want to use the hover-view in VSCode
 const FavoriteEntitiesContext = createContext<{
 	state: FavoriteEntitiesState;
 	addEntity: (entity: FavoriteEntity) => void;
 	removeEntity: (entity: FavoriteEntity) => void;
-	getAllEntities: (endpoint: IGDBMainEntityEndpoint) => FavoriteEntity[];
+	getAllEntities: (endpoint?: IGDBMainEntityEndpoint) => FavoriteEntity[];
 	isFavorite: (entity: FavoriteEntity) => boolean;
 } | null>(null);
 
@@ -54,8 +55,10 @@ export const FavoriteEntitiesProvider = ({ children }: { children: ReactNode }) 
 		return key in state;
 	};
 
-	const getAllEntities = (endpoint: IGDBMainEntityEndpoint): FavoriteEntity[] => {
-		return Object.values(state).filter((entity) => entity.endpoint === endpoint);
+	const getAllEntities = (endpoint?: IGDBMainEntityEndpoint): FavoriteEntity[] => {
+		return endpoint !== undefined
+			? Object.values(state).filter((entity) => entity.endpoint === endpoint)
+			: Object.values(state).filter(() => true);
 	};
 
 	const addEntity = (entity: FavoriteEntity) => {

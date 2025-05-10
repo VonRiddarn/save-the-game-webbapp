@@ -1,28 +1,26 @@
 import styles from "./GameCompleteionForm.module.scss";
 import { useCompletedGames } from "@/context/completedGamesContext";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type GameCompletionFormProps = {
 	id: number;
 };
 
 const GameCompletionForm = ({ id }: GameCompletionFormProps) => {
-	const [startDate, setStartDate] = useState<number | undefined>(undefined);
-	const [endDate, setEndDate] = useState<number | undefined>(undefined);
+	const [hours, setHours] = useState<number | undefined>(undefined);
 	const [completed, setCompleted] = useState<boolean>(false);
 
 	const { addCompletedGame, getGame } = useCompletedGames();
 
 	const handleSave = () => {
-		if (startDate && endDate && startDate > endDate) {
-			alert("Start date cannot be after end date.");
+		if (hours !== undefined && hours < 0) {
+			alert("Hours cannot be negative.");
 			return;
 		}
 
 		const gameData = {
 			id: id,
-			startDate,
-			endDate,
+			hours,
 			completed,
 		};
 
@@ -32,14 +30,12 @@ const GameCompletionForm = ({ id }: GameCompletionFormProps) => {
 	const resetValues = () => {
 		const gameData = getGame(id);
 
-		setStartDate(gameData?.startDate);
-		setEndDate(gameData?.endDate);
+		setHours(gameData?.hours);
 		setCompleted(gameData?.completed || false);
 	};
 
 	const clearValues = () => {
-		setStartDate(undefined);
-		setEndDate(undefined);
+		setHours(undefined);
 		setCompleted(false);
 	};
 
@@ -56,23 +52,11 @@ const GameCompletionForm = ({ id }: GameCompletionFormProps) => {
 			}}
 		>
 			<span>
-				<p>Start Date</p>
+				<p>Hours Played</p>
 				<input
-					type="datetime-local"
-					value={startDate ? new Date(startDate).toISOString().slice(0, -1) : ""}
-					onChange={(e) =>
-						setStartDate(e.target.value ? new Date(e.target.value).getTime() : undefined)
-					}
-				/>
-			</span>
-			<span>
-				<p>End Date</p>
-				<input
-					type="datetime-local"
-					value={endDate ? new Date(endDate).toISOString().slice(0, -1) : ""}
-					onChange={(e) =>
-						setEndDate(e.target.value ? new Date(e.target.value).getTime() : undefined)
-					}
+					type="number"
+					value={hours !== undefined ? hours : ""}
+					onChange={(e) => setHours(e.target.value ? parseFloat(e.target.value) : undefined)}
 				/>
 			</span>
 			<button onClick={() => setCompleted(!completed)}>Status: {completed ? "✔️" : "❌"}</button>

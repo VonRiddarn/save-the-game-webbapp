@@ -27,7 +27,7 @@ const AppPage = () => {
 				>
 					<EntityQueryList
 						endpoint={"companies"}
-						query={`fields *; limit 10; where description != null & logo > -1; offset ${Math.floor(
+						query={`fields *; limit 30; where description != null & logo > -1 & developed > 0; offset ${Math.floor(
 							Math.random() * 1000
 						)};`}
 					/>
