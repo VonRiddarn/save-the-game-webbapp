@@ -41,6 +41,7 @@ const DesktopSearchbar = ({ entities, handleSearch, handleChange }: DesktopSearc
 				onSubmit={(e) => {
 					e.preventDefault();
 					handleSearch(currentInput);
+					setDropdownActive(false);
 				}}
 			>
 				<input

@@ -7,8 +7,10 @@ import { IGDBMainEntityReferenceFull } from "@/services/igdb/types";
 import MobileSearchbar from "../../components/MobileSearchbar/MobileSearchbar";
 import { SearchProvider } from "./context/SearchContext";
 import { useIGDB } from "@/services/hooks/useIGDB";
+import { useRouter } from "next/navigation";
 
 const Searchbar = () => {
+	const router = useRouter();
 	const [entities, setEntities] = useState<IGDBMainEntityReferenceFull[]>([]);
 
 	const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -68,7 +70,7 @@ const Searchbar = () => {
 
 	// Form submit search
 	const handleSearch = (term: string) => {
-		console.log(`Searched for: ${term}`);
+		router.push(`/search?q=${term}`);
 	};
 
 	// Cleanup if we unmount the component

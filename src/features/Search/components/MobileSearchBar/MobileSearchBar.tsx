@@ -26,6 +26,7 @@ const MobileSearchbar = ({ entities, handleSearch, handleChange }: MobileSearchb
 				onSubmit={(e) => {
 					e.preventDefault();
 					handleSearch(currentInput);
+					setDropdownActive(false);
 				}}
 			>
 				<input
