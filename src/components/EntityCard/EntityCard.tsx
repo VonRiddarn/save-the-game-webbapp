@@ -64,7 +64,7 @@ const EntityCard = ({ id, endpoint }: EntityCardProps) => {
 	}, [id, endpoint, query]);
 
 	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error: {error}</p>;
+	if (error) return null;
 	if (!entityData) return <p>No data found</p>;
 
 	return (
