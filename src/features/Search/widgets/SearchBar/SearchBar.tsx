@@ -1,12 +1,12 @@
 "use client";
 
-import { useIsMobile } from "@/hooks/useIsMobile";
+import { useIsMobile } from "@/services/hooks/useIsMobile";
 import DesktopSearchbar from "../../components/DesktopSearchbar/DesktopSearchbar";
 import { useEffect, useRef, useState } from "react";
 import { IGDBMainEntityReferenceFull } from "@/services/igdb/types";
 import MobileSearchbar from "../../components/MobileSearchbar/MobileSearchbar";
 import { SearchProvider } from "./context/SearchContext";
-import { useIGDB } from "@/hooks/useIGDB";
+import { useIGDB } from "@/services/hooks/useIGDB";
 
 const Searchbar = () => {
 	const [entities, setEntities] = useState<IGDBMainEntityReferenceFull[]>([]);

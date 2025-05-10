@@ -1,5 +1,5 @@
 import styles from "./EntityCard.module.scss";
-import { useIGDB } from "@/hooks/useIGDB";
+import { useIGDB } from "@/services/hooks/useIGDB";
 import { igdbGetImageLink, igdbQuerySingle } from "@/services/igdb/query.utilities";
 import { IGDBCompany, IGDBGame, IGDBMainEntity, IGDBMainEntityEndpoint } from "@/services/igdb/types";
 import { endpointToSingular, igdbDefaultImageFromEndPoint } from "@/services/igdb/utilities";

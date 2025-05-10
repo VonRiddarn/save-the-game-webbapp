@@ -3,7 +3,7 @@ import PanelLoader from "@/components/PanelLoader/PanelLoader";
 import styles from "./GamePage.module.scss";
 import Panel from "@/components/Panel/Panel";
 import { useNotifications } from "@/features/notification-center";
-import { useIGDB } from "@/hooks/useIGDB";
+import { useIGDB } from "@/services/hooks/useIGDB";
 import { igdbGetImageLink, igdbQuerySingle } from "@/services/igdb/query.utilities";
 import { IGDBGame } from "@/services/igdb/types";
 import { igdbDefaultImageFromEndPoint } from "@/services/igdb/utilities";
