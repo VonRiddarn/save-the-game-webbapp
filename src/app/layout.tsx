@@ -4,6 +4,8 @@ import "../styles/globals.scss";
 import { NotificationsProvider } from "@/features/notification-center/NotificationsProvider";
 import { HamburgerMenuProvider } from "@/features/HamburgerMenu/HamburgerMenuProvider";
 import Header from "@/widgets/Header/Header";
+import { FavoriteEntitiesProvider } from "@/context/favoriteEntitiesContext";
+import { CompletedGamesProvider } from "@/context/completedGamesContext";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -28,12 +30,16 @@ const RootLayout = ({ children }: RootLayoutProps) => {
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable}`}>
-				<NotificationsProvider>
-					<HamburgerMenuProvider>
-						<Header />
-						<div className="routed-page-wrapper">{children}</div>
-					</HamburgerMenuProvider>
-				</NotificationsProvider>
+				<FavoriteEntitiesProvider>
+					<CompletedGamesProvider>
+						<NotificationsProvider>
+							<HamburgerMenuProvider>
+								<Header />
+								<div className="routed-page-wrapper">{children}</div>
+							</HamburgerMenuProvider>
+						</NotificationsProvider>
+					</CompletedGamesProvider>
+				</FavoriteEntitiesProvider>
 			</body>
 		</html>
 	);
