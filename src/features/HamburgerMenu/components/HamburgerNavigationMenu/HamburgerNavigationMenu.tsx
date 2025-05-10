@@ -86,8 +86,12 @@ const HamburgerNavigationMenu = () => {
 				<section>
 					<h2>Socials</h2>
 					<ul>
-						<li>Github</li>
-						<li>Linkedin</li>
+						<li>
+							<a href="https://github.com/VonRiddarn">Github</a>
+						</li>
+						<li>
+							<a href="https://www.linkedin.com/in/timmyohman/">Linkedin</a>
+						</li>
 					</ul>
 				</section>
 			</nav>
