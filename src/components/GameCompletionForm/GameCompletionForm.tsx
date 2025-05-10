@@ -1,3 +1,4 @@
+import styles from "./GameCompleteionForm.module.scss";
 import { useCompletedGames } from "@/context/completedGamesContext";
 import React, { useCallback, useEffect, useState } from "react";
 
@@ -49,12 +50,13 @@ const GameCompletionForm = ({ id }: GameCompletionFormProps) => {
 
 	return (
 		<form
+			className={styles["game-completeion-form"]}
 			onSubmit={(e) => {
 				e.preventDefault();
 			}}
 		>
-			<label>
-				Start Date
+			<span>
+				<p>Start Date</p>
 				<input
 					type="datetime-local"
 					value={startDate ? new Date(startDate).toISOString().slice(0, -1) : ""}
@@ -62,9 +64,9 @@ const GameCompletionForm = ({ id }: GameCompletionFormProps) => {
 						setStartDate(e.target.value ? new Date(e.target.value).getTime() : undefined)
 					}
 				/>
-			</label>
-			<label>
-				End Date
+			</span>
+			<span>
+				<p>End Date</p>
 				<input
 					type="datetime-local"
 					value={endDate ? new Date(endDate).toISOString().slice(0, -1) : ""}
@@ -72,16 +74,13 @@ const GameCompletionForm = ({ id }: GameCompletionFormProps) => {
 						setEndDate(e.target.value ? new Date(e.target.value).getTime() : undefined)
 					}
 				/>
-			</label>
-
-			<label htmlFor="check-completed">
-				Completed
-				<input type="checkbox" checked={completed} onChange={() => setCompleted(!completed)} />
-			</label>
-
-			<button onClick={handleSave}>Save</button>
-			<button onClick={resetValues}>Reset</button>
-			<button onClick={clearValues}>Clear</button>
+			</span>
+			<button onClick={() => setCompleted(!completed)}>Status: {completed ? "✔️" : "❌"}</button>
+			<span>
+				<button onClick={resetValues}>Reset</button>
+				<button onClick={clearValues}>Clear</button>
+				<button onClick={handleSave}>Save</button>
+			</span>
 		</form>
 	);
 };

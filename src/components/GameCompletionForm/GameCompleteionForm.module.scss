@@ -1,0 +1,16 @@
+.game-completeion-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	& > * {
+		margin-bottom: 1rem;
+	}
+
+	& > span:last-of-type {
+		display: flex;
+		gap: 1rem;
+		justify-self: center;
+		align-self: center;
+	}
+}
