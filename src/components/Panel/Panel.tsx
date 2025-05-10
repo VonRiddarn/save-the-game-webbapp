@@ -1,17 +1,17 @@
 import styles from "./Panel.module.scss";
 
 type PanelProps = {
-	title: string;
+	header: React.ReactNode;
 	className?: string;
 	children?: React.ReactNode;
 };
 
-const Panel = ({ title, className, children }: PanelProps) => {
+const Panel = ({ header, className, children }: PanelProps) => {
 	const cn = className ? className : "";
 
 	return (
 		<section className={`${styles["panel"]} ${cn}`}>
-			<h2>{title}</h2>
+			{header}
 			<div>{children}</div>
 		</section>
 	);

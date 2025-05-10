@@ -10,7 +10,7 @@ const AppPage = () => {
 	return (
 		<main>
 			<div className={styles["content"]}>
-				<Panel className={styles["panel-well-received"]} title={"Well recieved"}>
+				<Panel className={styles["panel-well-received"]} header={<h1>Well recieved</h1>}>
 					<EntityList
 						endpoint={"games"}
 						query={`fields *; limit 10; where rating >= 80; offset ${Math.floor(
@@ -18,7 +18,7 @@ const AppPage = () => {
 						)};`}
 					/>
 				</Panel>
-				<Panel className={styles["panel-well-received"]} title={"Well recieved"}>
+				<Panel className={styles["panel-well-received"]} header={<h1>Explore studios</h1>}>
 					<EntityList
 						endpoint={"companies"}
 						query={`fields *; limit 10; where description != null; offset ${Math.floor(
@@ -26,7 +26,7 @@ const AppPage = () => {
 						)};`}
 					/>
 				</Panel>
-				<Panel className={styles["panel-visited"]} title={"Visited"}>
+				<Panel className={styles["panel-visited"]} header={<h1>Visited</h1>}>
 					{entities.map((er) => {
 						return (
 							<EntityCard

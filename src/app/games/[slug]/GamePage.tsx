@@ -1,9 +1,12 @@
 "use client";
-
+import styles from "./GamePage.module.scss";
+import Panel from "@/components/Panel/Panel";
 import { useNotifications } from "@/features/notification-center";
 import { useIGDB } from "@/hooks/useIGDB";
+import { igdbGetImageLink, igdbQuerySingle } from "@/services/igdb/query.utilities";
 import { IGDBGame } from "@/services/igdb/types";
-import { getCachedEntity, setCachedEntity } from "@/services/igdb/visitedEntitiesCache";
+import { igdbDefaultImageFromEndPoint } from "@/services/igdb/utilities";
+import { setCachedEntity } from "@/services/igdb/visitedEntitiesCache";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuid4 } from "uuid";
@@ -15,33 +18,42 @@ type GamePageProps = {
 const GamePage = ({ slug }: GamePageProps) => {
 	const { query, loading, error } = useIGDB<IGDBGame[]>();
 	const [game, setGame] = useState<IGDBGame | null>(null);
+
 	const hasFiredRef = useRef(false);
 	const ENDPOINT = "games";
 
 	const notifications = useNotifications();
 	const router = useRouter();
+	const [imgUrl, setImgUrl] = useState<string>(igdbDefaultImageFromEndPoint(ENDPOINT));
 
 	useEffect(() => {
-		const id = uuid4();
-		// Note: The cache uses the session storage and will only clear after the window has closed.
-		// This means we can keep the cache for stuff when manually entering an adress in the url!
-		const cached = getCachedEntity(ENDPOINT, slug);
-		if (cached) {
-			setGame((cached as IGDBGame) ?? null);
-			hasFiredRef.current = true;
-			return;
-		}
+		const notificationID = uuid4();
+
+		const fetchImage = async (entity: IGDBGame) => {
+			let imageUrl = igdbDefaultImageFromEndPoint(ENDPOINT); // Start with default image
+
+			const res = await igdbQuerySingle<{ image_id: string }>(
+				"covers",
+				`fields *; where id = ${entity.cover};`
+			);
+			if (res?.image_id) {
+				imageUrl = igdbGetImageLink("big", res.image_id);
+			}
+
+			setImgUrl(imageUrl); // Update the state with the found image or default
+		};
 
 		query(ENDPOINT, `fields *; where slug = "${slug}";`).then((data) => {
 			if (hasFiredRef.current) return;
 			if (data && data.length > 0) {
 				setGame(data[0]);
+				fetchImage(data[0]);
 				setCachedEntity(ENDPOINT, slug, data[0]);
 			} else {
 				notifications.dispatch({
 					type: "PUSH",
 					payload: {
-						id: id,
+						id: notificationID,
 						message: `Couldn't find "${ENDPOINT}/${slug}". Redirecting...`,
 						type: "toast",
 						persist: true,
@@ -55,7 +67,7 @@ const GamePage = ({ slug }: GamePageProps) => {
 									router.push(`/${ENDPOINT}/${slug}`);
 									notifications.dispatch({
 										type: "DISMISS_ID",
-										id: id,
+										id: notificationID,
 										method: "soft",
 									});
 								},
@@ -66,7 +78,7 @@ const GamePage = ({ slug }: GamePageProps) => {
 								onClick: function (): void {
 									notifications.dispatch({
 										type: "DISMISS_ID",
-										id: id,
+										id: notificationID,
 										method: "soft",
 									});
 								},
@@ -83,14 +95,24 @@ const GamePage = ({ slug }: GamePageProps) => {
 
 	if (loading && !game) return <p>Loading...</p>;
 	if (error) return <p>Error: {error}</p>;
+	if (!game) return null;
+
+	const rating = (game.total_rating / 10).toFixed(2);
 
 	return (
-		game && (
-			<div>
-				<h1>{game.name}</h1>
+		<Panel
+			header={
+				<header className={styles["header"]}>
+					<h1>{game.name}</h1>
+					<p>⭐ {rating !== "NaN" ? rating : "?.??"}</p>
+				</header>
+			}
+		>
+			<div className={styles["content"]}>
+				<img src={imgUrl} alt={`Image of ${game.name}`} />
 				<p>{game.summary}</p>
 			</div>
-		)
+		</Panel>
 	);
 };
 
