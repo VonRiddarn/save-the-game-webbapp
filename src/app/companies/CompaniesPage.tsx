@@ -1,7 +1,18 @@
+import styles from "./CompaniesPage.module.scss";
+import EntityList from "@/components/EntityList/EntityList";
+import Panel from "@/components/Panel/Panel";
+
 const CompaniesPage = () => {
 	return (
 		<main>
-			<h1>Companies</h1>
+			<Panel className={styles["panel-popular"]} header={{ title: "Interesting studios", style: 1 }}>
+				<EntityList
+					endpoint={"companies"}
+					query={`fields *; limit 30; where description != null & logo >= -1; offset ${Math.floor(
+						Math.random() * 1000
+					)};`}
+				/>
+			</Panel>
 		</main>
 	);
 };
