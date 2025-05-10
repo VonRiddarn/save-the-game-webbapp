@@ -1,0 +1,28 @@
+.entity-card {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	max-height: 150px;
+	gap: 1rem;
+
+	place-items: center;
+
+	* {
+		max-height: inherit;
+	}
+
+	img {
+		max-width: 150px;
+	}
+
+	span {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+
+		p {
+			overflow-y: auto;
+			overflow-wrap: break-word;
+			max-height: 100px;
+		}
+	}
+}

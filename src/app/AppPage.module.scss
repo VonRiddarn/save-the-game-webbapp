@@ -16,3 +16,11 @@
 .panel-visited {
 	grid-area: secondary;
 }
+
+.panel-popular {
+	> div ul {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+	}
+}

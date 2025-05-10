@@ -11,7 +11,7 @@ const AppPage = () => {
 		<main>
 			<div className={styles["content"]}>
 				<Panel className={styles["panel-popular"]} title={"Popular"}>
-					<GameList query={"fields *; limit 10;"} />
+					<GameList query={"fields *; limit 10; where rating >= 80;"} />
 				</Panel>
 				<Panel className={styles["panel-visited"]} title={"Visited"}>
 					{entities.map((er) => {

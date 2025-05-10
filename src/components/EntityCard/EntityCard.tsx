@@ -1,3 +1,4 @@
+import styles from "./EntityCard.module.scss";
 import { useIGDB } from "@/hooks/useIGDB";
 import { igdbGetImageLink, igdbQuerySingle } from "@/services/igdb/query.utilities";
 import { IGDBGame, IGDBMainEntity, IGDBMainEntityEndpoint } from "@/services/igdb/types";
@@ -68,11 +69,13 @@ const EntityCard = ({ id, endpoint }: EntityCardProps) => {
 	if (!entityData) return <p>No data found</p>;
 
 	return (
-		<div>
+		<div className={styles["entity-card"]}>
 			{/*eslint-disable-next-line @next/next/no-img-element*/}
 			<img src={imgUrl} alt={`Image of ${entityData.name}`} />
-			<h2>{entityData.name}</h2>
-			<p>{endpoint === "games" && (entityData as IGDBGame).summary}</p>
+			<span>
+				<h2>{entityData.name}</h2>
+				<p>{endpoint === "games" && (entityData as IGDBGame).summary}</p>
+			</span>
 		</div>
 	);
 };
