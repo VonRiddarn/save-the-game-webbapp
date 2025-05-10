@@ -11,7 +11,7 @@ const AppPage = () => {
 		<main>
 			<div className={styles["content"]}>
 				<Panel
-					className={styles["panel-well-received"]}
+					className={`${styles["panel"]} ${styles["panel-well-received"]}`}
 					header={{ title: "Well received", style: 2 }}
 				>
 					<EntityList
@@ -22,7 +22,7 @@ const AppPage = () => {
 					/>
 				</Panel>
 				<Panel
-					className={styles["panel-well-received"]}
+					className={`${styles["panel"]} ${styles["panel-well-received"]}`}
 					header={{ title: "Explore studios", style: 2 }}
 				>
 					<EntityList
@@ -32,7 +32,10 @@ const AppPage = () => {
 						)};`}
 					/>
 				</Panel>
-				<Panel className={styles["panel-visited"]} header={{ title: "Visited", style: 2 }}>
+				<Panel
+					className={`${styles["panel"]} ${styles["panel-visited"]}`}
+					header={{ title: "Visited", style: 2 }}
+				>
 					{entities.map((er) => {
 						return (
 							<EntityCard

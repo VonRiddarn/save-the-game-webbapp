@@ -104,13 +104,13 @@ const GamePage = ({ slug }: GamePageProps) => {
 	return (
 		<Panel className={styles["panel"]}>
 			<div className={styles["content"]}>
+				<FavoriteButton
+					entity={{
+						endpoint: ENDPOINT,
+						id: game.id,
+					}}
+				/>
 				<div className={styles["header"]}>
-					<FavoriteButton
-						entity={{
-							endpoint: ENDPOINT,
-							id: game.id,
-						}}
-					/>
 					<h1>{game.name}</h1>
 					<p>⭐ {rating !== "NaN" ? rating : "?.??"}</p>
 				</div>

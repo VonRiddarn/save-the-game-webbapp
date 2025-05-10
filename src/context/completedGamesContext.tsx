@@ -11,7 +11,8 @@ export type CompletedGame = {
 type CompletedGamesContextType = {
 	completedGames: CompletedGame[];
 	addCompletedGame: (game: CompletedGame) => void;
-	editCompletedGame: (id: number, updatedGame: CompletedGame) => void;
+	getHoursSpent: () => number;
+	getGame: (id: number) => CompletedGame | null;
 };
 
 const CompletedGamesContext = createContext<CompletedGamesContextType | undefined>(undefined);
@@ -19,18 +20,39 @@ const CompletedGamesContext = createContext<CompletedGamesContextType | undefine
 export const CompletedGamesProvider = ({ children }: { children: ReactNode }) => {
 	const [completedGames, setCompletedGames] = useState<CompletedGame[]>([]);
 
-	const addCompletedGame = (game: CompletedGame) => {
-		setCompletedGames((prevGames) => [...prevGames, game]);
+	const getGame = (id: number): CompletedGame | null => {
+		const game = completedGames.find((game) => game.id === id);
+		return game || null;
 	};
 
-	const editCompletedGame = (id: number, updatedGame: CompletedGame) => {
-		setCompletedGames((prevGames) =>
-			prevGames.map((game) => (game.id === id ? { ...game, ...updatedGame } : game))
-		);
+	const addCompletedGame = (game: CompletedGame) => {
+		setCompletedGames((prevGames) => {
+			const existingGameIndex = prevGames.findIndex((g) => g.id === game.id);
+			if (existingGameIndex !== -1) {
+				// Overwrite the existing game
+				const updatedGames = [...prevGames];
+				updatedGames[existingGameIndex] = { ...prevGames[existingGameIndex], ...game };
+				return updatedGames;
+			}
+			// Add the new game
+			return [...prevGames, game];
+		});
+	};
+
+	// Reduce the array, take the UNIX time alpha, convert it to hours and add it to the return.
+	// We can do this with no conditional check because we know the endDate is enforced to be after startDate
+	const getHoursSpent = () => {
+		return completedGames.reduce((totalHours, game) => {
+			if (game.startDate && game.endDate) {
+				const hoursSpent = (game.endDate - game.startDate) / (1000 * 60 * 60);
+				return totalHours + hoursSpent;
+			}
+			return totalHours;
+		}, 0);
 	};
 
 	return (
-		<CompletedGamesContext.Provider value={{ completedGames, addCompletedGame, editCompletedGame }}>
+		<CompletedGamesContext.Provider value={{ completedGames, addCompletedGame, getHoursSpent, getGame }}>
 			{children}
 		</CompletedGamesContext.Provider>
 	);
