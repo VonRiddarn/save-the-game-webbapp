@@ -15,3 +15,16 @@ export const entityToEndPoint = (entity: IGDBMainEntity): IGDBMainEntityEndpoint
 		throw new Error("Unknown entity type");
 	}
 };
+
+export const igdbDefaultImageFromEndPoint = (endpoint: IGDBMainEntityEndpoint) => {
+	switch (endpoint) {
+		case "games":
+			return "/images/icons/entities/icon-game-default.png";
+		case "companies":
+			return "/images/icons/entities/icon-company-default.png";
+		case "characters":
+			return "/images/icons/entities/icon-character-default.png";
+		default:
+			return "/images/icons/entities/icon-default.png";
+	}
+};
