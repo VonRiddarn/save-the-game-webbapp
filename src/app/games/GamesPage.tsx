@@ -5,10 +5,10 @@ import Panel from "@/components/Panel/Panel";
 const GamesPage = () => {
 	return (
 		<main>
-			<Panel className={styles["panel-popular"]} header={{ title: "Popular", style: 1 }}>
+			<Panel className={styles["panel-popular"]} header={{ title: "World class games", style: 1 }}>
 				<EntityList
 					endpoint={"games"}
-					query={`fields *; limit 60; where rating >= 80; offset ${Math.floor(
+					query={`fields *; limit 20; where rating >= 90; offset ${Math.floor(
 						Math.random() * 1000
 					)};`}
 				/>
