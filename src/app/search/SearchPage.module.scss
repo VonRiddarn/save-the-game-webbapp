@@ -4,7 +4,7 @@
 	gap: 1rem;
 }
 
-.panel {
+.panel-results {
 	width: 95vw;
 	max-width: 1024px;
 	margin: 0 auto;
@@ -14,8 +14,4 @@
 		flex-direction: column;
 		gap: 3rem;
 	}
-}
-
-.panel-stats {
-	padding: 1rem;
 }

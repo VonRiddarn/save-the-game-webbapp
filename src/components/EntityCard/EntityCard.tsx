@@ -1,11 +1,18 @@
 import styles from "./EntityCard.module.scss";
 import { useIGDB } from "@/services/hooks/useIGDB";
 import { igdbGetImageLink, igdbQuerySingle } from "@/services/igdb/query.utilities";
-import { IGDBCompany, IGDBGame, IGDBMainEntity, IGDBMainEntityEndpoint } from "@/services/igdb/types";
+import {
+	IGDBCharacter,
+	IGDBCompany,
+	IGDBGame,
+	IGDBMainEntity,
+	IGDBMainEntityEndpoint,
+} from "@/services/igdb/types";
 import { endpointToSingular, igdbDefaultImageFromEndPoint } from "@/services/igdb/utilities";
 import React, { useEffect, useState } from "react";
 import GameCardContent from "./components/GameCardContent";
 import CompanyCardContent from "./components/CompanyCardContent";
+import CharacterCardContent from "./components/CharacterCardContent";
 
 type EntityCardProps = {
 	id: number;
@@ -75,7 +82,9 @@ const EntityCard = ({ id, endpoint, size }: EntityCardProps) => {
 			case "companies":
 				return <CompanyCardContent entity={entityData as IGDBCompany} size={size} imgUrl={imgUrl} />;
 			case "characters":
-				return "Character Card";
+				return (
+					<CharacterCardContent entity={entityData as IGDBCharacter} size={size} imgUrl={imgUrl} />
+				);
 			default:
 				return null;
 		}

@@ -11,7 +11,7 @@ const DashboardPage = () => {
 	const { completedGames, getHoursSpent } = useCompletedGames();
 
 	return (
-		<main>
+		<main className={styles["main"]}>
 			<Panel
 				className={`${styles["panel"]} ${styles["panel-stats"]}`}
 				header={{ title: "Your statistics", style: 2 }}
@@ -19,12 +19,9 @@ const DashboardPage = () => {
 				<div>
 					<h3>Favorites ({getAllEntities().length})</h3>
 					<span>
-						<h4>Games:</h4>
-						<p>{getAllEntities().length}</p>
-						<h4>Studios:</h4>
-						<p>{getAllEntities().length}</p>
-						<h4>Characters:</h4>
-						<p>{getAllEntities().length}</p>
+						<h4>Games: {getAllEntities("games").length}</h4>
+						<h4>Studios: {getAllEntities("companies").length}</h4>
+						<h4>Characters: {getAllEntities("characters").length}</h4>
 					</span>
 				</div>
 				<div>
@@ -32,12 +29,20 @@ const DashboardPage = () => {
 					<h3>Games completed: {completedGames.length}</h3>
 				</div>
 			</Panel>
+			<Panel className={`${styles["panel"]}`} header={{ title: "Completed games", style: 2 }}>
+				<EntityList
+					endpoint={"games"}
+					query={`fields *; fields: id; where id = (${completedGames.map((c) => c.id).join(",")});`}
+					cardLength="short"
+				/>
+			</Panel>
 			<Panel className={`${styles["panel"]}`} header={{ title: "Favorite studios", style: 2 }}>
 				<EntityList
 					endpoint={"companies"}
 					query={`fields *; fields: id; where id = (${getAllEntities("companies")
 						.map((c) => c.id)
 						.join(",")});`}
+					cardLength="short"
 				/>
 			</Panel>
 			<Panel className={`${styles["panel"]}`} header={{ title: "Favorite Games", style: 2 }}>
@@ -46,6 +51,7 @@ const DashboardPage = () => {
 					query={`fields *; fields: id; where id = (${getAllEntities("games")
 						.map((g) => g.id)
 						.join(",")});`}
+					cardLength="short"
 				/>
 			</Panel>
 			<Panel className={`${styles["panel"]}`} header={{ title: "Favorite Characters", style: 2 }}>
@@ -54,6 +60,7 @@ const DashboardPage = () => {
 					query={`fields *; fields: id; where id = (${getAllEntities("characters")
 						.map((c) => c.id)
 						.join(",")});`}
+					cardLength="short"
 				/>
 			</Panel>
 		</main>
