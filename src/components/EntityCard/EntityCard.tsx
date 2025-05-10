@@ -19,6 +19,9 @@ const EntityCard = ({ id, endpoint, size }: EntityCardProps) => {
 	const [imgUrl, setImgUrl] = useState<string>(igdbDefaultImageFromEndPoint(endpoint));
 
 	useEffect(() => {
+		const controller = new AbortController();
+		const signal = controller.signal;
+
 		const fetchImage = async (entity: IGDBMainEntity) => {
 			let imageUrl = igdbDefaultImageFromEndPoint(endpoint); // Start with default image
 
@@ -65,6 +68,11 @@ const EntityCard = ({ id, endpoint, size }: EntityCardProps) => {
 		};
 
 		fetchEntity();
+
+		// Stop fetching on unmount... I hope.
+		return () => {
+			controller.abort();
+		};
 	}, [id, endpoint, query]);
 
 	const getCardContent = () => {
