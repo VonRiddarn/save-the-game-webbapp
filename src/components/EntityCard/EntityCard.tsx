@@ -89,7 +89,7 @@ const EntityCard = ({ id, endpoint, size }: EntityCardProps) => {
 		<div
 			className={`${styles["entity-card"]} ${styles[`entity-card--${endpointToSingular(endpoint)}`]} ${
 				size === "short" ? styles["entity-card--short"] : ""
-			}`}
+			} listing`}
 		>
 			{getCardContent()}
 		</div>

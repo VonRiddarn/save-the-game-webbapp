@@ -31,7 +31,7 @@ const EntityList = ({ endpoint, query, cardLength = "long" }: GameListProps) => 
 
 	return (
 		ids.length > 0 && (
-			<ul className={`${styles["entity-list"]} listing`}>
+			<ul className={`${styles["entity-list"]}`}>
 				{ids.map((id) => (
 					<li key={id.id}>
 						<EntityCard id={id.id} endpoint={endpoint} size={cardLength} />

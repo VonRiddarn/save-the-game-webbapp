@@ -18,6 +18,17 @@
 		object-fit: cover;
 	}
 
+	h2,
+	h3,
+	h4 {
+		font-size: large;
+	}
+
+	a,
+	p {
+		font-size: small;
+	}
+
 	> span {
 		display: flex;
 		width: 100%;
