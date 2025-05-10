@@ -1,19 +1,19 @@
 "use client";
 
-import styles from "./EntityList.module.scss";
+import styles from "./EntityQueryList.module.scss";
 import { igdbQueryArray } from "@/services/igdb/query.utilities";
 import React, { useEffect, useState } from "react";
 import EntityCard from "../EntityCard/EntityCard";
 import { IGDBMainEntityEndpoint } from "@/services/igdb/types";
 import { CardLength } from "../EntityCard/types";
 
-type GameListProps = {
+type EntityQueryListProps = {
 	endpoint: IGDBMainEntityEndpoint;
 	query: string;
 	cardLength?: CardLength;
 };
 
-const EntityList = ({ endpoint, query, cardLength = "long" }: GameListProps) => {
+const EntityQueryList = ({ endpoint, query, cardLength = "long" }: EntityQueryListProps) => {
 	const [ids, setIds] = useState<{ id: number }[]>([]);
 
 	useEffect(() => {
@@ -42,4 +42,4 @@ const EntityList = ({ endpoint, query, cardLength = "long" }: GameListProps) => 
 	);
 };
 
-export default EntityList;
+export default EntityQueryList;

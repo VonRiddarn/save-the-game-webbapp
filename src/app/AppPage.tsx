@@ -3,7 +3,7 @@ import styles from "./AppPage.module.scss";
 import Panel from "@/components/Panel/Panel";
 import { getCachedEntitiesAsArray } from "@/services/igdb/visitedEntitiesCache";
 import EntityCard from "@/components/EntityCard/EntityCard";
-import EntityList from "@/components/EntityList/EntityList";
+import EntityQueryList from "@/components/EntityQueryList/EntityList";
 
 const AppPage = () => {
 	const entities = getCachedEntitiesAsArray();
@@ -14,7 +14,7 @@ const AppPage = () => {
 					className={`${styles["panel"]} ${styles["panel-well-received"]}`}
 					header={{ title: "Well received", style: 2 }}
 				>
-					<EntityList
+					<EntityQueryList
 						endpoint={"games"}
 						query={`fields *; limit 10; where rating >= 80; offset ${Math.floor(
 							Math.random() * 1000
@@ -25,10 +25,10 @@ const AppPage = () => {
 					className={`${styles["panel"]} ${styles["panel-well-received"]}`}
 					header={{ title: "Explore studios", style: 2 }}
 				>
-					<EntityList
+					<EntityQueryList
 						endpoint={"companies"}
-						query={`fields *; limit 10; where description != null; offset ${Math.floor(
-							Math.random() * 5000
+						query={`fields *; limit 10; where description != null & logo > -1; offset ${Math.floor(
+							Math.random() * 1000
 						)};`}
 					/>
 				</Panel>

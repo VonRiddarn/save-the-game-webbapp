@@ -1,12 +1,12 @@
 import styles from "./CompaniesPage.module.scss";
-import EntityList from "@/components/EntityList/EntityList";
+import EntityQueryList from "@/components/EntityQueryList/EntityList";
 import Panel from "@/components/Panel/Panel";
 
 const CompaniesPage = () => {
 	return (
 		<main>
 			<Panel className={styles["panel-popular"]} header={{ title: "Interesting studios", style: 1 }}>
-				<EntityList
+				<EntityQueryList
 					endpoint={"companies"}
 					query={`fields *; limit 30; where description != null & logo >= -1; offset ${Math.floor(
 						Math.random() * 1000

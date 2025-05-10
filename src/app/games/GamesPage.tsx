@@ -1,14 +1,14 @@
 import styles from "./GamesPage.module.scss";
-import EntityList from "@/components/EntityList/EntityList";
+import EntityQueryList from "@/components/EntityQueryList/EntityList";
 import Panel from "@/components/Panel/Panel";
 
 const GamesPage = () => {
 	return (
 		<main>
 			<Panel className={styles["panel-popular"]} header={{ title: "World class games", style: 1 }}>
-				<EntityList
+				<EntityQueryList
 					endpoint={"games"}
-					query={`fields *; limit 20; where rating >= 90; offset ${Math.floor(
+					query={`fields *; limit 30; where rating >= 90; offset ${Math.floor(
 						Math.random() * 1000
 					)};`}
 				/>

@@ -17,7 +17,7 @@ const CompanyCardContent = ({ entity, size, imgUrl }: CompanyCardContentProps) =
 			<img src={imgUrl} alt={`Image of ${entity.name}`} />
 			<span>
 				<span>
-					<Link href={`/games/${entity.slug}`}>
+					<Link href={`/companies/${entity.slug}`}>
 						<h2>{entity.name}</h2>
 						{!Number.isNaN(date) && <h3>({date})</h3>}
 						<p>{getCompanyStatus(entity.status)}</p>
