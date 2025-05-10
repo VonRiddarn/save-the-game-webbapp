@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuid4 } from "uuid";
 import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
+import GameCompletionForm from "@/components/GameCompletionForm/GameCompletionForm";
 
 type GamePageProps = {
 	slug: string;
@@ -110,6 +111,7 @@ const GamePage = ({ slug }: GamePageProps) => {
 						id: game.id,
 					}}
 				/>
+				<GameCompletionForm id={game.id} />
 				<div className={styles["header"]}>
 					<h1>{game.name}</h1>
 					<p>⭐ {rating !== "NaN" ? rating : "?.??"}</p>

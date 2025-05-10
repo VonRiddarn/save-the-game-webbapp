@@ -1,5 +1,5 @@
 import { useCompletedGames } from "@/context/completedGamesContext";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 type GameCompletionFormProps = {
 	id: number;
@@ -28,7 +28,7 @@ const GameCompletionForm = ({ id }: GameCompletionFormProps) => {
 		addCompletedGame(gameData);
 	};
 
-	const handleCancel = () => {
+	const resetValues = () => {
 		const gameData = getGame(id);
 
 		setStartDate(gameData?.startDate);
@@ -36,11 +36,21 @@ const GameCompletionForm = ({ id }: GameCompletionFormProps) => {
 		setCompleted(gameData?.completed || false);
 	};
 
+	const clearValues = () => {
+		setStartDate(undefined);
+		setEndDate(undefined);
+		setCompleted(false);
+	};
+
+	useEffect(() => {
+		resetValues();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return (
 		<form
 			onSubmit={(e) => {
 				e.preventDefault();
-				handleSave();
 			}}
 		>
 			<label>
@@ -70,7 +80,8 @@ const GameCompletionForm = ({ id }: GameCompletionFormProps) => {
 			</label>
 
 			<button onClick={handleSave}>Save</button>
-			<button onClick={handleCancel}>Cancel</button>
+			<button onClick={resetValues}>Reset</button>
+			<button onClick={clearValues}>Clear</button>
 		</form>
 	);
 };
