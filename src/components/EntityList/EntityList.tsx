@@ -1,3 +1,6 @@
+"use client";
+
+import styles from "./EntityList.module.scss";
 import { igdbQueryArray } from "@/services/igdb/query.utilities";
 import React, { useEffect, useState } from "react";
 import EntityCard from "../EntityCard/EntityCard";
@@ -28,7 +31,7 @@ const EntityList = ({ endpoint, query, cardLength = "long" }: GameListProps) => 
 
 	return (
 		ids.length > 0 && (
-			<ul>
+			<ul className={`${styles["entity-list"]} listing`}>
 				{ids.map((id) => (
 					<li key={id.id}>
 						<EntityCard id={id.id} endpoint={endpoint} size={cardLength} />
