@@ -3,6 +3,7 @@ import { useIGDB } from "@/hooks/useIGDB";
 import { igdbGetImageLink, igdbQuerySingle } from "@/services/igdb/query.utilities";
 import { IGDBGame, IGDBMainEntity, IGDBMainEntityEndpoint } from "@/services/igdb/types";
 import { igdbDefaultImageFromEndPoint } from "@/services/igdb/utilities";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 type EntityCardProps = {
@@ -64,20 +65,47 @@ const EntityCard = ({ id, endpoint }: EntityCardProps) => {
 		fetchEntity();
 	}, [id, endpoint, query]);
 
+	const getCard = () => {
+		switch (endpoint) {
+			case "games":
+				return getGameCard();
+			case "characters":
+				return "Character Card";
+			case "companies":
+				return "Company Card";
+			default:
+				return "Unknown Card";
+		}
+	};
+
+	const getGameCard = () => {
+		const game = entityData as IGDBGame;
+
+		const date = new Date(game.first_release_date * 1000).getFullYear();
+
+		return (
+			<div className={`${styles["entity-card"]} ${styles["entity-card--game"]}`}>
+				{/*eslint-disable-next-line @next/next/no-img-element*/}
+				<img src={imgUrl} alt={`Image of ${game.name}`} />
+				<span>
+					<span>
+						<Link href={`/games/${game.slug}`}>
+							<h2>{game.name}</h2>
+							{!Number.isNaN(date) && <h3>({date})</h3>}
+						</Link>
+						<p>⭐ {(game.total_rating / 10).toFixed(2)}</p>
+					</span>
+					<p>{game.summary}</p>
+				</span>
+			</div>
+		);
+	};
+
 	if (loading) return <p>Loading...</p>;
 	if (error) return null;
 	if (!entityData) return <p>No data found</p>;
 
-	return (
-		<div className={styles["entity-card"]}>
-			{/*eslint-disable-next-line @next/next/no-img-element*/}
-			<img src={imgUrl} alt={`Image of ${entityData.name}`} />
-			<span>
-				<h2>{entityData.name}</h2>
-				<p>{endpoint === "games" && (entityData as IGDBGame).summary}</p>
-			</span>
-		</div>
-	);
+	return getCard();
 };
 
 export default EntityCard;
