@@ -14,3 +14,11 @@
 	width: 100%;
 	padding: calc(vars.$header-height + 2rem) 0 1rem 0;
 }
+
+a {
+	color: vars.$text-light;
+
+	&:hover {
+		color: vars.$brand-green;
+	}
+}
