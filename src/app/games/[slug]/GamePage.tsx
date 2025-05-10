@@ -1,4 +1,5 @@
 "use client";
+import PanelLoader from "@/components/PanelLoader/PanelLoader";
 import styles from "./GamePage.module.scss";
 import Panel from "@/components/Panel/Panel";
 import { useNotifications } from "@/features/notification-center";
@@ -93,22 +94,17 @@ const GamePage = ({ slug }: GamePageProps) => {
 		});
 	}, [notifications, query, router, slug]);
 
-	if (loading && !game) return <p>Loading...</p>;
+	if (loading && !game) return <PanelLoader />;
 	if (error) return <p>Error: {error}</p>;
 	if (!game) return null;
 
 	const rating = (game.total_rating / 10).toFixed(2);
 
 	return (
-		<Panel
-			header={
-				<header className={styles["header"]}>
-					<h1>{game.name}</h1>
-					<p>⭐ {rating !== "NaN" ? rating : "?.??"}</p>
-				</header>
-			}
-		>
+		<Panel className={styles["panel"]}>
 			<div className={styles["content"]}>
+				<h1>{game.name}</h1>
+				<p>⭐ {rating !== "NaN" ? rating : "?.??"}</p>
 				<img src={imgUrl} alt={`Image of ${game.name}`} />
 				<p>{game.summary}</p>
 			</div>

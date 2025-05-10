@@ -3,7 +3,7 @@ import styles from "./Panel.module.scss";
 type HeaderStyle = 1 | 2 | 3 | 4 | 5 | 6;
 
 type PanelProps = {
-	header: { title: string; style: HeaderStyle };
+	header?: { title: string; style: HeaderStyle };
 	className?: string;
 	children?: React.ReactNode;
 };
@@ -13,7 +13,7 @@ const Panel = ({ header, className, children }: PanelProps) => {
 
 	return (
 		<section className={`${styles["panel"]} ${cn}`}>
-			<span className={styles["header"]}>{getHeader(header.title, header.style)}</span>
+			{header && <span className={styles["header"]}>{getHeader(header.title, header.style)}</span>}
 			<div>{children}</div>
 		</section>
 	);
