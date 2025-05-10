@@ -20,6 +20,7 @@ const EntityCard = ({ id, endpoint, size }: EntityCardProps) => {
 
 	useEffect(() => {
 		const fetchImage = async (entity: IGDBMainEntity) => {
+			if (!entity) return;
 			let imageUrl = igdbDefaultImageFromEndPoint(endpoint); // Start with default image
 
 			if ("cover" in entity) {

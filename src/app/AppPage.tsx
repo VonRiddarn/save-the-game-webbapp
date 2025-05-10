@@ -3,7 +3,7 @@ import styles from "./AppPage.module.scss";
 import Panel from "@/components/Panel/Panel";
 import { getCachedEntitiesAsArray } from "@/services/igdb/visitedEntitiesCache";
 import EntityCard from "@/components/EntityCard/EntityCard";
-import EntityQueryList from "@/components/EntityQueryList/EntityList";
+import EntityQueryList from "@/components/EntityList/EntityList";
 
 const AppPage = () => {
 	const entities = getCachedEntitiesAsArray();

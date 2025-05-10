@@ -1,5 +1,5 @@
 import styles from "./CompaniesPage.module.scss";
-import EntityQueryList from "@/components/EntityQueryList/EntityList";
+import EntityQueryList from "@/components/EntityList/EntityList";
 import Panel from "@/components/Panel/Panel";
 
 const CompaniesPage = () => {

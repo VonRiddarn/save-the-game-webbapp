@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./EntityQueryList.module.scss";
+import styles from "./EntityList.module.scss";
 import { igdbQueryArray } from "@/services/igdb/query.utilities";
 import React, { useEffect, useState } from "react";
 import EntityCard from "../EntityCard/EntityCard";
@@ -13,7 +13,7 @@ type EntityQueryListProps = {
 	cardLength?: CardLength;
 };
 
-const EntityQueryList = ({ endpoint, query, cardLength = "long" }: EntityQueryListProps) => {
+const EntityList = ({ endpoint, query, cardLength = "long" }: EntityQueryListProps) => {
 	const [ids, setIds] = useState<{ id: number }[]>([]);
 
 	useEffect(() => {
@@ -42,4 +42,4 @@ const EntityQueryList = ({ endpoint, query, cardLength = "long" }: EntityQueryLi
 	);
 };
 
-export default EntityQueryList;
+export default EntityList;

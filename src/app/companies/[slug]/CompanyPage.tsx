@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { v4 as uuid4 } from "uuid";
 import { getCountryName } from "@/services/igdb/local-lookup/country-codes";
 import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
+import EntityList from "@/components/EntityList/EntityList";
 
 type CompanyPageProps = {
 	slug: string;
@@ -33,10 +34,10 @@ const CompanyPage = ({ slug }: CompanyPageProps) => {
 		const notificationID = uuid4();
 
 		const fetchImage = async (entity: IGDBCompany) => {
-			let imageUrl = igdbDefaultImageFromEndPoint(ENDPOINT); // Start with default image
+			let imageUrl = igdbDefaultImageFromEndPoint(ENDPOINT);
 
 			const res = await igdbQuerySingle<{ image_id: string }>(
-				"logos",
+				"company_logos",
 				`fields *; where id = ${entity.logo};`
 			);
 			if (res?.image_id) {
@@ -119,7 +120,12 @@ const CompanyPage = ({ slug }: CompanyPageProps) => {
 					<p>{company.description}</p>
 				</div>
 			</Panel>
-			<Panel className={styles["panel"]}></Panel>
+			<Panel className={styles["panel"]}>
+				<EntityList
+					endpoint={"games"}
+					query={`fields: id; where id = (${company.developed.join(",")});`}
+				/>
+			</Panel>
 		</div>
 	);
 };
