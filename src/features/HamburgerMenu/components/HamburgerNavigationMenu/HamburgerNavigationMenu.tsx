@@ -58,6 +58,15 @@ const HamburgerNavigationMenu = () => {
 								Companies
 							</Link>
 						</li>
+						<li>
+							<Link
+								className={getLinkClass("/characters")}
+								href={"/characters"}
+								onClick={forceClose}
+							>
+								Characters
+							</Link>
+						</li>
 					</ul>
 				</section>
 				<section>

@@ -10,7 +10,7 @@ const CharactersPage = () => {
 				<EntityList
 					endpoint={"characters"}
 					query={`fields *; limit 30; where description != null & mug_shot > -1; offset ${Math.floor(
-						Math.random() * 1000
+						Math.random() * 600
 					)};`}
 				/>
 			</Panel>
