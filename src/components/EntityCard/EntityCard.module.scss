@@ -74,4 +74,24 @@
 			font-size: small;
 		}
 	}
+
+	&--loading {
+		height: 64px;
+		background: linear-gradient(270deg, rgb(44, 44, 44), rgb(168, 168, 168), rgb(94, 94, 94));
+		background-size: 400% 400%;
+		animation: gradient-shift 8s ease infinite;
+		border-radius: 16px;
+	}
+
+	@keyframes gradient-shift {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
 }

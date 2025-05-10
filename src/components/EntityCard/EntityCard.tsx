@@ -80,7 +80,8 @@ const EntityCard = ({ id, endpoint, size }: EntityCardProps) => {
 		}
 	};
 
-	if (loading) return <p>Loading...</p>;
+	if (loading) return <div className={`${styles["entity-card"]} ${styles["entity-card--loading"]}`}></div>;
+
 	if (error) return null;
 	if (!entityData) return <p>No data found</p>;
 
