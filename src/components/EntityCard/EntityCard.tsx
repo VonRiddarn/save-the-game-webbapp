@@ -3,7 +3,6 @@ import { useIGDB } from "@/hooks/useIGDB";
 import { igdbGetImageLink, igdbQuerySingle } from "@/services/igdb/query.utilities";
 import { IGDBCompany, IGDBGame, IGDBMainEntity, IGDBMainEntityEndpoint } from "@/services/igdb/types";
 import { endpointToSingular, igdbDefaultImageFromEndPoint } from "@/services/igdb/utilities";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import GameCardContent from "./components/GameCardContent";
 import CompanyCardContent from "./components/CompanyCardContent";

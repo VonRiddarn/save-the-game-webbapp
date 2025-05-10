@@ -7,15 +7,17 @@ import EntityList from "@/components/EntityList/EntityList";
 
 const AppPage = () => {
 	const entities = getCachedEntitiesAsArray();
-	/*					<EntityList
+	return (
+		<main>
+			<div className={styles["content"]}>
+				<Panel className={styles["panel-well-received"]} title={"Well recieved"}>
+					<EntityList
 						endpoint={"games"}
 						query={`fields *; limit 10; where rating >= 80; offset ${Math.floor(
 							Math.random() * 1000
 						)};`}
-					/> */
-	return (
-		<main>
-			<div className={styles["content"]}>
+					/>
+				</Panel>
 				<Panel className={styles["panel-well-received"]} title={"Well recieved"}>
 					<EntityList
 						endpoint={"companies"}
