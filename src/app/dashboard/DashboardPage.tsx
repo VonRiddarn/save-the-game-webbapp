@@ -29,7 +29,7 @@ const DashboardPage = () => {
 					<h3>Games played: {completedGames.filter((cg) => cg.completed).length}</h3>
 				</div>
 			</Panel>
-			<Panel className={`${styles["panel"]}`} header={{ title: "Games played", style: 2 }}>
+			<Panel className={`${styles["panel"]}`} header={{ title: "Games completed", style: 2 }}>
 				<EntityList
 					endpoint={"games"}
 					query={`fields *; fields: id; where id = (${completedGames
