@@ -1,5 +1,5 @@
 import { IGDBMainEntityReferenceFull } from "@/services/igdb/types";
-import styles from "./MobileSearchBar.module.scss";
+import styles from "./MobileSearchbar.module.scss";
 import SearchbarDropdown from "../SearchbarDropdown/SearchbarDropdown";
 import { useSearch } from "../../widgets/Searchbar/context/SearchContext";
 import { useRef } from "react";
